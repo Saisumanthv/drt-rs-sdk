@@ -1,0 +1,14 @@
+[package]
+name = "promises-features"
+version = "0.0.0"
+authors = ["Andrei Marinica <andrei.marinica@dharitri.com>"]
+edition = "2021"
+publish = false
+
+[lib]
+path = "src/promises_main.rs"
+
+[dependencies.dharitri-sc]
+version = "0.54.5"
+path = "../../../../framework/base"
+

@@ -1,0 +1,2426 @@
+{
+    "steps": [
+        {
+            "step": "setState",
+            "accounts": {
+                "address:owner": {
+                    "nonce": "1"
+                }
+            },
+            "newAddresses": [
+                {
+                    "creatorAddress": "address:owner",
+                    "creatorNonce": "1",
+                    "newAddress": "sc:price-aggregator"
+                }
+            ],
+            "currentBlockInfo": {
+                "blockTimestamp": "100"
+            }
+        },
+        {
+            "step": "setState",
+            "accounts": {
+                "address:oracle1": {
+                    "nonce": "1",
+                    "balance": "20"
+                }
+            }
+        },
+        {
+            "step": "setState",
+            "accounts": {
+                "address:oracle2": {
+                    "nonce": "1",
+                    "balance": "20"
+                }
+            }
+        },
+        {
+            "step": "setState",
+            "accounts": {
+                "address:oracle3": {
+                    "nonce": "1",
+                    "balance": "20"
+                }
+            }
+        },
+        {
+            "step": "setState",
+            "accounts": {
+                "address:oracle4": {
+                    "nonce": "1",
+                    "balance": "20"
+                }
+            }
+        },
+        {
+            "step": "setState",
+            "accounts": {
+                "address:oracle5": {
+                    "nonce": "1",
+                    "balance": "20"
+                }
+            }
+        },
+        {
+            "step": "setState",
+            "accounts": {
+                "address:oracle6": {
+                    "nonce": "1",
+                    "balance": "20"
+                }
+            }
+        },
+        {
+            "step": "setState",
+            "accounts": {
+                "address:oracle7": {
+                    "nonce": "1",
+                    "balance": "20"
+                }
+            }
+        },
+        {
+            "step": "setState",
+            "accounts": {
+                "address:oracle8": {
+                    "nonce": "1",
+                    "balance": "20"
+                }
+            }
+        },
+        {
+            "step": "setState",
+            "accounts": {
+                "address:oracle9": {
+                    "nonce": "1",
+                    "balance": "20"
+                }
+            }
+        },
+        {
+            "step": "setState",
+            "accounts": {
+                "address:oracle10": {
+                    "nonce": "1",
+                    "balance": "20"
+                }
+            }
+        },
+        {
+            "step": "setState",
+            "accounts": {
+                "address:oracle11": {
+                    "nonce": "1",
+                    "balance": "20"
+                }
+            }
+        },
+        {
+            "step": "setState",
+            "accounts": {
+                "address:oracle12": {
+                    "nonce": "1",
+                    "balance": "20"
+                }
+            }
+        },
+        {
+            "step": "setState",
+            "accounts": {
+                "address:oracle13": {
+                    "nonce": "1",
+                    "balance": "20"
+                }
+            }
+        },
+        {
+            "step": "setState",
+            "accounts": {
+                "address:oracle14": {
+                    "nonce": "1",
+                    "balance": "20"
+                }
+            }
+        },
+        {
+            "step": "setState",
+            "accounts": {
+                "address:oracle15": {
+                    "nonce": "1",
+                    "balance": "20"
+                }
+            }
+        },
+        {
+            "step": "setState",
+            "accounts": {
+                "address:oracle16": {
+                    "nonce": "1",
+                    "balance": "20"
+                }
+            }
+        },
+        {
+            "step": "setState",
+            "accounts": {
+                "address:oracle17": {
+                    "nonce": "1",
+                    "balance": "20"
+                }
+            }
+        },
+        {
+            "step": "setState",
+            "accounts": {
+                "address:oracle18": {
+                    "nonce": "1",
+                    "balance": "20"
+                }
+            }
+        },
+        {
+            "step": "setState",
+            "accounts": {
+                "address:oracle19": {
+                    "nonce": "1",
+                    "balance": "20"
+                }
+            }
+        },
+        {
+            "step": "setState",
+            "accounts": {
+                "address:oracle20": {
+                    "nonce": "1",
+                    "balance": "20"
+                }
+            }
+        },
+        {
+            "step": "setState",
+            "accounts": {
+                "address:oracle21": {
+                    "nonce": "1",
+                    "balance": "20"
+                }
+            }
+        },
+        {
+            "step": "setState",
+            "accounts": {
+                "address:oracle22": {
+                    "nonce": "1",
+                    "balance": "20"
+                }
+            }
+        },
+        {
+            "step": "setState",
+            "accounts": {
+                "address:oracle23": {
+                    "nonce": "1",
+                    "balance": "20"
+                }
+            }
+        },
+        {
+            "step": "setState",
+            "accounts": {
+                "address:oracle24": {
+                    "nonce": "1",
+                    "balance": "20"
+                }
+            }
+        },
+        {
+            "step": "setState",
+            "accounts": {
+                "address:oracle25": {
+                    "nonce": "1",
+                    "balance": "20"
+                }
+            }
+        },
+        {
+            "step": "setState",
+            "accounts": {
+                "address:oracle26": {
+                    "nonce": "1",
+                    "balance": "20"
+                }
+            }
+        },
+        {
+            "step": "setState",
+            "accounts": {
+                "address:oracle27": {
+                    "nonce": "1",
+                    "balance": "20"
+                }
+            }
+        },
+        {
+            "step": "setState",
+            "accounts": {
+                "address:oracle28": {
+                    "nonce": "1",
+                    "balance": "20"
+                }
+            }
+        },
+        {
+            "step": "setState",
+            "accounts": {
+                "address:oracle29": {
+                    "nonce": "1",
+                    "balance": "20"
+                }
+            }
+        },
+        {
+            "step": "setState",
+            "accounts": {
+                "address:oracle30": {
+                    "nonce": "1",
+                    "balance": "20"
+                }
+            }
+        },
+        {
+            "step": "setState",
+            "accounts": {
+                "address:oracle31": {
+                    "nonce": "1",
+                    "balance": "20"
+                }
+            }
+        },
+        {
+            "step": "setState",
+            "accounts": {
+                "address:oracle32": {
+                    "nonce": "1",
+                    "balance": "20"
+                }
+            }
+        },
+        {
+            "step": "setState",
+            "accounts": {
+                "address:oracle33": {
+                    "nonce": "1",
+                    "balance": "20"
+                }
+            }
+        },
+        {
+            "step": "setState",
+            "accounts": {
+                "address:oracle34": {
+                    "nonce": "1",
+                    "balance": "20"
+                }
+            }
+        },
+        {
+            "step": "setState",
+            "accounts": {
+                "address:oracle35": {
+                    "nonce": "1",
+                    "balance": "20"
+                }
+            }
+        },
+        {
+            "step": "setState",
+            "accounts": {
+                "address:oracle36": {
+                    "nonce": "1",
+                    "balance": "20"
+                }
+            }
+        },
+        {
+            "step": "setState",
+            "accounts": {
+                "address:oracle37": {
+                    "nonce": "1",
+                    "balance": "20"
+                }
+            }
+        },
+        {
+            "step": "setState",
+            "accounts": {
+                "address:oracle38": {
+                    "nonce": "1",
+                    "balance": "20"
+                }
+            }
+        },
+        {
+            "step": "setState",
+            "accounts": {
+                "address:oracle39": {
+                    "nonce": "1",
+                    "balance": "20"
+                }
+            }
+        },
+        {
+            "step": "setState",
+            "accounts": {
+                "address:oracle40": {
+                    "nonce": "1",
+                    "balance": "20"
+                }
+            }
+        },
+        {
+            "step": "setState",
+            "accounts": {
+                "address:oracle41": {
+                    "nonce": "1",
+                    "balance": "20"
+                }
+            }
+        },
+        {
+            "step": "setState",
+            "accounts": {
+                "address:oracle42": {
+                    "nonce": "1",
+                    "balance": "20"
+                }
+            }
+        },
+        {
+            "step": "setState",
+            "accounts": {
+                "address:oracle43": {
+                    "nonce": "1",
+                    "balance": "20"
+                }
+            }
+        },
+        {
+            "step": "setState",
+            "accounts": {
+                "address:oracle44": {
+                    "nonce": "1",
+                    "balance": "20"
+                }
+            }
+        },
+        {
+            "step": "setState",
+            "accounts": {
+                "address:oracle45": {
+                    "nonce": "1",
+                    "balance": "20"
+                }
+            }
+        },
+        {
+            "step": "setState",
+            "accounts": {
+                "address:oracle46": {
+                    "nonce": "1",
+                    "balance": "20"
+                }
+            }
+        },
+        {
+            "step": "setState",
+            "accounts": {
+                "address:oracle47": {
+                    "nonce": "1",
+                    "balance": "20"
+                }
+            }
+        },
+        {
+            "step": "setState",
+            "accounts": {
+                "address:oracle48": {
+                    "nonce": "1",
+                    "balance": "20"
+                }
+            }
+        },
+        {
+            "step": "setState",
+            "accounts": {
+                "address:oracle49": {
+                    "nonce": "1",
+                    "balance": "20"
+                }
+            }
+        },
+        {
+            "step": "setState",
+            "accounts": {
+                "address:oracle50": {
+                    "nonce": "1",
+                    "balance": "20"
+                }
+            }
+        },
+        {
+            "step": "scDeploy",
+            "id": "",
+            "tx": {
+                "from": "address:owner",
+                "contractCode": "drtsc:../output/dharitri-price-aggregator-sc.drtsc.json",
+                "arguments": [
+                    "0x4d4f41",
+                    "0x14",
+                    "0x0a",
+                    "0x03",
+                    "0x32",
+                    "0x6f7261636c65315f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f",
+                    "0x6f7261636c65325f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f",
+                    "0x6f7261636c65335f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f",
+                    "0x6f7261636c65345f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f",
+                    "0x6f7261636c65355f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f",
+                    "0x6f7261636c65365f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f",
+                    "0x6f7261636c65375f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f",
+                    "0x6f7261636c65385f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f",
+                    "0x6f7261636c65395f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f",
+                    "0x6f7261636c6531305f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f",
+                    "0x6f7261636c6531315f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f",
+                    "0x6f7261636c6531325f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f",
+                    "0x6f7261636c6531335f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f",
+                    "0x6f7261636c6531345f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f",
+                    "0x6f7261636c6531355f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f",
+                    "0x6f7261636c6531365f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f",
+                    "0x6f7261636c6531375f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f",
+                    "0x6f7261636c6531385f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f",
+                    "0x6f7261636c6531395f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f",
+                    "0x6f7261636c6532305f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f",
+                    "0x6f7261636c6532315f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f",
+                    "0x6f7261636c6532325f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f",
+                    "0x6f7261636c6532335f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f",
+                    "0x6f7261636c6532345f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f",
+                    "0x6f7261636c6532355f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f",
+                    "0x6f7261636c6532365f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f",
+                    "0x6f7261636c6532375f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f",
+                    "0x6f7261636c6532385f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f",
+                    "0x6f7261636c6532395f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f",
+                    "0x6f7261636c6533305f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f",
+                    "0x6f7261636c6533315f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f",
+                    "0x6f7261636c6533325f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f",
+                    "0x6f7261636c6533335f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f",
+                    "0x6f7261636c6533345f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f",
+                    "0x6f7261636c6533355f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f",
+                    "0x6f7261636c6533365f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f",
+                    "0x6f7261636c6533375f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f",
+                    "0x6f7261636c6533385f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f",
+                    "0x6f7261636c6533395f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f",
+                    "0x6f7261636c6534305f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f",
+                    "0x6f7261636c6534315f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f",
+                    "0x6f7261636c6534325f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f",
+                    "0x6f7261636c6534335f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f",
+                    "0x6f7261636c6534345f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f",
+                    "0x6f7261636c6534355f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f",
+                    "0x6f7261636c6534365f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f",
+                    "0x6f7261636c6534375f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f",
+                    "0x6f7261636c6534385f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f",
+                    "0x6f7261636c6534395f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f",
+                    "0x6f7261636c6535305f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f"
+                ],
+                "gasLimit": "120000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle1",
+                "to": "sc:price-aggregator",
+                "moaValue": "20",
+                "function": "stake",
+                "arguments": [],
+                "gasLimit": "5000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle2",
+                "to": "sc:price-aggregator",
+                "moaValue": "20",
+                "function": "stake",
+                "arguments": [],
+                "gasLimit": "5000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle3",
+                "to": "sc:price-aggregator",
+                "moaValue": "20",
+                "function": "stake",
+                "arguments": [],
+                "gasLimit": "5000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle4",
+                "to": "sc:price-aggregator",
+                "moaValue": "20",
+                "function": "stake",
+                "arguments": [],
+                "gasLimit": "5000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle5",
+                "to": "sc:price-aggregator",
+                "moaValue": "20",
+                "function": "stake",
+                "arguments": [],
+                "gasLimit": "5000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle6",
+                "to": "sc:price-aggregator",
+                "moaValue": "20",
+                "function": "stake",
+                "arguments": [],
+                "gasLimit": "5000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle7",
+                "to": "sc:price-aggregator",
+                "moaValue": "20",
+                "function": "stake",
+                "arguments": [],
+                "gasLimit": "5000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle8",
+                "to": "sc:price-aggregator",
+                "moaValue": "20",
+                "function": "stake",
+                "arguments": [],
+                "gasLimit": "5000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle9",
+                "to": "sc:price-aggregator",
+                "moaValue": "20",
+                "function": "stake",
+                "arguments": [],
+                "gasLimit": "5000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle10",
+                "to": "sc:price-aggregator",
+                "moaValue": "20",
+                "function": "stake",
+                "arguments": [],
+                "gasLimit": "5000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle11",
+                "to": "sc:price-aggregator",
+                "moaValue": "20",
+                "function": "stake",
+                "arguments": [],
+                "gasLimit": "5000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle12",
+                "to": "sc:price-aggregator",
+                "moaValue": "20",
+                "function": "stake",
+                "arguments": [],
+                "gasLimit": "5000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle13",
+                "to": "sc:price-aggregator",
+                "moaValue": "20",
+                "function": "stake",
+                "arguments": [],
+                "gasLimit": "5000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle14",
+                "to": "sc:price-aggregator",
+                "moaValue": "20",
+                "function": "stake",
+                "arguments": [],
+                "gasLimit": "5000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle15",
+                "to": "sc:price-aggregator",
+                "moaValue": "20",
+                "function": "stake",
+                "arguments": [],
+                "gasLimit": "5000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle16",
+                "to": "sc:price-aggregator",
+                "moaValue": "20",
+                "function": "stake",
+                "arguments": [],
+                "gasLimit": "5000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle17",
+                "to": "sc:price-aggregator",
+                "moaValue": "20",
+                "function": "stake",
+                "arguments": [],
+                "gasLimit": "5000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle18",
+                "to": "sc:price-aggregator",
+                "moaValue": "20",
+                "function": "stake",
+                "arguments": [],
+                "gasLimit": "5000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle19",
+                "to": "sc:price-aggregator",
+                "moaValue": "20",
+                "function": "stake",
+                "arguments": [],
+                "gasLimit": "5000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle20",
+                "to": "sc:price-aggregator",
+                "moaValue": "20",
+                "function": "stake",
+                "arguments": [],
+                "gasLimit": "5000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle21",
+                "to": "sc:price-aggregator",
+                "moaValue": "20",
+                "function": "stake",
+                "arguments": [],
+                "gasLimit": "5000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle22",
+                "to": "sc:price-aggregator",
+                "moaValue": "20",
+                "function": "stake",
+                "arguments": [],
+                "gasLimit": "5000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle23",
+                "to": "sc:price-aggregator",
+                "moaValue": "20",
+                "function": "stake",
+                "arguments": [],
+                "gasLimit": "5000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle24",
+                "to": "sc:price-aggregator",
+                "moaValue": "20",
+                "function": "stake",
+                "arguments": [],
+                "gasLimit": "5000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle25",
+                "to": "sc:price-aggregator",
+                "moaValue": "20",
+                "function": "stake",
+                "arguments": [],
+                "gasLimit": "5000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle26",
+                "to": "sc:price-aggregator",
+                "moaValue": "20",
+                "function": "stake",
+                "arguments": [],
+                "gasLimit": "5000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle27",
+                "to": "sc:price-aggregator",
+                "moaValue": "20",
+                "function": "stake",
+                "arguments": [],
+                "gasLimit": "5000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle28",
+                "to": "sc:price-aggregator",
+                "moaValue": "20",
+                "function": "stake",
+                "arguments": [],
+                "gasLimit": "5000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle29",
+                "to": "sc:price-aggregator",
+                "moaValue": "20",
+                "function": "stake",
+                "arguments": [],
+                "gasLimit": "5000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle30",
+                "to": "sc:price-aggregator",
+                "moaValue": "20",
+                "function": "stake",
+                "arguments": [],
+                "gasLimit": "5000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle31",
+                "to": "sc:price-aggregator",
+                "moaValue": "20",
+                "function": "stake",
+                "arguments": [],
+                "gasLimit": "5000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle32",
+                "to": "sc:price-aggregator",
+                "moaValue": "20",
+                "function": "stake",
+                "arguments": [],
+                "gasLimit": "5000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle33",
+                "to": "sc:price-aggregator",
+                "moaValue": "20",
+                "function": "stake",
+                "arguments": [],
+                "gasLimit": "5000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle34",
+                "to": "sc:price-aggregator",
+                "moaValue": "20",
+                "function": "stake",
+                "arguments": [],
+                "gasLimit": "5000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle35",
+                "to": "sc:price-aggregator",
+                "moaValue": "20",
+                "function": "stake",
+                "arguments": [],
+                "gasLimit": "5000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle36",
+                "to": "sc:price-aggregator",
+                "moaValue": "20",
+                "function": "stake",
+                "arguments": [],
+                "gasLimit": "5000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle37",
+                "to": "sc:price-aggregator",
+                "moaValue": "20",
+                "function": "stake",
+                "arguments": [],
+                "gasLimit": "5000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle38",
+                "to": "sc:price-aggregator",
+                "moaValue": "20",
+                "function": "stake",
+                "arguments": [],
+                "gasLimit": "5000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle39",
+                "to": "sc:price-aggregator",
+                "moaValue": "20",
+                "function": "stake",
+                "arguments": [],
+                "gasLimit": "5000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle40",
+                "to": "sc:price-aggregator",
+                "moaValue": "20",
+                "function": "stake",
+                "arguments": [],
+                "gasLimit": "5000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle41",
+                "to": "sc:price-aggregator",
+                "moaValue": "20",
+                "function": "stake",
+                "arguments": [],
+                "gasLimit": "5000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle42",
+                "to": "sc:price-aggregator",
+                "moaValue": "20",
+                "function": "stake",
+                "arguments": [],
+                "gasLimit": "5000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle43",
+                "to": "sc:price-aggregator",
+                "moaValue": "20",
+                "function": "stake",
+                "arguments": [],
+                "gasLimit": "5000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle44",
+                "to": "sc:price-aggregator",
+                "moaValue": "20",
+                "function": "stake",
+                "arguments": [],
+                "gasLimit": "5000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle45",
+                "to": "sc:price-aggregator",
+                "moaValue": "20",
+                "function": "stake",
+                "arguments": [],
+                "gasLimit": "5000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle46",
+                "to": "sc:price-aggregator",
+                "moaValue": "20",
+                "function": "stake",
+                "arguments": [],
+                "gasLimit": "5000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle47",
+                "to": "sc:price-aggregator",
+                "moaValue": "20",
+                "function": "stake",
+                "arguments": [],
+                "gasLimit": "5000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle48",
+                "to": "sc:price-aggregator",
+                "moaValue": "20",
+                "function": "stake",
+                "arguments": [],
+                "gasLimit": "5000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle49",
+                "to": "sc:price-aggregator",
+                "moaValue": "20",
+                "function": "stake",
+                "arguments": [],
+                "gasLimit": "5000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle50",
+                "to": "sc:price-aggregator",
+                "moaValue": "20",
+                "function": "stake",
+                "arguments": [],
+                "gasLimit": "5000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:owner",
+                "to": "sc:price-aggregator",
+                "function": "setPairDecimals",
+                "arguments": [
+                    "0x4d4f41",
+                    "0x55534443",
+                    "0x"
+                ],
+                "gasLimit": "5,000,000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:owner",
+                "to": "sc:price-aggregator",
+                "function": "unpause",
+                "arguments": [],
+                "gasLimit": "5000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle1",
+                "to": "sc:price-aggregator",
+                "function": "submit",
+                "arguments": [
+                    "0x4d4f41",
+                    "0x55534443",
+                    "0x5f",
+                    "0xbff16a3b3d0ca0d0",
+                    "0x"
+                ],
+                "gasLimit": "7000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle2",
+                "to": "sc:price-aggregator",
+                "function": "submit",
+                "arguments": [
+                    "0x4d4f41",
+                    "0x55534443",
+                    "0x64",
+                    "0xb31cbf82e91b908e",
+                    "0x"
+                ],
+                "gasLimit": "7000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle3",
+                "to": "sc:price-aggregator",
+                "function": "submit",
+                "arguments": [
+                    "0x4d4f41",
+                    "0x55534443",
+                    "0x64",
+                    "0x98eae96a5e51a0f1",
+                    "0x"
+                ],
+                "gasLimit": "7000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle4",
+                "to": "sc:price-aggregator",
+                "function": "submit",
+                "arguments": [
+                    "0x4d4f41",
+                    "0x55534443",
+                    "0x64",
+                    "0x0135b5a8af420b1c",
+                    "0x"
+                ],
+                "gasLimit": "7000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle5",
+                "to": "sc:price-aggregator",
+                "function": "submit",
+                "arguments": [
+                    "0x4d4f41",
+                    "0x55534443",
+                    "0x64",
+                    "0xee86c442ce922f23",
+                    "0x"
+                ],
+                "gasLimit": "7000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle6",
+                "to": "sc:price-aggregator",
+                "function": "submit",
+                "arguments": [
+                    "0x4d4f41",
+                    "0x55534443",
+                    "0x64",
+                    "0x7c5af642d22e2737",
+                    "0x"
+                ],
+                "gasLimit": "7000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle7",
+                "to": "sc:price-aggregator",
+                "function": "submit",
+                "arguments": [
+                    "0x4d4f41",
+                    "0x55534443",
+                    "0x64",
+                    "0xbf13b1155924b6ff",
+                    "0x"
+                ],
+                "gasLimit": "7000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle8",
+                "to": "sc:price-aggregator",
+                "function": "submit",
+                "arguments": [
+                    "0x4d4f41",
+                    "0x55534443",
+                    "0x64",
+                    "0xc182bdf6681909a4",
+                    "0x"
+                ],
+                "gasLimit": "7000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle9",
+                "to": "sc:price-aggregator",
+                "function": "submit",
+                "arguments": [
+                    "0x4d4f41",
+                    "0x55534443",
+                    "0x64",
+                    "0xcebb5c9af5a83ada",
+                    "0x"
+                ],
+                "gasLimit": "7000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle10",
+                "to": "sc:price-aggregator",
+                "function": "submit",
+                "arguments": [
+                    "0x4d4f41",
+                    "0x55534443",
+                    "0x64",
+                    "0x4141694eb135bc2d",
+                    "0x"
+                ],
+                "gasLimit": "7000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle11",
+                "to": "sc:price-aggregator",
+                "function": "submit",
+                "arguments": [
+                    "0x4d4f41",
+                    "0x55534443",
+                    "0x64",
+                    "0x83c8cf3cd697c991",
+                    "0x"
+                ],
+                "gasLimit": "7000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle12",
+                "to": "sc:price-aggregator",
+                "function": "submit",
+                "arguments": [
+                    "0x4d4f41",
+                    "0x55534443",
+                    "0x64",
+                    "0x200a8f67fa081d13",
+                    "0x"
+                ],
+                "gasLimit": "7000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle13",
+                "to": "sc:price-aggregator",
+                "function": "submit",
+                "arguments": [
+                    "0x4d4f41",
+                    "0x55534443",
+                    "0x64",
+                    "0x4240829aec3165d0",
+                    "0x"
+                ],
+                "gasLimit": "7000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle14",
+                "to": "sc:price-aggregator",
+                "function": "submit",
+                "arguments": [
+                    "0x4d4f41",
+                    "0x55534443",
+                    "0x64",
+                    "0x5b43f4efd699d50c",
+                    "0x"
+                ],
+                "gasLimit": "7000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle15",
+                "to": "sc:price-aggregator",
+                "function": "submit",
+                "arguments": [
+                    "0x4d4f41",
+                    "0x55534443",
+                    "0x64",
+                    "0x2267e6d290af8371",
+                    "0x"
+                ],
+                "gasLimit": "7000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle16",
+                "to": "sc:price-aggregator",
+                "function": "submit",
+                "arguments": [
+                    "0x4d4f41",
+                    "0x55534443",
+                    "0x64",
+                    "0xbb2936e249de34c3",
+                    "0x"
+                ],
+                "gasLimit": "7000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle17",
+                "to": "sc:price-aggregator",
+                "function": "submit",
+                "arguments": [
+                    "0x4d4f41",
+                    "0x55534443",
+                    "0x64",
+                    "0x9e067ee336588bd2",
+                    "0x"
+                ],
+                "gasLimit": "7000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle18",
+                "to": "sc:price-aggregator",
+                "function": "submit",
+                "arguments": [
+                    "0x4d4f41",
+                    "0x55534443",
+                    "0x64",
+                    "0x7c54207345f200a8",
+                    "0x"
+                ],
+                "gasLimit": "7000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle19",
+                "to": "sc:price-aggregator",
+                "function": "submit",
+                "arguments": [
+                    "0x4d4f41",
+                    "0x55534443",
+                    "0x64",
+                    "0xfd08de86da9e418f",
+                    "0x"
+                ],
+                "gasLimit": "7000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle20",
+                "to": "sc:price-aggregator",
+                "function": "submit",
+                "arguments": [
+                    "0x4d4f41",
+                    "0x55534443",
+                    "0x64",
+                    "0x1a92cbdc12cc3f89",
+                    "0x"
+                ],
+                "gasLimit": "7000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle21",
+                "to": "sc:price-aggregator",
+                "function": "submit",
+                "arguments": [
+                    "0x4d4f41",
+                    "0x55534443",
+                    "0x64",
+                    "0x605f0208bf12e2ca",
+                    "0x"
+                ],
+                "gasLimit": "7000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle22",
+                "to": "sc:price-aggregator",
+                "function": "submit",
+                "arguments": [
+                    "0x4d4f41",
+                    "0x55534443",
+                    "0x64",
+                    "0xe908c529635f7b12",
+                    "0x"
+                ],
+                "gasLimit": "7000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle23",
+                "to": "sc:price-aggregator",
+                "function": "submit",
+                "arguments": [
+                    "0x4d4f41",
+                    "0x55534443",
+                    "0x64",
+                    "0x80f2433ef6b1caa0",
+                    "0x"
+                ],
+                "gasLimit": "7000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle24",
+                "to": "sc:price-aggregator",
+                "function": "submit",
+                "arguments": [
+                    "0x4d4f41",
+                    "0x55534443",
+                    "0x64",
+                    "0xeaac737727ab43f3",
+                    "0x"
+                ],
+                "gasLimit": "7000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle25",
+                "to": "sc:price-aggregator",
+                "function": "submit",
+                "arguments": [
+                    "0x4d4f41",
+                    "0x55534443",
+                    "0x64",
+                    "0xded002e658fa98a0",
+                    "0x"
+                ],
+                "gasLimit": "7000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle26",
+                "to": "sc:price-aggregator",
+                "function": "submit",
+                "arguments": [
+                    "0x4d4f41",
+                    "0x55534443",
+                    "0x64",
+                    "0xed19739689a24fa8",
+                    "0x"
+                ],
+                "gasLimit": "7000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle27",
+                "to": "sc:price-aggregator",
+                "function": "submit",
+                "arguments": [
+                    "0x4d4f41",
+                    "0x55534443",
+                    "0x64",
+                    "0x259d0063e5ca5d79",
+                    "0x"
+                ],
+                "gasLimit": "7000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle28",
+                "to": "sc:price-aggregator",
+                "function": "submit",
+                "arguments": [
+                    "0x4d4f41",
+                    "0x55534443",
+                    "0x64",
+                    "0xb97be508bfcc8344",
+                    "0x"
+                ],
+                "gasLimit": "7000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle29",
+                "to": "sc:price-aggregator",
+                "function": "submit",
+                "arguments": [
+                    "0x4d4f41",
+                    "0x55534443",
+                    "0x64",
+                    "0xb0ab5052ebae62f8",
+                    "0x"
+                ],
+                "gasLimit": "7000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle30",
+                "to": "sc:price-aggregator",
+                "function": "submit",
+                "arguments": [
+                    "0x4d4f41",
+                    "0x55534443",
+                    "0x64",
+                    "0xd1f66965ccd61cec",
+                    "0x"
+                ],
+                "gasLimit": "7000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle31",
+                "to": "sc:price-aggregator",
+                "function": "submit",
+                "arguments": [
+                    "0x4d4f41",
+                    "0x55534443",
+                    "0x64",
+                    "0x2f09159f7e563083",
+                    "0x"
+                ],
+                "gasLimit": "7000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle32",
+                "to": "sc:price-aggregator",
+                "function": "submit",
+                "arguments": [
+                    "0x4d4f41",
+                    "0x55534443",
+                    "0x64",
+                    "0x85cea5bfcc3f45e0",
+                    "0x"
+                ],
+                "gasLimit": "7000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle33",
+                "to": "sc:price-aggregator",
+                "function": "submit",
+                "arguments": [
+                    "0x4d4f41",
+                    "0x55534443",
+                    "0x64",
+                    "0x29bffb4325707009",
+                    "0x"
+                ],
+                "gasLimit": "7000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle34",
+                "to": "sc:price-aggregator",
+                "function": "submit",
+                "arguments": [
+                    "0x4d4f41",
+                    "0x55534443",
+                    "0x64",
+                    "0x41c68582a5c8af1c",
+                    "0x"
+                ],
+                "gasLimit": "7000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle35",
+                "to": "sc:price-aggregator",
+                "function": "submit",
+                "arguments": [
+                    "0x4d4f41",
+                    "0x55534443",
+                    "0x64",
+                    "0x4d66f118b704c6cb",
+                    "0x"
+                ],
+                "gasLimit": "7000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle36",
+                "to": "sc:price-aggregator",
+                "function": "submit",
+                "arguments": [
+                    "0x4d4f41",
+                    "0x55534443",
+                    "0x64",
+                    "0xc54e7f82ed588365",
+                    "0x"
+                ],
+                "gasLimit": "7000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle37",
+                "to": "sc:price-aggregator",
+                "function": "submit",
+                "arguments": [
+                    "0x4d4f41",
+                    "0x55534443",
+                    "0x64",
+                    "0x656ee7c53c7acc88",
+                    "0x"
+                ],
+                "gasLimit": "7000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle38",
+                "to": "sc:price-aggregator",
+                "function": "submit",
+                "arguments": [
+                    "0x4d4f41",
+                    "0x55534443",
+                    "0x64",
+                    "0x3c017480c1fe24c3",
+                    "0x"
+                ],
+                "gasLimit": "7000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle39",
+                "to": "sc:price-aggregator",
+                "function": "submit",
+                "arguments": [
+                    "0x4d4f41",
+                    "0x55534443",
+                    "0x64",
+                    "0x9590fc7edb5ab7b1",
+                    "0x"
+                ],
+                "gasLimit": "7000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle40",
+                "to": "sc:price-aggregator",
+                "function": "submit",
+                "arguments": [
+                    "0x4d4f41",
+                    "0x55534443",
+                    "0x64",
+                    "0x685b17a72a64beb3",
+                    "0x"
+                ],
+                "gasLimit": "7000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle41",
+                "to": "sc:price-aggregator",
+                "function": "submit",
+                "arguments": [
+                    "0x4d4f41",
+                    "0x55534443",
+                    "0x64",
+                    "0xa1b283cdb1614a81",
+                    "0x"
+                ],
+                "gasLimit": "7000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle42",
+                "to": "sc:price-aggregator",
+                "function": "submit",
+                "arguments": [
+                    "0x4d4f41",
+                    "0x55534443",
+                    "0x64",
+                    "0xf45b49e04071147a",
+                    "0x"
+                ],
+                "gasLimit": "7000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle43",
+                "to": "sc:price-aggregator",
+                "function": "submit",
+                "arguments": [
+                    "0x4d4f41",
+                    "0x55534443",
+                    "0x64",
+                    "0x323447140e4a41e6",
+                    "0x"
+                ],
+                "gasLimit": "7000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle44",
+                "to": "sc:price-aggregator",
+                "function": "submit",
+                "arguments": [
+                    "0x4d4f41",
+                    "0x55534443",
+                    "0x64",
+                    "0xccdc62af5731952b",
+                    "0x"
+                ],
+                "gasLimit": "7000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle45",
+                "to": "sc:price-aggregator",
+                "function": "submit",
+                "arguments": [
+                    "0x4d4f41",
+                    "0x55534443",
+                    "0x64",
+                    "0x2ea05f78ac648175",
+                    "0x"
+                ],
+                "gasLimit": "7000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle46",
+                "to": "sc:price-aggregator",
+                "function": "submit",
+                "arguments": [
+                    "0x4d4f41",
+                    "0x55534443",
+                    "0x64",
+                    "0xaacaaaf02976f2db",
+                    "0x"
+                ],
+                "gasLimit": "7000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle47",
+                "to": "sc:price-aggregator",
+                "function": "submit",
+                "arguments": [
+                    "0x4d4f41",
+                    "0x55534443",
+                    "0x64",
+                    "0x0842d449887cc535",
+                    "0x"
+                ],
+                "gasLimit": "7000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle48",
+                "to": "sc:price-aggregator",
+                "function": "submit",
+                "arguments": [
+                    "0x4d4f41",
+                    "0x55534443",
+                    "0x64",
+                    "0xf07488472b85d854",
+                    "0x"
+                ],
+                "gasLimit": "7000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle49",
+                "to": "sc:price-aggregator",
+                "function": "submit",
+                "arguments": [
+                    "0x4d4f41",
+                    "0x55534443",
+                    "0x64",
+                    "0xf746b4a09fcb6725",
+                    "0x"
+                ],
+                "gasLimit": "7000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        },
+        {
+            "step": "scCall",
+            "id": "",
+            "tx": {
+                "from": "address:oracle50",
+                "to": "sc:price-aggregator",
+                "function": "submit",
+                "arguments": [
+                    "0x4d4f41",
+                    "0x55534443",
+                    "0x64",
+                    "0xc7a4706442ce36ad",
+                    "0x"
+                ],
+                "gasLimit": "7000000"
+            },
+            "expect": {
+                "out": [],
+                "status": "0"
+            }
+        }
+    ]
+}
