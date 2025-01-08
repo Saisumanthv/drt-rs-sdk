@@ -9,10 +9,10 @@ impl RepoVersion {
     pub fn url(&self) -> String {
         match self {
             RepoVersion::Master => {
-                "https://github.com/dharitri/drt-sdk-rs/archive/refs/heads/master.zip".to_string()
+                "https://github.com/DharitriOne/drt-sdk-rs/archive/refs/heads/master.zip".to_string()
             },
             RepoVersion::Tag(tag) => {
-                format!("https://github.com/dharitri/drt-sdk-rs/archive/refs/tags/v{tag}.zip")
+                format!("https://github.com/DharitriOne/drt-sdk-rs/archive/refs/tags/v{tag}.zip")
             },
         }
     }
