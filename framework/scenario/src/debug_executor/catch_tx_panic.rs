@@ -1,5 +1,5 @@
 use dharitri_chain_vm::tx_mock::TxPanic;
-use numbat_vm_executor1::BreakpointValue;
+use dharitri_vm_executor::BreakpointValue;
 use dharitri_sc::err_msg;
 
 /// Catches all thrown panics, as follows:

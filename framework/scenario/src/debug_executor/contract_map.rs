@@ -1,6 +1,6 @@
 use super::*;
 
-use numbat_vm_executor1::{
+use dharitri_vm_executor::{
     CompilationOptions, Executor, ExecutorError, Instance, OpcodeCost,
 };
 use std::{

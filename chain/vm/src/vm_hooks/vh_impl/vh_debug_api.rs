@@ -1,7 +1,7 @@
 use std::sync::{Arc, MutexGuard};
 
 use dharitri_chain_core::types::ReturnCode;
-use numbat_vm_executor1::BreakpointValue;
+use dharitri_vm_executor::BreakpointValue;
 
 use crate::{
     tx_execution::execute_current_tx_context_input,

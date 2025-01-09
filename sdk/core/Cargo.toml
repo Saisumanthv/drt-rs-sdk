@@ -4,11 +4,11 @@ version = "0.7.1"
 edition = "2021"
 
 authors = [
-    "Dharitri <contact@dharitri.com>",
+    "Dharitri <contact@dharitri.org>",
 ]
 license = "MIT"
 readme = "README.md"
-repository = "https://github.com/dharitri/drt-sdk-rs"
+repository = "https://github.com/TerraDharitri/drt-sdk-rs"
 homepage = "https://dharitri.com/"
 documentation = "https://docs.dharitri.com/"
 description = "SDK for interacting with the Dharitri blockchain"

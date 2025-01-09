@@ -1,5 +1,5 @@
 use dharitri_chain_vm::tx_mock::{TxContextRef, TxFunctionName, TxPanic};
-use numbat_vm_executor1::{BreakpointValue, ExecutorError, Instance, MemLength, MemPtr};
+use dharitri_vm_executor::{BreakpointValue, ExecutorError, Instance, MemLength, MemPtr};
 use dharitri_sc::{chain_core::types::ReturnCode, contract_base::CallableContract};
 use std::sync::Arc;
 

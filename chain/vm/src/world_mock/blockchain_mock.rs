@@ -1,5 +1,5 @@
 use crate::{tx_execution::BlockchainVMRef, with_shared::Shareable};
-use numbat_vm_executor1::Executor;
+use dharitri_vm_executor::Executor;
 use std::{fmt::Debug, ops::Deref};
 
 use super::{BlockchainState, FailingExecutor};

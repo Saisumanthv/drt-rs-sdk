@@ -12,7 +12,7 @@ pub mod world_mock;
 pub use world_mock::BlockchainMock;
 
 // Re-exporting the executor, for convenience.
-pub use numbat_vm_executor1 as executor;
+pub use dharitri_vm_executor as executor;
 
 // Re-exporting the VM-core, for convenience.
 pub use dharitri_chain_core as chain_core;

@@ -1,6 +1,6 @@
 use std::{ops::Deref, sync::Arc};
 
-use numbat_vm_executor1::Executor;
+use dharitri_vm_executor::Executor;
 
 use super::BuiltinFunctionContainer;
 

@@ -43,7 +43,7 @@
 # `git tag -s -a vX.X.X -m 'very short description of the release'`
 # `git push origin vX.X.X`
 #
-# 10. Go to https://github.com/dharitri/drt-sdk-rs/tags
+# 10. Go to https://github.com/TerraDharitri/drt-sdk-rs/tags
 # Click on the new tag.
 # Click `Create release from tag`.
 # The title should be the released crates and versions, same as in the changelog and the commit message.

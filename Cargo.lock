@@ -871,13 +871,13 @@ dependencies = [
  "bitflags",
  "colored",
  "dharitri-chain-core",
+ "dharitri-vm-executor",
  "ed25519-dalek",
  "hex",
  "hex-literal",
  "itertools",
  "num-bigint",
  "num-traits",
- "numbat-vm-executor1",
  "rand",
  "rand_seeder",
  "sha2",
@@ -1012,12 +1012,12 @@ dependencies = [
  "dharitri-chain-vm",
  "dharitri-sc",
  "dharitri-sc-meta-lib",
+ "dharitri-vm-executor",
  "hex",
  "itertools",
  "log",
  "num-bigint",
  "num-traits",
- "numbat-vm-executor1",
  "pathdiff",
  "serde",
  "serde_json",
@@ -1108,6 +1108,12 @@ dependencies = [
  "reqwest",
  "tokio",
 ]
+
+[[package]]
+name = "dharitri-vm-executor"
+version = "0.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f571f3c1d7d9109c50c0567f1c26a1f0ecf1736a9ceb0603144b89794d9b63bb"
 
 [[package]]
 name = "dharitri-wmoa-swap-sc"
@@ -2801,12 +2807,6 @@ dependencies = [
  "hermit-abi",
  "libc",
 ]
-
-[[package]]
-name = "numbat-vm-executor1"
-version = "0.0.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4a5754bfbe4e4d3d208e720f448bbeb14f6161fa2bf90166b91c8ef8fbe09710"
 
 [[package]]
 name = "object"
