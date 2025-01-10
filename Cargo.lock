@@ -845,7 +845,7 @@ dependencies = [
 
 [[package]]
 name = "dharitri-chain-core"
-version = "0.11.1"
+version = "0.0.1"
 dependencies = [
  "bitflags",
  "dharitri-sc-codec",
@@ -853,7 +853,7 @@ dependencies = [
 
 [[package]]
 name = "dharitri-chain-scenario-format"
-version = "0.23.0"
+version = "0.0.1"
 dependencies = [
  "bech32",
  "hex",
@@ -866,7 +866,7 @@ dependencies = [
 
 [[package]]
 name = "dharitri-chain-vm"
-version = "0.11.1"
+version = "0.0.1"
 dependencies = [
  "bitflags",
  "colored",
@@ -886,7 +886,7 @@ dependencies = [
 
 [[package]]
 name = "dharitri-price-aggregator-sc"
-version = "0.54.5"
+version = "0.0.1"
 dependencies = [
  "arrayvec",
  "dharitri-sc",
@@ -907,7 +907,7 @@ dependencies = [
 
 [[package]]
 name = "dharitri-sc"
-version = "0.54.5"
+version = "0.0.1"
 dependencies = [
  "bitflags",
  "dharitri-chain-core",
@@ -920,7 +920,7 @@ dependencies = [
 
 [[package]]
 name = "dharitri-sc-codec"
-version = "0.21.1"
+version = "0.0.1"
 dependencies = [
  "arrayvec",
  "dharitri-sc-codec-derive",
@@ -930,7 +930,7 @@ dependencies = [
 
 [[package]]
 name = "dharitri-sc-codec-derive"
-version = "0.21.1"
+version = "0.0.1"
 dependencies = [
  "hex",
  "proc-macro2",
@@ -940,7 +940,7 @@ dependencies = [
 
 [[package]]
 name = "dharitri-sc-derive"
-version = "0.54.5"
+version = "0.0.1"
 dependencies = [
  "hex",
  "proc-macro2",
@@ -951,7 +951,7 @@ dependencies = [
 
 [[package]]
 name = "dharitri-sc-meta"
-version = "0.54.5"
+version = "0.0.1"
 dependencies = [
  "bip39",
  "clap",
@@ -976,7 +976,7 @@ dependencies = [
 
 [[package]]
 name = "dharitri-sc-meta-lib"
-version = "0.54.5"
+version = "0.0.1"
 dependencies = [
  "clap",
  "colored",
@@ -996,14 +996,14 @@ dependencies = [
 
 [[package]]
 name = "dharitri-sc-modules"
-version = "0.54.5"
+version = "0.0.1"
 dependencies = [
  "dharitri-sc",
 ]
 
 [[package]]
 name = "dharitri-sc-scenario"
-version = "0.54.5"
+version = "0.0.1"
 dependencies = [
  "base64",
  "bech32",
@@ -1027,7 +1027,7 @@ dependencies = [
 
 [[package]]
 name = "dharitri-sc-snippets"
-version = "0.54.5"
+version = "0.0.1"
 dependencies = [
  "anyhow",
  "base64",
@@ -1046,14 +1046,14 @@ dependencies = [
 
 [[package]]
 name = "dharitri-sc-wasm-adapter"
-version = "0.54.5"
+version = "0.0.1"
 dependencies = [
  "dharitri-sc",
 ]
 
 [[package]]
 name = "dharitri-sdk"
-version = "0.7.1"
+version = "0.0.1"
 dependencies = [
  "aes",
  "anyhow",
@@ -1081,7 +1081,7 @@ dependencies = [
 
 [[package]]
 name = "dharitri-sdk-dapp"
-version = "0.7.1"
+version = "0.0.1"
 dependencies = [
  "anyhow",
  "dharitri-sdk",
@@ -1098,7 +1098,7 @@ dependencies = [
 
 [[package]]
 name = "dharitri-sdk-http"
-version = "0.7.1"
+version = "0.0.1"
 dependencies = [
  "anyhow",
  "dharitri-sdk",
@@ -1117,7 +1117,7 @@ checksum = "f571f3c1d7d9109c50c0567f1c26a1f0ecf1736a9ceb0603144b89794d9b63bb"
 
 [[package]]
 name = "dharitri-wmoa-swap-sc"
-version = "0.54.5"
+version = "0.0.1"
 dependencies = [
  "dharitri-sc",
  "dharitri-sc-modules",

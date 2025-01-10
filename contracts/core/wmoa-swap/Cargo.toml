@@ -1,6 +1,6 @@
 [package]
 name = "dharitri-wmoa-swap-sc"
-version = "0.54.5"
+version = "0.0.1"
 
 authors = [
     "Dharitri <contact@dharitri.org>",
@@ -19,13 +19,13 @@ edition = "2021"
 path = "src/wmoa.rs"
 
 [dependencies.dharitri-sc]
-version = "0.54.5"
+version = "0.0.1"
 path = "../../../framework/base"
 
 [dependencies.dharitri-sc-modules]
-version = "0.54.5"
+version = "0.0.1"
 path = "../../../contracts/modules"
 
 [dev-dependencies.dharitri-sc-scenario]
-version = "0.54.5"
+version = "0.0.1"
 path = "../../../framework/scenario"

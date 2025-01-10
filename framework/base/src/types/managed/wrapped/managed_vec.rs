@@ -356,7 +356,7 @@ where
     M: ManagedTypeApi,
     T: ManagedVecItem + Ord + Debug,
 {
-    #[deprecated(since = "0.54.5", note = "Please use method `sort_unstable` instead.")]
+    #[deprecated(since = "0.0.1", note = "Please use method `sort_unstable` instead.")]
     #[cfg(feature = "alloc")]
     pub fn sort(&mut self) {
         self.with_self_as_slice_mut(|slice| {
@@ -366,7 +366,7 @@ where
     }
 
     #[deprecated(
-        since = "0.54.5",
+        since = "0.0.1",
         note = "Please use method `sort_unstable_by` instead."
     )]
     #[cfg(feature = "alloc")]
@@ -381,7 +381,7 @@ where
     }
 
     #[deprecated(
-        since = "0.54.5",
+        since = "0.0.1",
         note = "Please use method `sort_unstable_by_key` instead."
     )]
     #[cfg(feature = "alloc")]
