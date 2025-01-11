@@ -16,7 +16,7 @@ dharitri_sc_wasm_adapter::allocator!();
 dharitri_sc_wasm_adapter::panic_handler!();
 
 dharitri_sc_wasm_adapter::endpoints! {
-    dharitri_price_aggregator_sc
+    dharitri_sc_price_aggregator
     (
         init => init
         upgrade => upgrade

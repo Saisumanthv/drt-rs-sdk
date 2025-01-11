@@ -2,7 +2,7 @@ ALICE="~/dharitri-sdk/testwallets/latest/users/alice.pem"
 BOB="~/dharitri-sdk/testwallets/latest/users/bob.pem"
 ADDRESS=$(drtpy data load --key=address-testnet-moa-dcdt-swap)
 DEPLOY_TRANSACTION=$(drtpy data load --key=deployTransaction-testnet)
-PROXY=https://testnet-gateway.dharitri.com
+PROXY=https://testnet-gateway.dharitri.org
 CHAIN_ID=T
 
 DCDT_SYSTEM_SC_ADDRESS=drt1qqqqqqqqqqqqqqqpqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqzllls6prdez

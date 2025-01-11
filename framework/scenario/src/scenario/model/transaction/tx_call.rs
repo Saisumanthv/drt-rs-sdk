@@ -1,4 +1,4 @@
-use dharitri_chain_vm::types::{top_encode_big_uint, top_encode_u64};
+use dharitri_vm::types::{top_encode_big_uint, top_encode_u64};
 use dharitri_sc::api::{
     DCDT_MULTI_TRANSFER_FUNC_NAME, DCDT_NFT_TRANSFER_FUNC_NAME, DCDT_TRANSFER_FUNC_NAME,
 };

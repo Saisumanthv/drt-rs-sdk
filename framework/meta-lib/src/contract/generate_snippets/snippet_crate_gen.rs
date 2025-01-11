@@ -203,7 +203,7 @@ pub(crate) fn create_config_toml_file(snippets_folder_path: &str) {
 # gateway_uri = 'http://localhost:8085'
 
 chain_type = 'real'
-gateway_uri = 'https://devnet-gateway.dharitri.com'
+gateway_uri = 'https://devnet-gateway.dharitri.org'
 "#
     )
     .unwrap();

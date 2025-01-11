@@ -1872,7 +1872,7 @@ impl VMHooks for VMHooksDispatcher {
     //     panic!("Unavailable: managed_get_relayer_addr")
     // }
 
-    // fn managed_multi_transfer_esdt_nft_execute_by_user(
+    // fn managed_multi_transfer_dcdt_nft_execute_by_user(
     //     &self,
     //     user_handle: i32,
     //     dst_handle: i32,
@@ -1881,7 +1881,7 @@ impl VMHooks for VMHooksDispatcher {
     //     function_handle: i32,
     //     arguments_handle: i32,
     // ) -> i32 {
-    //     panic!("Unavailable: managed_multi_transfer_esdt_nft_execute_by_user")
+    //     panic!("Unavailable: managed_multi_transfer_dcdt_nft_execute_by_user")
     // }
 
     // fn managed_verify_secp256r1(

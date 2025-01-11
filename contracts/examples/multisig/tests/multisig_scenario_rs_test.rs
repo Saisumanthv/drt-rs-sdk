@@ -27,7 +27,7 @@ fn world() -> ScenarioWorld {
         factorial::ContractBuilder,
     );
 
-    blockchain.register_contract(WMOA_SWAP_EXPR, dharitri_wmoa_swap_sc::ContractBuilder);
+    blockchain.register_contract(WMOA_SWAP_EXPR, dharitri_sc_wmoa_swap::ContractBuilder);
 
     blockchain
 }

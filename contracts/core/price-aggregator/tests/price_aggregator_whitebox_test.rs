@@ -1,4 +1,4 @@
-use dharitri_price_aggregator_sc::{
+use dharitri_sc_price_aggregator::{
     price_aggregator_data::{OracleStatus, TimestampedPrice, TokenPair},
     PriceAggregator, MAX_ROUND_DURATION_SECONDS,
 };
@@ -17,7 +17,7 @@ pub const USD_TICKER: &[u8] = b"USDC";
 const OWNER_ADDRESS: TestAddress = TestAddress::new("owner");
 const PRICE_AGGREGATOR_ADDRESS: TestSCAddress = TestSCAddress::new("price-aggregator");
 const PRICE_AGGREGATOR_PATH_EXPR: DrtscPath =
-    DrtscPath::new("drtsc:output/dharitri-price-aggregator-sc.drtsc.json");
+    DrtscPath::new("drtsc:output/dharitri-sc-price-aggregator.drtsc.json");
 
 fn world() -> ScenarioWorld {
     let mut blockchain = ScenarioWorld::new();
@@ -25,7 +25,7 @@ fn world() -> ScenarioWorld {
     blockchain.set_current_dir_from_workspace("contracts/core/price-aggregator");
     blockchain.register_contract(
         PRICE_AGGREGATOR_PATH_EXPR,
-        dharitri_price_aggregator_sc::ContractBuilder,
+        dharitri_sc_price_aggregator::ContractBuilder,
     );
 
     blockchain
@@ -40,7 +40,7 @@ fn test_price_aggregator_submit() {
         .tx()
         .from(OWNER_ADDRESS)
         .to(PRICE_AGGREGATOR_ADDRESS)
-        .whitebox(dharitri_price_aggregator_sc::contract_obj, |sc| {
+        .whitebox(dharitri_sc_price_aggregator::contract_obj, |sc| {
             sc.set_pair_decimals(
                 managed_buffer!(MOA_TICKER),
                 managed_buffer!(USD_TICKER),
@@ -54,7 +54,7 @@ fn test_price_aggregator_submit() {
         .from(&oracles[0])
         .to(PRICE_AGGREGATOR_ADDRESS)
         .returns(ExpectError(4u64, "Contract is paused"))
-        .whitebox(dharitri_price_aggregator_sc::contract_obj, |sc| {
+        .whitebox(dharitri_sc_price_aggregator::contract_obj, |sc| {
             sc.submit(
                 managed_buffer!(MOA_TICKER),
                 managed_buffer!(USD_TICKER),
@@ -69,7 +69,7 @@ fn test_price_aggregator_submit() {
         .tx()
         .from(OWNER_ADDRESS)
         .to(PRICE_AGGREGATOR_ADDRESS)
-        .whitebox(dharitri_price_aggregator_sc::contract_obj, |sc| {
+        .whitebox(dharitri_sc_price_aggregator::contract_obj, |sc| {
             sc.unpause_endpoint();
         });
 
@@ -79,7 +79,7 @@ fn test_price_aggregator_submit() {
         .from(&oracles[0])
         .to(PRICE_AGGREGATOR_ADDRESS)
         .returns(ExpectError(4u64, "First submission too old"))
-        .whitebox(dharitri_price_aggregator_sc::contract_obj, |sc| {
+        .whitebox(dharitri_sc_price_aggregator::contract_obj, |sc| {
             sc.submit(
                 managed_buffer!(MOA_TICKER),
                 managed_buffer!(USD_TICKER),
@@ -94,7 +94,7 @@ fn test_price_aggregator_submit() {
         .tx()
         .from(&oracles[0])
         .to(PRICE_AGGREGATOR_ADDRESS)
-        .whitebox(dharitri_price_aggregator_sc::contract_obj, |sc| {
+        .whitebox(dharitri_sc_price_aggregator::contract_obj, |sc| {
             sc.submit(
                 managed_buffer!(MOA_TICKER),
                 managed_buffer!(USD_TICKER),
@@ -106,7 +106,7 @@ fn test_price_aggregator_submit() {
 
     let current_timestamp = 100;
     world.query().to(PRICE_AGGREGATOR_ADDRESS).whitebox(
-        dharitri_price_aggregator_sc::contract_obj,
+        dharitri_sc_price_aggregator::contract_obj,
         |sc| {
             let token_pair = TokenPair {
                 from: managed_buffer!(MOA_TICKER),
@@ -145,7 +145,7 @@ fn test_price_aggregator_submit() {
         .tx()
         .from(&oracles[0])
         .to(PRICE_AGGREGATOR_ADDRESS)
-        .whitebox(dharitri_price_aggregator_sc::contract_obj, |sc| {
+        .whitebox(dharitri_sc_price_aggregator::contract_obj, |sc| {
             sc.submit(
                 managed_buffer!(MOA_TICKER),
                 managed_buffer!(USD_TICKER),
@@ -156,7 +156,7 @@ fn test_price_aggregator_submit() {
         });
 
     world.query().to(PRICE_AGGREGATOR_ADDRESS).whitebox(
-        dharitri_price_aggregator_sc::contract_obj,
+        dharitri_sc_price_aggregator::contract_obj,
         |sc| {
             assert_eq!(
                 sc.oracle_status()
@@ -180,7 +180,7 @@ fn test_price_aggregator_submit_round_ok() {
         .tx()
         .from(OWNER_ADDRESS)
         .to(PRICE_AGGREGATOR_ADDRESS)
-        .whitebox(dharitri_price_aggregator_sc::contract_obj, |sc| {
+        .whitebox(dharitri_sc_price_aggregator::contract_obj, |sc| {
             sc.set_pair_decimals(
                 managed_buffer!(MOA_TICKER),
                 managed_buffer!(USD_TICKER),
@@ -193,7 +193,7 @@ fn test_price_aggregator_submit_round_ok() {
         .tx()
         .from(OWNER_ADDRESS)
         .to(PRICE_AGGREGATOR_ADDRESS)
-        .whitebox(dharitri_price_aggregator_sc::contract_obj, |sc| {
+        .whitebox(dharitri_sc_price_aggregator::contract_obj, |sc| {
             sc.unpause_endpoint();
         });
 
@@ -202,7 +202,7 @@ fn test_price_aggregator_submit_round_ok() {
         .tx()
         .from(&oracles[0])
         .to(PRICE_AGGREGATOR_ADDRESS)
-        .whitebox(dharitri_price_aggregator_sc::contract_obj, |sc| {
+        .whitebox(dharitri_sc_price_aggregator::contract_obj, |sc| {
             sc.submit(
                 managed_buffer!(MOA_TICKER),
                 managed_buffer!(USD_TICKER),
@@ -220,7 +220,7 @@ fn test_price_aggregator_submit_round_ok() {
         .tx()
         .from(&oracles[1])
         .to(PRICE_AGGREGATOR_ADDRESS)
-        .whitebox(dharitri_price_aggregator_sc::contract_obj, |sc| {
+        .whitebox(dharitri_sc_price_aggregator::contract_obj, |sc| {
             sc.submit(
                 managed_buffer!(MOA_TICKER),
                 managed_buffer!(USD_TICKER),
@@ -235,7 +235,7 @@ fn test_price_aggregator_submit_round_ok() {
         .tx()
         .from(&oracles[2])
         .to(PRICE_AGGREGATOR_ADDRESS)
-        .whitebox(dharitri_price_aggregator_sc::contract_obj, |sc| {
+        .whitebox(dharitri_sc_price_aggregator::contract_obj, |sc| {
             sc.submit(
                 managed_buffer!(MOA_TICKER),
                 managed_buffer!(USD_TICKER),
@@ -246,7 +246,7 @@ fn test_price_aggregator_submit_round_ok() {
         });
 
     world.query().to(PRICE_AGGREGATOR_ADDRESS).whitebox(
-        dharitri_price_aggregator_sc::contract_obj,
+        dharitri_sc_price_aggregator::contract_obj,
         |sc| {
             let result =
                 sc.latest_price_feed(managed_buffer!(MOA_TICKER), managed_buffer!(USD_TICKER));
@@ -287,7 +287,7 @@ fn test_price_aggregator_discarded_round() {
         .tx()
         .from(OWNER_ADDRESS)
         .to(PRICE_AGGREGATOR_ADDRESS)
-        .whitebox(dharitri_price_aggregator_sc::contract_obj, |sc| {
+        .whitebox(dharitri_sc_price_aggregator::contract_obj, |sc| {
             sc.set_pair_decimals(
                 managed_buffer!(MOA_TICKER),
                 managed_buffer!(USD_TICKER),
@@ -300,7 +300,7 @@ fn test_price_aggregator_discarded_round() {
         .tx()
         .from(OWNER_ADDRESS)
         .to(PRICE_AGGREGATOR_ADDRESS)
-        .whitebox(dharitri_price_aggregator_sc::contract_obj, |sc| {
+        .whitebox(dharitri_sc_price_aggregator::contract_obj, |sc| {
             sc.unpause_endpoint();
         });
 
@@ -309,7 +309,7 @@ fn test_price_aggregator_discarded_round() {
         .tx()
         .from(&oracles[0])
         .to(PRICE_AGGREGATOR_ADDRESS)
-        .whitebox(dharitri_price_aggregator_sc::contract_obj, |sc| {
+        .whitebox(dharitri_sc_price_aggregator::contract_obj, |sc| {
             sc.submit(
                 managed_buffer!(MOA_TICKER),
                 managed_buffer!(USD_TICKER),
@@ -327,7 +327,7 @@ fn test_price_aggregator_discarded_round() {
         .tx()
         .from(&oracles[1])
         .to(PRICE_AGGREGATOR_ADDRESS)
-        .whitebox(dharitri_price_aggregator_sc::contract_obj, |sc| {
+        .whitebox(dharitri_sc_price_aggregator::contract_obj, |sc| {
             sc.submit(
                 managed_buffer!(MOA_TICKER),
                 managed_buffer!(USD_TICKER),
@@ -338,7 +338,7 @@ fn test_price_aggregator_discarded_round() {
         });
 
     world.query().to(PRICE_AGGREGATOR_ADDRESS).whitebox(
-        dharitri_price_aggregator_sc::contract_obj,
+        dharitri_sc_price_aggregator::contract_obj,
         |sc| {
             let token_pair = TokenPair {
                 from: managed_buffer!(MOA_TICKER),
@@ -363,7 +363,7 @@ fn test_price_aggregator_slashing() {
         .tx()
         .from(OWNER_ADDRESS)
         .to(PRICE_AGGREGATOR_ADDRESS)
-        .whitebox(dharitri_price_aggregator_sc::contract_obj, |sc| {
+        .whitebox(dharitri_sc_price_aggregator::contract_obj, |sc| {
             sc.set_pair_decimals(
                 managed_buffer!(MOA_TICKER),
                 managed_buffer!(USD_TICKER),
@@ -376,7 +376,7 @@ fn test_price_aggregator_slashing() {
         .tx()
         .from(OWNER_ADDRESS)
         .to(PRICE_AGGREGATOR_ADDRESS)
-        .whitebox(dharitri_price_aggregator_sc::contract_obj, |sc| {
+        .whitebox(dharitri_sc_price_aggregator::contract_obj, |sc| {
             sc.unpause_endpoint();
         });
 
@@ -384,7 +384,7 @@ fn test_price_aggregator_slashing() {
         .tx()
         .from(&oracles[0])
         .to(PRICE_AGGREGATOR_ADDRESS)
-        .whitebox(dharitri_price_aggregator_sc::contract_obj, |sc| {
+        .whitebox(dharitri_sc_price_aggregator::contract_obj, |sc| {
             sc.vote_slash_member(ManagedAddress::from(&oracles[1]));
         });
 
@@ -392,7 +392,7 @@ fn test_price_aggregator_slashing() {
         .tx()
         .from(&oracles[2])
         .to(PRICE_AGGREGATOR_ADDRESS)
-        .whitebox(dharitri_price_aggregator_sc::contract_obj, |sc| {
+        .whitebox(dharitri_sc_price_aggregator::contract_obj, |sc| {
             sc.vote_slash_member(ManagedAddress::from(&oracles[1]))
         });
 
@@ -400,12 +400,12 @@ fn test_price_aggregator_slashing() {
         .tx()
         .from(&oracles[3])
         .to(PRICE_AGGREGATOR_ADDRESS)
-        .whitebox(dharitri_price_aggregator_sc::contract_obj, |sc| {
+        .whitebox(dharitri_sc_price_aggregator::contract_obj, |sc| {
             sc.vote_slash_member(ManagedAddress::from(&oracles[1]));
         });
 
     world.query().to(PRICE_AGGREGATOR_ADDRESS).whitebox(
-        dharitri_price_aggregator_sc::contract_obj,
+        dharitri_sc_price_aggregator::contract_obj,
         |sc| {
             let list = sc.slashing_proposal_voters(&ManagedAddress::from(&oracles[1]));
             assert!(list.contains(&ManagedAddress::from(&oracles[0])));
@@ -418,7 +418,7 @@ fn test_price_aggregator_slashing() {
         .tx()
         .from(&oracles[0])
         .to(PRICE_AGGREGATOR_ADDRESS)
-        .whitebox(dharitri_price_aggregator_sc::contract_obj, |sc| {
+        .whitebox(dharitri_sc_price_aggregator::contract_obj, |sc| {
             sc.slash_member(ManagedAddress::from(&oracles[1]));
         });
 
@@ -428,7 +428,7 @@ fn test_price_aggregator_slashing() {
         .from(&oracles[1])
         .to(PRICE_AGGREGATOR_ADDRESS)
         .returns(ExpectError(4u64, "only oracles allowed"))
-        .whitebox(dharitri_price_aggregator_sc::contract_obj, |sc| {
+        .whitebox(dharitri_sc_price_aggregator::contract_obj, |sc| {
             sc.submit(
                 managed_buffer!(MOA_TICKER),
                 managed_buffer!(USD_TICKER),
@@ -463,7 +463,7 @@ fn setup() -> (ScenarioWorld, Vec<Address>) {
         .raw_deploy()
         .code(PRICE_AGGREGATOR_PATH_EXPR)
         .new_address(PRICE_AGGREGATOR_ADDRESS)
-        .whitebox(dharitri_price_aggregator_sc::contract_obj, |sc| {
+        .whitebox(dharitri_sc_price_aggregator::contract_obj, |sc| {
             let mut oracle_args = MultiValueEncoded::new();
             for oracle_address in &oracles {
                 oracle_args.push(ManagedAddress::from(oracle_address));
@@ -485,7 +485,7 @@ fn setup() -> (ScenarioWorld, Vec<Address>) {
             .from(oracle_address)
             .to(PRICE_AGGREGATOR_ADDRESS)
             .moa(STAKE_AMOUNT)
-            .whitebox(dharitri_price_aggregator_sc::contract_obj, |sc| {
+            .whitebox(dharitri_sc_price_aggregator::contract_obj, |sc| {
                 sc.stake();
             });
     }

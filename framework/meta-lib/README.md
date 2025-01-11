@@ -11,4 +11,4 @@ The purpose of the contract `meta` crates is to produce the contract ABI. Becaus
 - generating snippets,
 - etc.
 
-For more about the build process, see https://docs.dharitri.com/developers/developer-reference/sc-build-reference/
+For more about the build process, see https://docs.dharitri.org/developers/developer-reference/sc-build-reference/

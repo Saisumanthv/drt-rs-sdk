@@ -36,9 +36,9 @@ pub use gateway_tx_send_multi::SendMultiTxRequest;
 pub use gateway_tx_status::GetTxStatus;
 pub use gateway_tx_vmquery::VMQueryRequest;
 
-pub const MAINNET_GATEWAY: &str = "https://gateway.dharitri.com";
-pub const TESTNET_GATEWAY: &str = "https://testnet-gateway.dharitri.com";
-pub const DEVNET_GATEWAY: &str = "https://devnet-gateway.dharitri.com";
+pub const MAINNET_GATEWAY: &str = "https://gateway.dharitri.org";
+pub const TESTNET_GATEWAY: &str = "https://testnet-gateway.dharitri.org";
+pub const DEVNET_GATEWAY: &str = "https://devnet-gateway.dharitri.org";
 
 // MetachainShardId will be used to identify a shard ID as metachain
 pub const METACHAIN_SHARD_ID: u32 = 0xFFFFFFFF;

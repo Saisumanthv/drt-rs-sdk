@@ -1,6 +1,6 @@
 use core::marker::PhantomData;
 
-use dharitri_chain_core::MOA_000000_TOKEN_IDENTIFIER;
+use dharitri_core::MOA_000000_TOKEN_IDENTIFIER;
 
 use crate::{
     api::{

@@ -5,7 +5,7 @@
 # ##########################################
 
 [package]
-name = "dharitri-wmoa-swap-sc-wasm"
+name = "dharitri-sc-wmoa-swap-wasm"
 version = "0.0.0"
 edition = "2021"
 publish = false
@@ -24,7 +24,7 @@ overflow-checks = false
 [profile.dev]
 panic = "abort"
 
-[dependencies.dharitri-wmoa-swap-sc]
+[dependencies.dharitri-sc-wmoa-swap]
 path = ".."
 
 [dependencies.dharitri-sc-wasm-adapter]

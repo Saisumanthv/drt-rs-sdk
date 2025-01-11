@@ -1,5 +1,5 @@
 use alloc::string::ToString;
-use dharitri_chain_core::MOA_000000_TOKEN_IDENTIFIER;
+use dharitri_core::MOA_000000_TOKEN_IDENTIFIER;
 
 use crate::{
     abi::{TypeAbi, TypeAbiFrom, TypeName},

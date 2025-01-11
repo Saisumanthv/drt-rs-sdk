@@ -3,12 +3,12 @@ name = "dharitri-sc-snippets"
 version = "0.55.0"
 edition = "2021"
 
-authors = ["Dharitri <contact@dharitri.com>"]
+authors = ["Dharitri <contact@dharitri.org>"]
 license = "GPL-3.0-only"
 readme = "README.md"
 repository = "https://github.com/TerraDharitri/drt-sdk-rs"
-homepage = "https://dharitri.com/"
-documentation = "https://docs.dharitri.com/"
+homepage = "https://dharitri.org/"
+documentation = "https://docs.dharitri.org/"
 description = "Dharitri framework for building smart contract interaction snippets"
 keywords = ["dharitri", "blockchain", "contract", "snippets"]
 categories = ["cryptography::cryptocurrencies"]
@@ -35,7 +35,7 @@ tokio = { version = "1.24", features = ["full"], optional = true }
 version = "=0.55.0"
 path = "../scenario"
 
-[dependencies.dharitri-chain-scenario-format]
+[dependencies.dharitri-scenario-format]
 version = "0.23.0"
 path = "../../sdk/scenario-format"
 

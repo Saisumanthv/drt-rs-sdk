@@ -23,13 +23,13 @@ pub enum EIVersion {
     /// - some managed DCDT properties.
     V1_2,
 
-    /// Latest VM Hooks version, released with VM 1.5 in January 2024: https://dharitri.com/release/release-sirius-v1-6-7
+    /// Latest VM Hooks version, released with VM 1.5 in January 2024: https://dharitri.org/release/release-sirius-v1-6-7
     ///
     /// It adds the new async call functionality (promises).
     #[default]
     V1_3,
 
-    /// Hooks made available in the Spica release, November 12, 2024: https://dharitri.com/release/release-spica-v1-8-4-0
+    /// Hooks made available in the Spica release, November 12, 2024: https://dharitri.org/release/release-spica-v1-8-4-0
     V1_4,
 
     /// Version planned for Q3 2024.

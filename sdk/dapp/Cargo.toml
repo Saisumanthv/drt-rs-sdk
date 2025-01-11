@@ -3,12 +3,12 @@ name = "dharitri-sdk-dapp"
 version = "0.8.0"
 edition = "2021"
 
-authors = ["Dharitri <contact@dharitri.com>"]
+authors = ["Dharitri <contact@dharitri.org>"]
 license = "MIT"
 readme = "README.md"
 repository = "https://github.com/TerraDharitri/drt-sdk-rs"
-homepage = "https://dharitri.com/"
-documentation = "https://docs.dharitri.com/"
+homepage = "https://dharitri.org/"
+documentation = "https://docs.dharitri.org/"
 description = "SDK for interacting with the Dharitri blockchain for wasm-bindgen environments"
 categories = ["cryptography::cryptocurrencies", "api-bindings"]
 keywords = ["dharitri", "blockchain", "sdk", "wasm", "wasm-bindgen"]

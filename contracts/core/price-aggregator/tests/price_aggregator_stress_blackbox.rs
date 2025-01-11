@@ -1,4 +1,4 @@
-use dharitri_price_aggregator_sc::{
+use dharitri_sc_price_aggregator::{
     price_aggregator_data::{OracleStatus, TokenPair},
     PriceAggregator,
 };
@@ -11,7 +11,7 @@ const NR_ORACLES: usize = 50;
 const OWNER: TestAddress = TestAddress::new("owner");
 const PRICE_AGGREGATOR_ADDRESS: TestSCAddress = TestSCAddress::new("price-aggregator");
 const PRICE_AGGREGATOR_PATH: DrtscPath =
-    DrtscPath::new("../output/dharitri-price-aggregator-sc.drtsc.json");
+    DrtscPath::new("../output/dharitri-sc-price-aggregator.drtsc.json");
 const SLASH_AMOUNT: u64 = 10;
 const SLASH_QUORUM: usize = 3;
 const STAKE_AMOUNT: u64 = 20;
@@ -26,7 +26,7 @@ fn world() -> ScenarioWorld {
     blockchain.set_current_dir_from_workspace("contracts/core/price-aggregator");
     blockchain.register_contract(
         PRICE_AGGREGATOR_PATH,
-        dharitri_price_aggregator_sc::ContractBuilder,
+        dharitri_sc_price_aggregator::ContractBuilder,
     );
 
     blockchain
@@ -162,7 +162,7 @@ fn test_price_aggregator_submit() {
 
     let current_timestamp = 100;
     state.world.query().to(PRICE_AGGREGATOR_ADDRESS).whitebox(
-        dharitri_price_aggregator_sc::contract_obj,
+        dharitri_sc_price_aggregator::contract_obj,
         |sc| {
             let blockchain_timestamp = sc.blockchain().get_block_timestamp();
 

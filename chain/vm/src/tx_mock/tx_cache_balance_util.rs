@@ -1,4 +1,4 @@
-use dharitri_chain_core::MOA_000000_TOKEN_IDENTIFIER;
+use dharitri_core::MOA_000000_TOKEN_IDENTIFIER;
 use num_bigint::BigUint;
 
 use crate::{

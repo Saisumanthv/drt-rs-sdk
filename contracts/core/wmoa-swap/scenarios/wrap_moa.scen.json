@@ -29,7 +29,7 @@
                     "storage": {
                         "str:wrappedMoaTokenId": "str:MOA-abcdef"
                     },
-                    "code": "drtsc:../output/dharitri-wmoa-swap-sc.drtsc.json"
+                    "code": "drtsc:../output/dharitri-sc-wmoa-swap.drtsc.json"
                 }
             }
         },
@@ -86,7 +86,7 @@
                     "storage": {
                         "str:wrappedMoaTokenId": "str:MOA-abcdef"
                     },
-                    "code": "drtsc:../output/dharitri-wmoa-swap-sc.drtsc.json"
+                    "code": "drtsc:../output/dharitri-sc-wmoa-swap.drtsc.json"
                 }
             }
         }

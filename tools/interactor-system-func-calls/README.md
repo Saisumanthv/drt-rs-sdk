@@ -1,7 +1,7 @@
 # System SC function calls interactor
 
-Fungible Tokens docs: https://docs.dharitri.com/tokens/fungible-tokens/
-NFT/SFT/Meta-DCDT docs: https://docs.dharitri.com/tokens/nft-tokens/
+Fungible Tokens docs: https://docs.dharitri.org/tokens/fungible-tokens/
+NFT/SFT/Meta-DCDT docs: https://docs.dharitri.org/tokens/nft-tokens/
 
 ### Functions:
 

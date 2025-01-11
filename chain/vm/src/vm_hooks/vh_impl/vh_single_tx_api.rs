@@ -3,7 +3,7 @@ use std::{
     sync::{Arc, Mutex, MutexGuard},
 };
 
-use dharitri_chain_core::types::ReturnCode;
+use dharitri_core::types::ReturnCode;
 
 use crate::{
     tx_mock::{BackTransfers, TxFunctionName, TxInput, TxManagedTypes, TxResult},

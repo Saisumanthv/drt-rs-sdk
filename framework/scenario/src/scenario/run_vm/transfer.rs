@@ -1,6 +1,6 @@
 use super::{sc_call::tx_dcdt_transfers_from_scenario, ScenarioVMRunner};
 use crate::scenario::model::{TransferStep, TxTransfer, ValidatorRewardStep};
-use dharitri_chain_vm::{
+use dharitri_vm::{
     tx_execution::{execute_current_tx_context_input, BlockchainVMRef},
     tx_mock::{TxFunctionName, TxInput},
     with_shared::Shareable,

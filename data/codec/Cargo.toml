@@ -3,12 +3,12 @@ name = "dharitri-sc-codec"
 version = "0.21.2"
 edition = "2021"
 
-authors = ["Andrei Marinica <andrei.marinica@dharitri.com>", "Dharitri <contact@dharitri.com>"]
+authors = ["Dharitri <contact@dharitri.org>"]
 license = "GPL-3.0-only"
 readme = "README.md"
 repository = "https://github.com/TerraDharitri/drt-sdk-rs"
-homepage = "https://dharitri.com/"
-documentation = "https://docs.dharitri.com/"
+homepage = "https://dharitri.org/"
+documentation = "https://docs.dharitri.org/"
 description = "Lightweight binary serializer/deserializer, written especially for Dharitri smart contracts"
 keywords = ["dharitri", "wasm", "webassembly", "blockchain", "contract"]
 categories = ["no-std", "wasm", "cryptography::cryptocurrencies", "development-tools"]

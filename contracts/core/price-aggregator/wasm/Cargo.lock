@@ -92,7 +92,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a7a70ba024b9dc04c27ea2f0c0548feb474ec5c54bba33a7f72f873a39d07b24"
 
 [[package]]
-name = "dharitri-chain-core"
+name = "dharitri-core"
 version = "0.12.0"
 dependencies = [
  "bitflags",
@@ -100,7 +100,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "dharitri-price-aggregator-sc"
+name = "dharitri-sc-price-aggregator"
 version = "0.55.0"
 dependencies = [
  "arrayvec",
@@ -111,10 +111,10 @@ dependencies = [
 ]
 
 [[package]]
-name = "dharitri-price-aggregator-sc-wasm"
+name = "dharitri-sc-price-aggregator-wasm"
 version = "0.0.0"
 dependencies = [
- "dharitri-price-aggregator-sc",
+ "dharitri-sc-price-aggregator",
  "dharitri-sc-wasm-adapter",
 ]
 
@@ -124,7 +124,7 @@ version = "0.55.0"
 dependencies = [
  "bitflags",
  "hex-literal",
- "dharitri-chain-core",
+ "dharitri-core",
  "dharitri-sc-codec",
  "dharitri-sc-derive",
  "num-traits",

@@ -18,11 +18,11 @@ The repo contains:
 
 # Documentation
 
-Most documentation can be found at https://docs.dharitri.com/developers/overview/
+Most documentation can be found at https://docs.dharitri.org/developers/overview/
 
 # Getting started
 
-The crowdfunding tutorial is a great place to start: https://docs.dharitri.com/developers/tutorials/crowdfunding-p1/
+The crowdfunding tutorial is a great place to start: https://docs.dharitri.org/developers/tutorials/crowdfunding-p1/
 
 # IDE
 
@@ -30,8 +30,8 @@ The framework is designed to be easiest to use with the IDE VSCode extension: ht
 
 # Building contracts
 
-A comprehensive build guide can be found here: https://docs.dharitri.com/developers/developer-reference/sc-build-reference/
+A comprehensive build guide can be found here: https://docs.dharitri.org/developers/developer-reference/sc-build-reference/
 
 # Debugging contracts
 
-The debugger guide: https://docs.dharitri.com/developers/developer-reference/sc-debugging/
+The debugger guide: https://docs.dharitri.org/developers/developer-reference/sc-debugging/

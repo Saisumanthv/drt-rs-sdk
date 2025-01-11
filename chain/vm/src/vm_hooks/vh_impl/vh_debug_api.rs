@@ -1,6 +1,6 @@
 use std::sync::{Arc, MutexGuard};
 
-use dharitri_chain_core::types::ReturnCode;
+use dharitri_core::types::ReturnCode;
 use dharitri_vm_executor::BreakpointValue;
 
 use crate::{

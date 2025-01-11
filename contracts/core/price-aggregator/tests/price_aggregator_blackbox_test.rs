@@ -1,4 +1,4 @@
-use dharitri_price_aggregator_sc::{
+use dharitri_sc_price_aggregator::{
     price_aggregator_data::{OracleStatus, TimestampedPrice, TokenPair},
     PriceAggregator, MAX_ROUND_DURATION_SECONDS,
 };
@@ -19,7 +19,7 @@ const USD_TICKER: &[u8] = b"USDC";
 const PRICE_AGGREGATOR_ADDRESS: TestSCAddress = TestSCAddress::new("price-aggregator");
 const OWNER_ADDRESS: TestAddress = TestAddress::new("owner");
 const PRICE_AGGREGATOR_PATH: DrtscPath =
-    DrtscPath::new("output/dharitri-price-aggregator-sc.drtsc.json");
+    DrtscPath::new("output/dharitri-sc-price-aggregator.drtsc.json");
 
 fn world() -> ScenarioWorld {
     let mut blockchain = ScenarioWorld::new();
@@ -27,7 +27,7 @@ fn world() -> ScenarioWorld {
     blockchain.set_current_dir_from_workspace("contracts/core/price-aggregator");
     blockchain.register_contract(
         PRICE_AGGREGATOR_PATH,
-        dharitri_price_aggregator_sc::ContractBuilder,
+        dharitri_sc_price_aggregator::ContractBuilder,
     );
 
     blockchain
@@ -196,7 +196,7 @@ fn test_price_aggregator_submit() {
     let current_timestamp = 100;
 
     state.world.query().to(PRICE_AGGREGATOR_ADDRESS).whitebox(
-        dharitri_price_aggregator_sc::contract_obj,
+        dharitri_sc_price_aggregator::contract_obj,
         |sc| {
             let token_pair = TokenPair {
                 from: managed_buffer!(MOA_TICKER),
@@ -236,7 +236,7 @@ fn test_price_aggregator_submit() {
     state.submit(&state.oracles[0].clone(), 95, 100);
 
     state.world.query().to(PRICE_AGGREGATOR_ADDRESS).whitebox(
-        dharitri_price_aggregator_sc::contract_obj,
+        dharitri_sc_price_aggregator::contract_obj,
         |sc| {
             assert_eq!(
                 sc.oracle_status()
@@ -278,7 +278,7 @@ fn test_price_aggregator_submit_round_ok() {
     state.submit(&state.oracles[2].clone(), 105, 12_000);
 
     state.world.query().to(PRICE_AGGREGATOR_ADDRESS).whitebox(
-        dharitri_price_aggregator_sc::contract_obj,
+        dharitri_sc_price_aggregator::contract_obj,
         |sc| {
             let result =
                 sc.latest_price_feed(managed_buffer!(MOA_TICKER), managed_buffer!(USD_TICKER));
@@ -334,7 +334,7 @@ fn test_price_aggregator_discarded_round() {
     state.submit(&state.oracles[1].clone(), current_timestamp - 1, 11_000);
 
     state.world.query().to(PRICE_AGGREGATOR_ADDRESS).whitebox(
-        dharitri_price_aggregator_sc::contract_obj,
+        dharitri_sc_price_aggregator::contract_obj,
         |sc| {
             let token_pair = TokenPair {
                 from: managed_buffer!(MOA_TICKER),

@@ -18,15 +18,15 @@ They are:
     - `dharitri-sc-snippets`
     - `dharitri-sc-wasm-adapter`
     - `dharitri-sc-modules` - *standard contract modules*
-	- `dharitri-price-aggregator-sc` - *core contract*
-	- `dharitri-wmoa-swap-sc` - *core contract*
+	- `dharitri-sc-price-aggregator` - *core contract*
+	- `dharitri-sc-wmoa-swap` - *core contract*
 - `dharitri-sc-codec`, in short `codec`, the serializer/deserializer, 2 crates:
 	- `dharitri-sc-codec`
 	- `dharitri-sc-codec-derive`
 - Chain crates, in short `chain`. Formerly it was only the VM (`vm`). 2 crates:
-	- `dharitri-chain-core` - *a common crate for chain types, constants, flags*
-	- `dharitri-chain-vm` - *a Rust VM implementation*
-- `dharitri-chain-scenario-format`, in short `scenario-format`, scenario JSON serializer/deserializer, 1 crate.
+	- `dharitri-core` - *a common crate for chain types, constants, flags*
+	- `dharitri-vm` - *a Rust VM implementation*
+- `dharitri-scenario-format`, in short `scenario-format`, scenario JSON serializer/deserializer, 1 crate.
 - `dharitri-sdk`, in short `sdk`, allows communication with the chain(s), 3 crates:
 	- `dharitri-sdk`
 	- `dharitri-sdk-http`
@@ -86,7 +86,7 @@ They are:
 - `MultiValueEncodedCounted` - a lazy multi-value encoding, but with known number of elements.
 
 ## [sc 0.54.0, sdk 0.7.0, chain 0.11.0] - 2024-11-06
-- New crate, `dharitri-chain-core`, to be used in both framework and Rust VM. It contains common types, flags, and constants that refer to the protocol.
+- New crate, `dharitri-core`, to be used in both framework and Rust VM. It contains common types, flags, and constants that refer to the protocol.
 - Major SDK/interactor refactor:
 	- Added support for Chain Simulator in interactors:
 		- Added chain-simulator-specific endpoints: feed account, advance blocks
@@ -518,7 +518,7 @@ First pre-release of the unified syntax. Syntax not yet stabilized, should only 
 
 ## [sc 0.39.0, codec 0.17.0, vm 0.1.0, scenario-format 0.19.0, sdk 0.1.0] - 2023-01-12
 - All crates were renamed, in line with the Dharitri brand.
-- New crate: `dharitri-chain-vm`, extracted from the old debug crate.
+- New crate: `dharitri-vm`, extracted from the old debug crate.
 - New crate: `dharitri-sdk`, adapted from a solution proposed by the community.
 - A `ScenarioWorld` facade, for contract tests.
 - The meta crate supports `twiggy` post-processing, this is a tool to analyze contract size and investigate bloat in the binaries.

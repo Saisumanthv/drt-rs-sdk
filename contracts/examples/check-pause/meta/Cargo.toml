@@ -3,7 +3,7 @@ name = "check-pause-meta"
 version = "0.0.0"
 edition = "2021"
 publish = false
-authors = ["Alin Cruceat <alin.cruceat@dharitri.com>"]
+authors = ["Dharitri <contact@dharitri.org>"]
 
 [dependencies.check-pause]
 path = ".."

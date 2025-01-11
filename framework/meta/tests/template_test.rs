@@ -36,7 +36,7 @@ fn template_current_adder() {
         "adder",
         "examples",
         "new-adder",
-        "Alin Cruceat <alin.cruceat@dharitri.com>",
+        "Alin Cruceat <alin.cruceat@dharitri.org>",
     );
 
     cargo_check_interactor("examples", "new-adder");
@@ -112,7 +112,7 @@ async fn template_released_adder() {
     template_test_released(
         "adder",
         "released-adder",
-        "Alin Cruceat <alin.cruceat@dharitri.com>",
+        "Alin Cruceat <alin.cruceat@dharitri.org>",
     )
     .await;
 

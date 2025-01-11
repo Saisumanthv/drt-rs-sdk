@@ -225,7 +225,7 @@
             "step": "scDeploy",
             "tx": {
                 "from": "address:owner",
-                "contractCode": "drtsc:../output/dharitri-price-aggregator-sc.drtsc.json",
+                "contractCode": "drtsc:../output/dharitri-sc-price-aggregator.drtsc.json",
                 "arguments": [
                     "0x4d4f41",
                     "0x14",

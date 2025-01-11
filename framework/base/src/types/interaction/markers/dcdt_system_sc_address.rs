@@ -1,5 +1,5 @@
 use hex_literal::hex;
-use dharitri_chain_core::types::Address;
+use dharitri_core::types::Address;
 use dharitri_sc_codec::{EncodeErrorHandler, TopEncode, TopEncodeOutput};
 
 use crate::{

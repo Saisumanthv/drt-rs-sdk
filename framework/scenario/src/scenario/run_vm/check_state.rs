@@ -4,7 +4,7 @@ use crate::scenario::model::{
 };
 use num_traits::Zero;
 
-use dharitri_chain_vm::{
+use dharitri_vm::{
     display_util::{bytes_to_string, verbose_hex, verbose_hex_list},
     world_mock::{AccountDcdt, BlockchainState, DcdtData, DcdtInstance, DcdtInstances},
 };

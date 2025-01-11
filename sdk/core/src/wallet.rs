@@ -11,7 +11,7 @@ use anyhow::Result;
 use bip39::{Language, Mnemonic};
 use ctr::{cipher::StreamCipher, Ctr128BE};
 use hmac::{Hmac, Mac};
-use dharitri_chain_core::types::Address;
+use dharitri_core::types::Address;
 use pbkdf2::pbkdf2;
 use rand::RngCore;
 use scrypt::{scrypt, Params};
@@ -195,7 +195,7 @@ impl Wallet {
 
     #[deprecated(
         since = "0.54.0",
-        note = "Renamed to `to_address`, type changed to dharitri_chain_core::types::Address"
+        note = "Renamed to `to_address`, type changed to dharitri_core::types::Address"
     )]
     pub fn address(&self) -> crate::data::sdk_address::SdkAddress {
         crate::data::sdk_address::SdkAddress(self.to_address())

@@ -1,6 +1,6 @@
 use core::borrow::Borrow;
 
-use dharitri_chain_core::types::{DcdtLocalRole, DcdtTokenType};
+use dharitri_core::types::{DcdtLocalRole, DcdtTokenType};
 use dharitri_sc_codec::multi_types::{MultiValue2, MultiValue3};
 
 use crate::{

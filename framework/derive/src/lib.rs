@@ -46,7 +46,7 @@ pub fn proxy(
 
 #[deprecated(
     since = "0.54.4",
-    note = "Replace with attribute #[type_abi], which should be placed before all derives. More about this: https://docs.dharitri.com/developers/transactions/tx-migration/#replace-derivetypeabi-with-type_abi"
+    note = "Replace with attribute #[type_abi], which should be placed before all derives. More about this: https://docs.dharitri.org/developers/transactions/tx-migration/#replace-derivetypeabi-with-type_abi"
 )]
 #[proc_macro_derive(TypeAbi)]
 pub fn type_abi_derive(input: proc_macro::TokenStream) -> proc_macro::TokenStream {

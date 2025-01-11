@@ -62,7 +62,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "dharitri-chain-core"
+name = "dharitri-core"
 version = "0.12.0"
 dependencies = [
  "bitflags",
@@ -75,7 +75,7 @@ version = "0.55.0"
 dependencies = [
  "bitflags",
  "hex-literal",
- "dharitri-chain-core",
+ "dharitri-core",
  "dharitri-sc-codec",
  "dharitri-sc-derive",
  "num-traits",

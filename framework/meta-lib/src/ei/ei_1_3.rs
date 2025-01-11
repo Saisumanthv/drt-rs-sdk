@@ -5,7 +5,7 @@
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 /// VM Hooks version released in January 2024:
-/// https://dharitri.com/release/release-sirius-v1-6-7
+/// https://dharitri.org/release/release-sirius-v1-6-7
 ///
 /// It adds the new async call functionality (promises).
 ///

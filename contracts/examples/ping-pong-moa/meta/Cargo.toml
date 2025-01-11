@@ -1,7 +1,7 @@
 [package]
 name = "ping-pong-moa-meta"
 version = "0.0.0"
-authors = ["Bruda Claudiu-Marcel <claudiu725@yahoo.com>"]
+authors = ["Dharitri <contact@dharitri.org>"]
 edition = "2021"
 publish = false
 

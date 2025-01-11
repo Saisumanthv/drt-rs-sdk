@@ -833,7 +833,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "dharitri-chain-core"
+name = "dharitri-core"
 version = "0.12.0"
 dependencies = [
  "bitflags",
@@ -841,65 +841,11 @@ dependencies = [
 ]
 
 [[package]]
-name = "dharitri-chain-scenario-format"
-version = "0.23.0"
-dependencies = [
- "bech32",
- "hex",
- "num-bigint",
- "num-traits",
- "serde",
- "serde_json",
- "sha3",
-]
-
-[[package]]
-name = "dharitri-chain-vm"
-version = "0.12.0"
-dependencies = [
- "bitflags",
- "colored",
- "dharitri-chain-core",
- "dharitri-vm-executor",
- "ed25519-dalek",
- "hex",
- "hex-literal",
- "itertools",
- "num-bigint",
- "num-traits",
- "rand",
- "rand_seeder",
- "sha2",
- "sha3",
-]
-
-[[package]]
-name = "dharitri-price-aggregator-sc"
-version = "0.55.0"
-dependencies = [
- "arrayvec",
- "dharitri-sc",
- "dharitri-sc-modules",
- "dharitri-sc-scenario",
- "getrandom",
- "rand",
-]
-
-[[package]]
-name = "dharitri-price-aggregator-sc-meta"
-version = "0.0.0"
-dependencies = [
- "dharitri-price-aggregator-sc",
- "dharitri-sc",
- "dharitri-sc-meta-lib",
-]
-
-[[package]]
 name = "dharitri-sc"
 version = "0.55.0"
 dependencies = [
  "bitflags",
- "dharitri-chain-core",
+ "dharitri-core",
  "dharitri-sc-codec",
  "dharitri-sc-derive",
  "hex-literal",
@@ -991,16 +937,37 @@ dependencies = [
 ]
 
 [[package]]
+name = "dharitri-sc-price-aggregator"
+version = "0.55.0"
+dependencies = [
+ "arrayvec",
+ "dharitri-sc",
+ "dharitri-sc-modules",
+ "dharitri-sc-scenario",
+ "getrandom",
+ "rand",
+]
+
+[[package]]
+name = "dharitri-sc-price-aggregator-meta"
+version = "0.0.0"
+dependencies = [
+ "dharitri-sc",
+ "dharitri-sc-meta-lib",
+ "dharitri-sc-price-aggregator",
+]
+
+[[package]]
 name = "dharitri-sc-scenario"
 version = "0.55.0"
 dependencies = [
  "base64",
  "bech32",
  "colored",
- "dharitri-chain-scenario-format",
- "dharitri-chain-vm",
  "dharitri-sc",
  "dharitri-sc-meta-lib",
+ "dharitri-scenario-format",
+ "dharitri-vm",
  "dharitri-vm-executor",
  "hex",
  "itertools",
@@ -1020,8 +987,8 @@ version = "0.55.0"
 dependencies = [
  "anyhow",
  "base64",
- "dharitri-chain-scenario-format",
  "dharitri-sc-scenario",
+ "dharitri-scenario-format",
  "dharitri-sdk",
  "dharitri-sdk-dapp",
  "dharitri-sdk-http",
@@ -1041,6 +1008,37 @@ dependencies = [
 ]
 
 [[package]]
+name = "dharitri-sc-wmoa-swap"
+version = "0.55.0"
+dependencies = [
+ "dharitri-sc",
+ "dharitri-sc-modules",
+ "dharitri-sc-scenario",
+]
+
+[[package]]
+name = "dharitri-sc-wmoa-swap-meta"
+version = "0.0.0"
+dependencies = [
+ "dharitri-sc",
+ "dharitri-sc-meta-lib",
+ "dharitri-sc-wmoa-swap",
+]
+
+[[package]]
+name = "dharitri-scenario-format"
+version = "0.23.0"
+dependencies = [
+ "bech32",
+ "hex",
+ "num-bigint",
+ "num-traits",
+ "serde",
+ "serde_json",
+ "sha3",
+]
+
+[[package]]
 name = "dharitri-sdk"
 version = "0.8.0"
 dependencies = [
@@ -1050,7 +1048,7 @@ dependencies = [
  "bech32",
  "bip39",
  "ctr",
- "dharitri-chain-core",
+ "dharitri-core",
  "hex",
  "hmac",
  "itertools",
@@ -1099,28 +1097,30 @@ dependencies = [
 ]
 
 [[package]]
+name = "dharitri-vm"
+version = "0.12.0"
+dependencies = [
+ "bitflags",
+ "colored",
+ "dharitri-core",
+ "dharitri-vm-executor",
+ "ed25519-dalek",
+ "hex",
+ "hex-literal",
+ "itertools",
+ "num-bigint",
+ "num-traits",
+ "rand",
+ "rand_seeder",
+ "sha2",
+ "sha3",
+]
+
+[[package]]
 name = "dharitri-vm-executor"
 version = "0.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f571f3c1d7d9109c50c0567f1c26a1f0ecf1736a9ceb0603144b89794d9b63bb"
-
-[[package]]
-name = "dharitri-wmoa-swap-sc"
-version = "0.55.0"
-dependencies = [
- "dharitri-sc",
- "dharitri-sc-modules",
- "dharitri-sc-scenario",
-]
-
-[[package]]
-name = "dharitri-wmoa-swap-sc-meta"
-version = "0.0.0"
-dependencies = [
- "dharitri-sc",
- "dharitri-sc-meta-lib",
- "dharitri-wmoa-swap-sc",
-]
 
 [[package]]
 name = "digest"
@@ -2666,7 +2666,7 @@ dependencies = [
  "dharitri-sc",
  "dharitri-sc-modules",
  "dharitri-sc-scenario",
- "dharitri-wmoa-swap-sc",
+ "dharitri-sc-wmoa-swap",
  "factorial",
  "hex",
  "num-bigint",
