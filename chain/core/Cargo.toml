@@ -1,6 +1,6 @@
 [package]
 name = "dharitri-core"
-version = "0.12.0"
+version = "0.0.1"
 edition = "2021"
 
 authors = ["Dharitri <contact@dharitri.org>"]
@@ -17,6 +17,6 @@ categories = ["cryptography::cryptocurrencies", "development-tools::debugging"]
 bitflags = "=2.6.0"
 
 [dependencies.dharitri-sc-codec]
-version = "=0.21.2"
+version = "=0.0.1"
 path = "../../data/codec"
 features = ["derive"]

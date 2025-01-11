@@ -1,6 +1,6 @@
 [package]
 name = "dharitri-sc-wasm-adapter"
-version = "0.55.0"
+version = "0.0.1"
 edition = "2021"
 
 authors = ["Dharitri <contact@dharitri.org>"]
@@ -19,5 +19,5 @@ categories = [
 ]
 
 [dependencies.dharitri-sc]
-version = "=0.55.0"
+version = "=0.0.1"
 path = "../base"

@@ -94,7 +94,7 @@ where
     ///
     /// For raw handling, `.moa_direct_non_strict()` is also acceptable.
     #[deprecated(
-        since = "0.55.0",
+        since = "0.0.1",
         note = "Does not cover multi-transfer scenarios properly, but left for backwards compatibility. Please use .moa() instead!"
     )]
     pub fn moa_value(&self) -> ManagedRef<'static, A, BigUint<A>> {

@@ -33,7 +33,7 @@ They are:
 	- `dharitri-sdk-dapp`
 
 
-## [sc 0.55.0, codec 0.21.2, chain 0.12.0, sdk 0.8.0] - 2025-01-08
+## [sc 0.0.1, codec 0.0.1, chain 0.0.1, sdk 0.0.1] - 2025-01-08
 - Integrating Spica changes into the framework:
 	- MOA+DCDT multi-transfers are now possible:
 		- changed the handling of call values: MOA is treated almost the same as an DCDT in `all_transfers` and `multi_moa_or_dcdt`, old DCDT methods are given some protection against unexpected scenarios
@@ -785,7 +785,7 @@ First pre-release of the unified syntax. Syntax not yet stabilized, should only 
 - Contract `meta` crates are now capable of building the respective contracts and the ABIs without relying on `drtpy`.
 - Renamed feature `andes-tests` to `denali-go-tests`
 
-## [numbat-wasm 0.21.2] - 2021-10-26
+## [numbat-wasm 0.0.1] - 2021-10-26
 - Bugfix regarding contract upgrade args in `numbat-wasm-debug`
 
 ## [numbat-wasm 0.21.1, numbat-codec 0.8.1, denali 0.11.1] - 2021-10-26
