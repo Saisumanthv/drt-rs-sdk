@@ -1,9 +1,9 @@
 [package]
 name = "dharitri-sc-modules"
-version = "0.0.1"
+version = "0.55.0"
 edition = "2021"
 
-authors = ["Dharitri <contact@dharitri.org>"]
+authors = ["Dharitri <contact@dharitri.com>"]
 license = "GPL-3.0-only"
 readme = "README.md"
 repository = "https://github.com/TerraDharitri/drt-sdk-rs"
@@ -17,5 +17,5 @@ categories = ["no-std", "wasm", "cryptography::cryptocurrencies"]
 alloc = ["dharitri-sc/alloc"]
 
 [dependencies.dharitri-sc]
-version = "0.0.1"
+version = "0.55.0"
 path = "../../framework/base"

@@ -16,10 +16,10 @@ pub trait NonFungibleTokenMapperFeatures:
     #[payable("MOA")]
     #[endpoint]
     fn issue_and_set_all_roles_meta(&self, token_ticker: ManagedBuffer) {
-        let payment = self.call_value().moa_value();
+        let payment = self.call_value().moa();
         self.non_fungible_token_mapper().issue_and_set_all_roles(
             DcdtTokenType::Meta,
-            payment.clone_value(),
+            payment.clone(),
             ManagedBuffer::new(),
             token_ticker,
             0,

@@ -1,9 +1,9 @@
 [package]
 name = "dharitri-sdk-dapp"
-version = "0.0.1"
+version = "0.8.0"
 edition = "2021"
 
-authors = ["Dharitri <contact@dharitri.org>"]
+authors = ["Dharitri <contact@dharitri.com>"]
 license = "MIT"
 readme = "README.md"
 repository = "https://github.com/TerraDharitri/drt-sdk-rs"
@@ -22,9 +22,9 @@ wasm-bindgen-futures = { version = "0.4.43" }
 gloo-net = { version = "0.6.0" }
 anyhow = "1.0.44"
 hex = "0.4.3"
-itertools = "0.13.0"
+itertools = "0.14.0"
 log = "0.4.17"
 
 [dependencies.dharitri-sdk]
-version = "=0.0.1"
+version = "=0.8.0"
 path = "../core"

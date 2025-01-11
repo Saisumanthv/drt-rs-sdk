@@ -1,9 +1,9 @@
 [package]
 name = "dharitri-sc-snippets"
-version = "0.0.1"
+version = "0.55.0"
 edition = "2021"
 
-authors = ["Dharitri <contact@dharitri.org>"]
+authors = ["Dharitri <contact@dharitri.com>"]
 license = "GPL-3.0-only"
 readme = "README.md"
 repository = "https://github.com/TerraDharitri/drt-sdk-rs"
@@ -27,31 +27,29 @@ log = "0.4.17"
 env_logger = "0.11"
 futures = "0.3"
 anyhow = "1.0.44"
+serde_json = "1.0"
 
-tokio = { version = "1.24", features = ["full"], optional = true}
+tokio = { version = "1.24", features = ["full"], optional = true }
 
 [dependencies.dharitri-sc-scenario]
-version = "=0.0.1"
+version = "=0.55.0"
 path = "../scenario"
 
 [dependencies.dharitri-chain-scenario-format]
-version = "0.0.1"
+version = "0.23.0"
 path = "../../sdk/scenario-format"
 
 [dependencies.dharitri-sdk]
-version = "=0.0.1"
+version = "=0.8.0"
 path = "../../sdk/core"
 
 [dependencies.dharitri-sdk-http]
-version = "=0.0.1"
+version = "=0.8.0"
 path = "../../sdk/http"
 optional = true
 default-features = false
 
 [dependencies.dharitri-sdk-dapp]
-version = "=0.0.1"
+version = "=0.8.0"
 path = "../../sdk/dapp"
 optional = true
-
-[dev-dependencies]
-serde_json = "1.0"

@@ -50,7 +50,7 @@ pub trait NftStoragePrepay {
     #[payable("MOA")]
     #[endpoint(depositPaymentForStorage)]
     fn deposit_payment_for_storage(&self) {
-        let payment = self.call_value().moa_value();
+        let payment = self.call_value().moa();
         let caller = self.blockchain().get_caller();
         self.deposit(&caller)
             .update(|deposit| *deposit += &*payment);

@@ -1,10 +1,10 @@
 [package]
 name = "dharitri-sdk-http"
-version = "0.0.1"
+version = "0.8.0"
 edition = "2021"
 
 authors = [
-    "Dharitri <contact@dharitri.org>",
+    "Dharitri <contact@dharitri.com>",
 ]
 license = "MIT"
 readme = "README.md"
@@ -26,9 +26,9 @@ tokio = { version = "1.24", features = ["full"] }
 reqwest = { version = "0.12", features = ["blocking", "json"], default-features = false }
 anyhow = "1.0.44"
 hex = "0.4.3"
-itertools = "0.13.0"
+itertools = "0.14.0"
 log = "0.4.17"
 
 [dependencies.dharitri-sdk]
-version = "=0.0.1"
+version = "=0.8.0"
 path = "../core"

@@ -24,24 +24,13 @@ pub trait ForwarderRaw:
 
     #[callback_raw]
     fn callback_raw(&self, args: MultiValueEncoded<ManagedBuffer>) {
-        let payments = self.call_value().all_dcdt_transfers();
-        if payments.is_empty() {
-            let moa_value = self.call_value().moa_value();
-            if *moa_value > 0 {
-                let _ = self.callback_payments().push(&(
-                    MoaOrDcdtTokenIdentifier::moa(),
-                    0,
-                    moa_value.clone_value(),
-                ));
-            }
-        } else {
-            for payment in payments.into_iter() {
-                let _ = self.callback_payments().push(&(
-                    MoaOrDcdtTokenIdentifier::dcdt(payment.token_identifier),
-                    payment.token_nonce,
-                    payment.amount,
-                ));
-            }
+        let payments = self.call_value().all_transfers();
+        for payment in payments.iter() {
+            let _ = self.callback_payments().push(&(
+                payment.token_identifier.clone(),
+                payment.token_nonce,
+                payment.amount.clone(),
+            ));
         }
 
         let args_as_vec = args.into_vec_of_buffers();

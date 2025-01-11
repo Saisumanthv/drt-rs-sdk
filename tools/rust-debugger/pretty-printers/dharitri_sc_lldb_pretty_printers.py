@@ -331,7 +331,7 @@ class BigUint(PlainManagedVecItem, ManagedType):
 
 class TokenIdentifier(PlainManagedVecItem, ManagedType):
     def lookup(self, token_identifier: lldb.value) -> lldb.value:
-        return token_identifier.buffer
+        return token_identifier.data.buffer
 
     def value_summary(self, buffer: lldb.value, context: lldb.value, type_info: lldb.SBType) -> str:
         return buffer_as_string(buffer)
@@ -417,14 +417,13 @@ class DcdtTokenPayment(ManagedVecItem, ManagedType):
 
 class MoaOrDcdtTokenIdentifier(PlainManagedVecItem, ManagedType):
     def lookup(self, moa_or_dcdt_token_identifier: lldb.value) -> lldb.value:
-        return moa_or_dcdt_token_identifier.data
+        return moa_or_dcdt_token_identifier.buffer
 
-    @check_invalid_handle
-    def summary_from_raw_handle(self, raw_handle: int, context: lldb.value, type_info: lldb.SBType) -> str:
-        if raw_handle == MANAGED_OPTION_NONE_HANDLE:
+    def value_summary(self, buffer: lldb.value, context: lldb.value, type_info: lldb.SBType) -> str:
+        token_id = buffer_as_string(buffer)
+        if token_id == '"MOA-000000"':
             return "MoaOrDcdtTokenIdentifier::moa()"
-        token_summary = TokenIdentifier().summary_from_raw_handle(raw_handle, context, None)
-        return f"MoaOrDcdtTokenIdentifier::dcdt({token_summary})"
+        return f"MoaOrDcdtTokenIdentifier::dcdt({token_id})" 
 
 
 class ManagedVec(PlainManagedVecItem, ManagedType):

@@ -2,7 +2,7 @@ use crate::types::{BigUint, MoaOrMultiDcdtPaymentRefs, ManagedAddress, TxFrom, T
 
 use super::{Moa, FullPaymentData, FunctionCall, TxEnv, TxPayment};
 
-impl<'a, Env> TxPayment<Env> for MoaOrMultiDcdtPaymentRefs<'a, Env::Api>
+impl<Env> TxPayment<Env> for MoaOrMultiDcdtPaymentRefs<'_, Env::Api>
 where
     Env: TxEnv,
 {

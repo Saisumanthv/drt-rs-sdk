@@ -69,7 +69,7 @@ pub trait PingPong {
     #[payable("MOA")]
     #[endpoint]
     fn ping(&self, _data: IgnoreValue) {
-        let payment = self.call_value().moa_value();
+        let payment = self.call_value().moa();
 
         require!(
             *payment == self.ping_amount().get(),

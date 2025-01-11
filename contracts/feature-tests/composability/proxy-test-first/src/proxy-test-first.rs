@@ -29,7 +29,7 @@ pub trait ProxyTestFirst {
     #[payable("MOA")]
     #[endpoint(deploySecondContract)]
     fn deploy_second_contract(&self, code: ManagedBuffer) -> i32 {
-        let payment = self.call_value().moa_value();
+        let payment = self.call_value().moa();
 
         let (address, init_result) = self
             .tx()
@@ -49,7 +49,7 @@ pub trait ProxyTestFirst {
     #[payable("MOA")]
     #[endpoint(upgradeSecondContract)]
     fn upgrade_second_contract(&self, code: ManagedBuffer) {
-        let payment = self.call_value().moa_value();
+        let payment = self.call_value().moa();
         let other_contract = self.get_other_contract();
 
         self.tx()
@@ -66,7 +66,7 @@ pub trait ProxyTestFirst {
     #[payable("MOA")]
     #[endpoint(forwardToOtherContract)]
     fn forward_to_other_contract(&self) {
-        let payment = self.call_value().moa_value();
+        let payment = self.call_value().moa();
         let other_contract = self.get_other_contract();
         self.tx()
             .to(&other_contract)
@@ -79,7 +79,7 @@ pub trait ProxyTestFirst {
     #[payable("MOA")]
     #[endpoint(forwardToOtherContractWithCallback)]
     fn forward_to_other_contract_with_callback(&self) {
-        let payment = self.call_value().moa_value();
+        let payment = self.call_value().moa();
         let other_contract = self.get_other_contract();
         self.tx()
             .to(&other_contract)

@@ -38,7 +38,7 @@ pub trait Parent {
         token_ticker: ManagedBuffer,
         initial_supply: BigUint,
     ) {
-        let issue_cost = self.call_value().moa_value();
+        let issue_cost = self.call_value().moa();
         let child_contract_adress = self.child_contract_address().get();
 
         self.tx()

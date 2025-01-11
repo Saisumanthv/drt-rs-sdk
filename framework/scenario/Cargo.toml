@@ -1,10 +1,11 @@
 [package]
 name = "dharitri-sc-scenario"
-version = "0.0.1"
+version = "0.55.0"
 edition = "2021"
 
 authors = [
-    "Dharitri <contact@dharitri.org>",
+    "Andrei Marinica <andrei.marinica@dharitri.com>",
+    "Dharitri <contact@dharitri.com>",
 ]
 license = "GPL-3.0-only"
 readme = "README.md"
@@ -26,8 +27,8 @@ sha2 = "0.10.6"
 serde = "1.0"
 serde_json = "1.0"
 pathdiff = "0.2.1"
-itertools = "0.13.0"
-colored = "2.0"
+itertools = "0.14.0"
+colored = "2.2"
 unwrap-infallible = "0.1.5"
 
 [features]
@@ -36,21 +37,21 @@ wasm-incompatible = ["dharitri-chain-vm/wasm-incompatible"]
 run-go-tests = []
 
 [dependencies.dharitri-sc]
-version = "=0.0.1"
+version = "=0.55.0"
 features = ["alloc", "num-bigint"]
 path = "../base"
 
 [dependencies.dharitri-sc-meta-lib]
-version = "=0.0.1"
+version = "=0.55.0"
 path = "../meta-lib"
 
 [dependencies.dharitri-chain-scenario-format]
-version = "0.0.1"
+version = "0.23.0"
 path = "../../sdk/scenario-format"
 
 [dependencies.dharitri-vm-executor]
 version = "0.2.0"
 
 [dependencies.dharitri-chain-vm]
-version = "=0.0.1"
+version = "=0.12.0"
 path = "../../chain/vm"

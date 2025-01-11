@@ -16,7 +16,7 @@ pub trait MoaDcdtSwap: dharitri_sc_modules::pause::PauseModule {
     fn wrap_moa(&self) -> DcdtTokenPayment<Self::Api> {
         self.require_not_paused();
 
-        let payment_amount = self.call_value().moa_value();
+        let payment_amount = self.call_value().moa();
         require!(*payment_amount > 0u32, "Payment must be more than 0");
 
         let wrapped_moa_token_id = self.wrapped_moa_token_id().get();
@@ -28,7 +28,7 @@ pub trait MoaDcdtSwap: dharitri_sc_modules::pause::PauseModule {
             .single_dcdt(&wrapped_moa_token_id, 0, &payment_amount)
             .transfer();
 
-        DcdtTokenPayment::new(wrapped_moa_token_id, 0, payment_amount.clone_value())
+        DcdtTokenPayment::new(wrapped_moa_token_id, 0, payment_amount.clone())
     }
 
     #[payable("*")]
@@ -39,10 +39,10 @@ pub trait MoaDcdtSwap: dharitri_sc_modules::pause::PauseModule {
         let (payment_token, payment_amount) = self.call_value().single_fungible_dcdt();
         let wrapped_moa_token_id = self.wrapped_moa_token_id().get();
 
-        require!(payment_token == wrapped_moa_token_id, "Wrong dcdt token");
-        require!(payment_amount > 0u32, "Must pay more than 0 tokens!");
+        require!(*payment_token == wrapped_moa_token_id, "Wrong dcdt token");
+        require!(*payment_amount > 0u32, "Must pay more than 0 tokens!");
         require!(
-            payment_amount <= self.get_locked_moa_balance(),
+            *payment_amount <= self.get_locked_moa_balance(),
             "Contract does not have enough funds"
         );
 
@@ -51,7 +51,7 @@ pub trait MoaDcdtSwap: dharitri_sc_modules::pause::PauseModule {
 
         // 1 wrapped MOA = 1 MOA, so we pay back the same amount
         let caller = self.blockchain().get_caller();
-        self.tx().to(&caller).moa(&payment_amount).transfer();
+        self.tx().to(&caller).moa(&*payment_amount).transfer();
     }
 
     #[view(getLockedMoaBalance)]

@@ -5,6 +5,7 @@ mod tx_payment_moa_or_dcdt_refs;
 mod tx_payment_moa_or_multi_dcdt;
 mod tx_payment_moa_or_multi_dcdt_ref;
 mod tx_payment_moa_value;
+mod tx_payment_multi_moa_or_dcdt;
 mod tx_payment_multi_dcdt;
 mod tx_payment_none;
 mod tx_payment_not_payable;
@@ -20,7 +21,7 @@ pub use tx_payment_not_payable::NotPayable;
 
 use crate::{
     api::ManagedTypeApi,
-    types::{BigUint, ManagedAddress, ManagedBuffer, MultiDcdtPayment},
+    types::{BigUint, ManagedAddress, ManagedBuffer, MultiMoaOrDcdtPayment},
 };
 
 use super::{AnnotatedValue, FunctionCall, TxEnv, TxFrom, TxToSpecified};
@@ -118,7 +119,7 @@ where
     Api: ManagedTypeApi,
 {
     pub moa: Option<AnnotatedMoaPayment<Api>>,
-    pub multi_dcdt: MultiDcdtPayment<Api>,
+    pub multi_dcdt: MultiMoaOrDcdtPayment<Api>,
 }
 
 impl<Api> Default for FullPaymentData<Api>

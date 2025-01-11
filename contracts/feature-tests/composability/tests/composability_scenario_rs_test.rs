@@ -239,6 +239,11 @@ fn forwarder_call_async_multi_transfer_rs() {
 }
 
 #[test]
+fn forwarder_call_async_multi_transfer_moa_rs() {
+    world().run("scenarios/forwarder_call_async_multi_transfer_moa.scen.json");
+}
+
+#[test]
 fn forwarder_call_async_retrieve_moa_rs() {
     world().run("scenarios/forwarder_call_async_retrieve_moa.scen.json");
 }
@@ -341,6 +346,11 @@ fn forwarder_call_transf_exec_accept_dcdt_twice_rs() {
 #[test]
 fn forwarder_call_transf_exec_accept_multi_transfer_rs() {
     world().run("scenarios/forwarder_call_transf_exec_accept_multi_transfer.scen.json");
+}
+
+#[test]
+fn forwarder_call_transf_exec_accept_multi_transfer_moa_rs() {
+    world().run("scenarios/forwarder_call_transf_exec_accept_multi_transfer_moa.scen.json");
 }
 
 #[test]
@@ -486,6 +496,16 @@ fn promises_call_async_retrieve_dcdt_rs() {
 #[test]
 fn promises_call_callback_directly_rs() {
     world().run("scenarios/promises_call_callback_directly.scen.json");
+}
+
+#[test]
+fn promises_call_transfer_callback_moa_rs() {
+    world().run("scenarios/promises_call_transfer_callback_moa.scen.json");
+}
+
+#[test]
+fn promises_call_transfer_callback_dcdt_rs() {
+    world().run("scenarios/promises_call_transfer_callback_dcdt.scen.json");
 }
 
 #[test]

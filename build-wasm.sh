@@ -2,8 +2,8 @@
 
 # builds all wasm targets
 
-cargo install dharitri-sc-meta --force
+cargo install dharitri-sc-meta
 
-TARGET_DIR=target
+TARGET_DIR=$PWD/target
 
 sc-meta all build --target-dir-all $TARGET_DIR --path ./contracts

@@ -57,13 +57,13 @@ pub trait RustTestingFrameworkTester: dummy_module::DummyModule {
     #[payable("MOA")]
     #[endpoint]
     fn receive_moa(&self) -> BigUint {
-        self.call_value().moa_value().clone_value()
+        self.call_value().moa().clone()
     }
 
     #[payable("MOA")]
     #[endpoint]
     fn recieve_moa_half(&self) {
-        let payment_amount = &*self.call_value().moa_value() / 2u32;
+        let payment_amount = &*self.call_value().moa() / 2u32;
         self.tx().to(ToCaller).moa(payment_amount).transfer();
     }
 
@@ -71,7 +71,7 @@ pub trait RustTestingFrameworkTester: dummy_module::DummyModule {
     #[endpoint]
     fn receive_dcdt(&self) -> (TokenIdentifier, BigUint) {
         let payment = self.call_value().single_dcdt();
-        (payment.token_identifier, payment.amount)
+        (payment.token_identifier.clone(), payment.amount.clone())
     }
 
     #[payable("*")]
@@ -84,7 +84,7 @@ pub trait RustTestingFrameworkTester: dummy_module::DummyModule {
     #[endpoint]
     fn receive_dcdt_half(&self) {
         let payment = self.call_value().single_dcdt();
-        let amount = payment.amount / 2u32;
+        let amount = &payment.amount / 2u32;
 
         self.tx()
             .to(ToCaller)
@@ -95,7 +95,7 @@ pub trait RustTestingFrameworkTester: dummy_module::DummyModule {
     #[payable("*")]
     #[endpoint]
     fn receive_multi_dcdt(&self) -> ManagedVec<DcdtTokenPayment<Self::Api>> {
-        self.call_value().all_dcdt_transfers().clone_value()
+        self.call_value().all_dcdt_transfers().clone()
     }
 
     #[payable("*")]

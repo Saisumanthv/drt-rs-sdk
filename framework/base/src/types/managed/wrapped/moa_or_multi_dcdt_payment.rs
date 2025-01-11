@@ -49,7 +49,7 @@ impl<M: ManagedTypeApi> MoaOrMultiDcdtPayment<M> {
     }
 }
 
-impl<'a, M: ManagedTypeApi> MoaOrMultiDcdtPaymentRefs<'a, M> {
+impl<M: ManagedTypeApi> MoaOrMultiDcdtPaymentRefs<'_, M> {
     pub fn to_owned_payment(&self) -> MoaOrMultiDcdtPayment<M> {
         match self {
             MoaOrMultiDcdtPaymentRefs::Moa(moa_value) => {

@@ -1,7 +1,7 @@
 [package]
 name = "sc-plotter-wasm"
 version = "0.0.0"
-authors = ["Dharitri <contact@dharitri.org>"]
+authors = ["Dharitri <contact@dharitri.com>"]
 license = "GPL-3.0-only"
 repository = "https://github.com/TerraDharitri/drt-sdk-rs"
 description = "Web app for displaying function graphs from the framework"
@@ -21,11 +21,11 @@ plotters-canvas = "^0.3.0"
 lto = true
 
 [dependencies.dharitri-sc]
-version = "=0.0.1"
+version = "=0.55.0"
 path = "../../framework/base"
 
 [dependencies.dharitri-sc-scenario]
-version = "=0.0.1"
+version = "=0.55.0"
 path = "../../framework/scenario"
 default-features = false
 

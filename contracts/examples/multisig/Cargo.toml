@@ -1,7 +1,7 @@
 [package]
 name = "multisig"
 version = "1.0.0"
-authors = ["Dharitri <contact@dharitri.org>"]
+authors = ["Andrei Marinica <andrei.marinica@dharitri.com>"]
 edition = "2021"
 publish = false
 
@@ -9,15 +9,15 @@ publish = false
 path = "src/multisig.rs"
 
 [dependencies.dharitri-sc]
-version = "0.0.1"
+version = "0.55.0"
 path = "../../../framework/base"
 
 [dependencies.dharitri-sc-modules]
-version = "0.0.1"
+version = "0.55.0"
 path = "../../../contracts/modules"
 
 [dev-dependencies.dharitri-sc-scenario]
-version = "0.0.1"
+version = "0.55.0"
 path = "../../../framework/scenario"
 
 [dev-dependencies.adder]
@@ -27,7 +27,7 @@ path = "../adder"
 path = "../factorial"
 
 [dev-dependencies.dharitri-wmoa-swap-sc]
-version = "0.0.1"
+version = "0.55.0"
 path = "../../core/wmoa-swap"
 
 [dev-dependencies]

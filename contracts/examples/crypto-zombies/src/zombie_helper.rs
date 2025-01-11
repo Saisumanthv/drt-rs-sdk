@@ -19,7 +19,7 @@ pub trait ZombieHelper: storage::Storage {
     #[payable("MOA")]
     #[endpoint]
     fn level_up(&self, zombie_id: usize) {
-        let payment_amount = self.call_value().moa_value();
+        let payment_amount = self.call_value().moa();
         let fee = self.level_up_fee().get();
         require!(*payment_amount == fee, "Payment must be must be 0.001 MOA");
         self.zombies(&zombie_id)
