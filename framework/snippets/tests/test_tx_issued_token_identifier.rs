@@ -43,7 +43,7 @@ fn test_process_issued_token_identifier_fungible() {
           "value": 50000000000000000,
           "receiver": "drt1qqqqqqqqqqqqqqqpqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqzllls6prdez",
           "sender": "drt1qqqqqqqqqqqqqpgqa7hv0nahgsl8tz0psat46x0tchm0wuyc0n4s8uay7n",
-          "data": "issue@4d4f414d45584c50@4d4f414d4558@03e8@12@63616e467265657a65@74727565@63616e57697065@74727565@63616e5061757365@74727565@63616e4d696e74@74727565@63616e4275726e@74727565@63616e4368616e67654f776e6572@74727565@63616e55706772616465@74727565@63616e4164645370656369616c526f6c6573@74727565@65ba30",
+          "data": "issue@524557414d45584c50@524557414d4558@03e8@12@63616e467265657a65@74727565@63616e57697065@74727565@63616e5061757365@74727565@63616e4d696e74@74727565@63616e4275726e@74727565@63616e4368616e67654f776e6572@74727565@63616e55706772616465@74727565@63616e4164645370656369616c526f6c6573@74727565@65ba30",
           "prevTxHash": "b78170cc5ca5ba441ea46fe84540db9610ccab243ccd4cd3cd976e170c4864c8",
           "originalTxHash": "b78170cc5ca5ba441ea46fe84540db9610ccab243ccd4cd3cd976e170c4864c8",
           "gasLimit": 89624222,
@@ -59,7 +59,7 @@ fn test_process_issued_token_identifier_fungible() {
           "value": 0,
           "receiver": "drt1llllllllllllllllllllllllllllllllllllllllllllllllluqszxwjey",
           "sender": "drt1qqqqqqqqqqqqqqqpqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqzllls6prdez",
-          "data": "DCDTSetBurnRoleForAll@4d4f414d45582d393563366435",
+          "data": "DCDTSetBurnRoleForAll@524557414d45582d393563366435",
           "prevTxHash": "bce3d0dceb0b3e5c8c5780d7da3755c3f7492d551685d493a73bf66ebd36754b",
           "originalTxHash": "b78170cc5ca5ba441ea46fe84540db9610ccab243ccd4cd3cd976e170c4864c8",
           "gasLimit": 0,
@@ -87,7 +87,7 @@ fn test_process_issued_token_identifier_fungible() {
           "value": 0,
           "receiver": "drt1qqqqqqqqqqqqqpgqa7hv0nahgsl8tz0psat46x0tchm0wuyc0n4s8uay7n",
           "sender": "drt1qqqqqqqqqqqqqqqpqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqzllls6prdez",
-          "data": "DCDTTransfer@4d4f414d45582d393563366435@03e8@00",
+          "data": "DCDTTransfer@524557414d45582d393563366435@03e8@00",
           "prevTxHash": "bce3d0dceb0b3e5c8c5780d7da3755c3f7492d551685d493a73bf66ebd36754b",
           "originalTxHash": "b78170cc5ca5ba441ea46fe84540db9610ccab243ccd4cd3cd976e170c4864c8",
           "gasLimit": 39624222,
@@ -120,7 +120,7 @@ fn test_process_issued_token_identifier_fungible() {
             ]
           },
           "tokens": [
-            "MOAMEX-95c6d5"
+            "REWAMEX-95c6d5"
           ],
           "dcdtValues": [
             "1000"
@@ -206,7 +206,7 @@ fn test_process_issued_token_identifier_fungible() {
         .transaction;
     let tx_response = network_response::parse_tx_response(tx_on_network, ReturnCode::Success);
 
-    let expected: Option<String> = Some("MOAMEX-95c6d5".to_string());
+    let expected: Option<String> = Some("REWAMEX-95c6d5".to_string());
 
     assert_eq!(tx_response.new_issued_token_identifier, expected)
 }

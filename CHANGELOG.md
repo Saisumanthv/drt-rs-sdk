@@ -19,7 +19,7 @@ They are:
     - `dharitri-sc-wasm-adapter`
     - `dharitri-sc-modules` - *standard contract modules*
 	- `dharitri-sc-price-aggregator` - *core contract*
-	- `dharitri-sc-wmoa-swap` - *core contract*
+	- `dharitri-sc-wrewa-swap` - *core contract*
 - `dharitri-sc-codec`, in short `codec`, the serializer/deserializer, 2 crates:
 	- `dharitri-sc-codec`
 	- `dharitri-sc-codec-derive`
@@ -35,9 +35,9 @@ They are:
 
 ## [sc 0.0.1, codec 0.0.1, chain 0.0.1, sdk 0.0.1] - 2025-01-08
 - Integrating Spica changes into the framework:
-	- MOA+DCDT multi-transfers are now possible:
-		- changed the handling of call values: MOA is treated almost the same as an DCDT in `all_transfers` and `multi_moa_or_dcdt`, old DCDT methods are given some protection against unexpected scenarios
-		- changed the tx unified syntax for sending MOA+DCDT from contracts, interactors and tests;
+	- REWA+DCDT multi-transfers are now possible:
+		- changed the handling of call values: REWA is treated almost the same as an DCDT in `all_transfers` and `multi_rewa_or_dcdt`, old DCDT methods are given some protection against unexpected scenarios
+		- changed the tx unified syntax for sending REWA+DCDT from contracts, interactors and tests;
 		- support in the Rust VM.
 	- New built-in functions in the `DCDTSystemSCProxy`: `DCDTModifyRoyalties`, `SDTSetNewURIs`, `DCDTModifyCreator`, `DCDTMetaDataRecreate`, `DCDTMetaDataUpdate`.
 - Interactor support for "set state" on the chain simulator.
@@ -109,7 +109,7 @@ They are:
 	- `ReturnsHandledOrError` result handler, which can gracefully deal with failed transactions;
 	- `ReturnsGasUsed` result handler;
 	- `PassValue` result handler for providing a closure-like context for multi-transaction call/deploy;
-	- More specific back transfer result handlers: `ReturnsBackTransfersMOA`, `ReturnsBackTransfersMultiDCDT`, `ReturnsBackTransfersSingleDCDT`;
+	- More specific back transfer result handlers: `ReturnsBackTransfersREWA`, `ReturnsBackTransfersMultiDCDT`, `ReturnsBackTransfersSingleDCDT`;
 	- Fixed an issue with the update functionality not being general enough;
 	- Deprecated `prepare_async()`, developers can now call `run()` directly, asynchronously;
 - `sc-meta` improvements:
@@ -187,7 +187,7 @@ They are:
 	- `hasPanic`: whether it produces Rust panics and formats error messages using the standard Rust formatter (a source of code bloat).
 - `ManagedDecimal` and `ManagedDecimalSigned`:
 	- New types that encapulate a managed `BigUint` and `BigInt` respectively, but treat them as base 10 fixed point rational numbers.
-	- Two flavors are allowed: the number of decimals is known at compile time (e.g. MOA always has 18 decimals), or only at runtime.
+	- Two flavors are allowed: the number of decimals is known at compile time (e.g. REWA always has 18 decimals), or only at runtime.
 		- Type `ConstDecimals` is able to resolve conversions at compile time, reducing code size and making encoding and decoding easier, since the number of decimals does not need to be encoded.
 		- Regular `usize` number of decimals is resolved at runtime.
 	- All basic arithmetic operations are implemented for these types, just like for the big integers.
@@ -377,7 +377,7 @@ First pre-release of the unified syntax. Syntax not yet stabilized, should only 
 - Testing framework: check NFT balances and attributes.
 
 ## [sc 0.43.3, vm 0.5.2] - 2023-09-08
-- Added several new methods in the `SendWrapper`, which perform MOA & DCDT transfers but don't do anything if the value is zero.
+- Added several new methods in the `SendWrapper`, which perform REWA & DCDT transfers but don't do anything if the value is zero.
 - Added the `DeleteUsername` builtin function to the VM.
 - Minor fixes in API wrapper constructors.
 
@@ -468,7 +468,7 @@ First pre-release of the unified syntax. Syntax not yet stabilized, should only 
 - `ManagedVecItem` implementation for arrays.
 
 ## [sc 0.40.0, vm 0.2.0] - 2023-04-20
-- Call value `moa_value` and `all_dcdt_transfers` methods return `ManagedRef` instead of owned objects, because they are cached (to avoid accidental corruption of the underlying cache).
+- Call value `rewa_value` and `all_dcdt_transfers` methods return `ManagedRef` instead of owned objects, because they are cached (to avoid accidental corruption of the underlying cache).
 
 ## [sc 0.39.8, vm 0.1.8] - 2023-03-29
 - `dharitri-sc-meta` `test-gen` command: generates Rust integration tests based on scenarios present in the `scenarios` folder.
@@ -580,7 +580,7 @@ First pre-release of the unified syntax. Syntax not yet stabilized, should only 
 ## [numbat-wasm 0.34.1] - 2022-07-19
 - `#[only_admin]` annotation
 - Safer BigUint/BigInt conversions
-- Added and published `price-aggregator` and `wmoa-swap` core contracts.
+- Added and published `price-aggregator` and `wrewa-swap` core contracts.
 
 ## [numbat-wasm 0.34.0, numbat-codec 0.12.0, denali 0.16.0, numbat-interact-snippets 0.1.0] - 2022-07-08
 - Major refactor of the denali-rs infrastructure.
@@ -602,7 +602,7 @@ First pre-release of the unified syntax. Syntax not yet stabilized, should only 
 - CodecSelf for BigInt
 
 ## [numbat-wasm 0.33.0, denali 0.15.0] - 2022-06-20
-- Removed the data field for direct MOA & DCDT transfers.
+- Removed the data field for direct REWA & DCDT transfers.
 - Testing and debugging environment aligned with VM version 1.4.53.
 - Call value and token data infrastructure additional cleanup.
 
@@ -614,11 +614,11 @@ First pre-release of the unified syntax. Syntax not yet stabilized, should only 
 	- Functionality available by adding the `ei-1-2` flag to contracts.
 - `BigFloat` functionality. Since the functionality is not yet deployed on mainnet, use flag `big-float` to use.
 - Major refactoring of the call value mechanism:
-	- `TokenIdentifier` now only refers to DCDT, for mixed MOA+DCDT we have `MoaOrDcdtTokenIdentifier`.
-	- `DcdtTokenPayment` now only refers to DCDT, for mixed MOA+DCDT we have `MoaOrDcdtTokenPayment`.
+	- `TokenIdentifier` now only refers to DCDT, for mixed REWA+DCDT we have `RewaOrDcdtTokenIdentifier`.
+	- `DcdtTokenPayment` now only refers to DCDT, for mixed REWA+DCDT we have `RewaOrDcdtTokenPayment`.
 	- Compact version for multi-transfer: `let [payment_a, payment_b, payment_c] = self.call_value().multi_dcdt();`.
-	- Explicit `single_dcdt` vs. `single_fungible_dcdt` vs. `moa_or_single_dcdt` vs. `moa_or_single_fungible_dcdt`.
-	- Payment arguments are still supported, although discouraged. They always assume the MOA+DCDT scenario.
+	- Explicit `single_dcdt` vs. `single_fungible_dcdt` vs. `rewa_or_single_dcdt` vs. `rewa_or_single_fungible_dcdt`.
+	- Payment arguments are still supported, although discouraged. They always assume the REWA+DCDT scenario.
 - `ManagedOption` provides some minor optimization for specific use-cases. Mostly for use in the framework.
 - Cleanup in the callback mechanism and in the `SendApi`.
 - `SparseArray` implementation.
@@ -965,7 +965,7 @@ First pre-release of the unified syntax. Syntax not yet stabilized, should only 
 - SingleValueMapper redesigned for easier use. It no longer keeps the storage value cached.
 
 ## [numbat-wasm 0.12.0] - 2021-02-25
-- Reorganized DCDT and MOA direct send api.
+- Reorganized DCDT and REWA direct send api.
 - New async call syntax
 	- redesigned contract proxies
 	- contract calls are communicated via objects returned from endpoint methods
@@ -988,17 +988,17 @@ First pre-release of the unified syntax. Syntax not yet stabilized, should only 
     - contracts now use the new API + more denali tests
 - Call Value API refactor and `#[payable]` updates:
 	- Main features:
-    	- `#[payable]` annotation more versatile: `#[payable("MOA")]` `#[payable("TOKEN-ID")]` `#[payable("*")]`
+    	- `#[payable]` annotation more versatile: `#[payable("REWA")]` `#[payable("TOKEN-ID")]` `#[payable("*")]`
     	- `#[payable]` still accepted but throws a warning, will become unsupported in the future.
     	- `#[payment]` argument attribute now also provides DCDT payment where applicable
-    	- a new TokenIdentifier type that encodes the MOA special token and any DCDT token
+    	- a new TokenIdentifier type that encodes the REWA special token and any DCDT token
     	- a new `#[token_identifier]` argument attribute provides the token id. Similar to `#[payment]` it is a fake argument, not exported.
-    	- ABI updated ("payableInTokens" is no longer restricted to "MOA")
+    	- ABI updated ("payableInTokens" is no longer restricted to "REWA")
     	- all new features covered by denali tests
-    	- async proxies still only accept `#[payable("MOA")]`, but that is for future updates
+    	- async proxies still only accept `#[payable("REWA")]`, but that is for future updates
 	- Less visible changes:
     	- all call value hooks now grouped in a new CallValueApi
-    	- for low-level access, developers now need to write self.call_value().moa_value(), etc.
+    	- for low-level access, developers now need to write self.call_value().rewa_value(), etc.
     	- some optimizations in the handling of call value hooks
 	- Refactoring:
     	- parse_attr mod was split into a proper folder with many files, since it had grown too large

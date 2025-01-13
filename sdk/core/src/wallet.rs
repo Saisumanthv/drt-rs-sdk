@@ -31,7 +31,7 @@ use crate::{
 
 use uuid::Uuid;
 
-const MOA_COIN_TYPE: u32 = 508;
+const REWA_COIN_TYPE: u32 = 508;
 const HARDENED: u32 = 0x80000000;
 const CIPHER_ALGORITHM_AES_128_CTR: &str = "aes-128-ctr";
 const KDF_SCRYPT: &str = "scrypt";
@@ -89,7 +89,7 @@ impl Wallet {
 
         for child_idx in [
             44 | HARDENED,
-            MOA_COIN_TYPE | HARDENED,
+            REWA_COIN_TYPE | HARDENED,
             account | HARDENED, // account
             HARDENED,
             address_index | HARDENED, // addressIndex

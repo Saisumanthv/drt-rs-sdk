@@ -1008,7 +1008,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "dharitri-sc-wmoa-swap"
+name = "dharitri-sc-wrewa-swap"
 version = "0.0.1"
 dependencies = [
  "dharitri-sc",
@@ -1017,12 +1017,12 @@ dependencies = [
 ]
 
 [[package]]
-name = "dharitri-sc-wmoa-swap-meta"
+name = "dharitri-sc-wrewa-swap-meta"
 version = "0.0.0"
 dependencies = [
  "dharitri-sc",
  "dharitri-sc-meta-lib",
- "dharitri-sc-wmoa-swap",
+ "dharitri-sc-wrewa-swap",
 ]
 
 [[package]]
@@ -2666,7 +2666,7 @@ dependencies = [
  "dharitri-sc",
  "dharitri-sc-modules",
  "dharitri-sc-scenario",
- "dharitri-sc-wmoa-swap",
+ "dharitri-sc-wrewa-swap",
  "factorial",
  "hex",
  "num-bigint",
@@ -3072,7 +3072,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "ping-pong-moa"
+name = "ping-pong-rewa"
 version = "0.0.2"
 dependencies = [
  "dharitri-sc",
@@ -3080,23 +3080,23 @@ dependencies = [
 ]
 
 [[package]]
-name = "ping-pong-moa-interact"
+name = "ping-pong-rewa-interact"
 version = "0.0.0"
 dependencies = [
  "clap",
  "dharitri-sc-snippets",
- "ping-pong-moa",
+ "ping-pong-rewa",
  "serde",
  "tokio",
  "toml",
 ]
 
 [[package]]
-name = "ping-pong-moa-meta"
+name = "ping-pong-rewa-meta"
 version = "0.0.0"
 dependencies = [
  "dharitri-sc-meta-lib",
- "ping-pong-moa",
+ "ping-pong-rewa",
 ]
 
 [[package]]

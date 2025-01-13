@@ -128,6 +128,6 @@ cd contracts/core/price-aggregator
 cargo publish || return 1
 cd ../../..
 
-cd contracts/core/wmoa-swap
+cd contracts/core/wrewa-swap
 cargo publish || return 1
 cd ../../..

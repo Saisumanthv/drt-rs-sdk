@@ -42,7 +42,7 @@
             "tx": {
                 "from": "0x0139472eff6886771a982f3083da5d421f24c29181e63888228dc81ca60d69e1",
                 "to": "bech32:drt1qqqqqqqqqqqqqqqpqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqzllls6prdez",
-                "moaValue": "50000000000000000",
+                "rewaValue": "50000000000000000",
                 "function": "registerDynamic",
                 "arguments": [
                     "0x544553544e4654",

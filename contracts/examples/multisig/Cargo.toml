@@ -26,9 +26,9 @@ path = "../adder"
 [dev-dependencies.factorial]
 path = "../factorial"
 
-[dev-dependencies.dharitri-sc-wmoa-swap]
+[dev-dependencies.dharitri-sc-wrewa-swap]
 version = "0.0.1"
-path = "../../core/wmoa-swap"
+path = "../../core/wrewa-swap"
 
 [dev-dependencies]
 num-bigint = "0.4"

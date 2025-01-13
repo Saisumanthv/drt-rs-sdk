@@ -80,7 +80,7 @@ pub trait PayableFeatures {
     }
 
     #[endpoint]
-    fn moa_or_dcdt_payment(&self, arg: MoaOrDcdtTokenPayment) -> MoaOrDcdtTokenIdentifier {
+    fn rewa_or_dcdt_payment(&self, arg: RewaOrDcdtTokenPayment) -> RewaOrDcdtTokenIdentifier {
         arg.token_identifier
     }
 
