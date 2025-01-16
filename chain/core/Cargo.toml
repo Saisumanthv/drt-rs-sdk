@@ -1,5 +1,5 @@
 [package]
-name = "dharitri-core"
+name = "dharitri-chain-core"
 version = "0.0.1"
 edition = "2021"
 

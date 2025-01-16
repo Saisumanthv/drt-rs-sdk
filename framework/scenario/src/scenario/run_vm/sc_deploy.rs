@@ -2,7 +2,7 @@ use crate::{
     dharitri_sc::types::heap::Address, scenario::model::ScDeployStep, scenario_model::TxResponse,
 };
 
-use dharitri_vm::{
+use dharitri_chain_vm::{
     tx_execution::execute_current_tx_context_input,
     tx_mock::{TxFunctionName, TxInput, TxResult},
     types::VMCodeMetadata,
@@ -66,7 +66,7 @@ fn tx_input_from_deploy(sc_deploy_step: &ScDeployStep) -> TxInput {
     let tx = &sc_deploy_step.tx;
     TxInput {
         from: tx.from.to_address(),
-        to: dharitri_vm::types::VMAddress::zero(),
+        to: dharitri_chain_vm::types::VMAddress::zero(),
         rewa_value: tx.rewa_value.value.clone(),
         dcdt_values: Vec::new(),
         func_name: TxFunctionName::INIT,

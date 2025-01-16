@@ -4,7 +4,7 @@ use crate::sdk::{
 };
 use dharitri_sc_scenario::{
     imports::{Address, DCDTSystemSCAddress, ReturnCode},
-    dharitri_vm::{crypto_functions::keccak256, types::H256},
+    dharitri_chain_vm::{crypto_functions::keccak256, types::H256},
     scenario_model::{Log, TxResponse, TxResponseStatus},
 };
 

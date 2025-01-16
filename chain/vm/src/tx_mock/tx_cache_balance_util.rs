@@ -1,4 +1,4 @@
-use dharitri_core::REWA_000000_TOKEN_IDENTIFIER;
+use dharitri_chain_core::REWA_000000_TOKEN_IDENTIFIER;
 use num_bigint::BigUint;
 
 use crate::{

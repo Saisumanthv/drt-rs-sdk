@@ -38,6 +38,6 @@ version = "=0.0.1"
 path = "../../data/codec"
 features = ["derive"]
 
-[dependencies.dharitri-core]
+[dependencies.dharitri-chain-core]
 version = "=0.0.1"
 path = "../../chain/core"

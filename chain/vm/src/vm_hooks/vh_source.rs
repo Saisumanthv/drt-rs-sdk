@@ -1,6 +1,6 @@
 use std::{fmt::Debug, sync::MutexGuard};
 
-use dharitri_core::types::ReturnCode;
+use dharitri_chain_core::types::ReturnCode;
 
 use crate::{
     tx_mock::{BackTransfers, TxFunctionName, TxInput, TxLog, TxManagedTypes, TxResult},

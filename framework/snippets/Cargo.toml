@@ -35,7 +35,7 @@ tokio = { version = "1.24", features = ["full"], optional = true }
 version = "=0.0.1"
 path = "../scenario"
 
-[dependencies.dharitri-scenario-format]
+[dependencies.dharitri-chain-scenario-format]
 version = "0.0.1"
 path = "../../sdk/scenario-format"
 

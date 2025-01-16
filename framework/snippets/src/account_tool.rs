@@ -1,5 +1,5 @@
 use crate::sdk_core::data::dcdt::DcdtBalance;
-use dharitri_scenario_format::interpret_trait::IntoRaw;
+use dharitri_chain_scenario_format::interpret_trait::IntoRaw;
 use dharitri_sc_scenario::{
     imports::Bech32Address,
     scenario_model::{Account, BytesKey, BytesValue, Scenario, SetStateStep, Step},

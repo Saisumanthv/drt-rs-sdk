@@ -13,7 +13,7 @@
 # Be mindful that hotfixes need to be backwards compatible, minor releases do not.
 # We always publish all `framework/*` crates together.
 # We always publish `dharitri-codec` and `dharitri-codec-derive` together.
-# `framework/*` depend on both `dharitri-codec` and `dharitri-scenario-format`,
+# `framework/*` depend on both `dharitri-codec` and `dharitri-chain-scenario-format`,
 # so if you have a minor release on the latter, you also need a minor release on `framework/*`.
 # See the Changelog for more details.
 #

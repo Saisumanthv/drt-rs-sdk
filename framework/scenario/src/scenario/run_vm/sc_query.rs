@@ -1,5 +1,5 @@
 use crate::{num_bigint::BigUint, scenario::model::ScQueryStep, scenario_model::TxResponse};
-use dharitri_vm::{
+use dharitri_chain_vm::{
     tx_execution::execute_current_tx_context_input,
     tx_mock::{TxInput, TxResult},
 };

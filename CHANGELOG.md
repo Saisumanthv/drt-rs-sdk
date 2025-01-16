@@ -24,9 +24,9 @@ They are:
 	- `dharitri-sc-codec`
 	- `dharitri-sc-codec-derive`
 - Chain crates, in short `chain`. Formerly it was only the VM (`vm`). 2 crates:
-	- `dharitri-core` - *a common crate for chain types, constants, flags*
-	- `dharitri-vm` - *a Rust VM implementation*
-- `dharitri-scenario-format`, in short `scenario-format`, scenario JSON serializer/deserializer, 1 crate.
+	- `dharitri-chain-core` - *a common crate for chain types, constants, flags*
+	- `dharitri-chain-vm` - *a Rust VM implementation*
+- `dharitri-chain-scenario-format`, in short `scenario-format`, scenario JSON serializer/deserializer, 1 crate.
 - `dharitri-sdk`, in short `sdk`, allows communication with the chain(s), 3 crates:
 	- `dharitri-sdk`
 	- `dharitri-sdk-http`
@@ -86,7 +86,7 @@ They are:
 - `MultiValueEncodedCounted` - a lazy multi-value encoding, but with known number of elements.
 
 ## [sc 0.54.0, sdk 0.7.0, chain 0.11.0] - 2024-11-06
-- New crate, `dharitri-core`, to be used in both framework and Rust VM. It contains common types, flags, and constants that refer to the protocol.
+- New crate, `dharitri-chain-core`, to be used in both framework and Rust VM. It contains common types, flags, and constants that refer to the protocol.
 - Major SDK/interactor refactor:
 	- Added support for Chain Simulator in interactors:
 		- Added chain-simulator-specific endpoints: feed account, advance blocks
@@ -467,7 +467,7 @@ First pre-release of the unified syntax. Syntax not yet stabilized, should only 
 - Building contracts also triggers an EI check, which verifies compatibility with various VM versions. It currently only issues warnings.
 - `ManagedVecItem` implementation for arrays.
 
-## [sc 0.40.0, vm 0.2.0] - 2023-04-20
+## [sc 0.40.0, vm 0.0.3] - 2023-04-20
 - Call value `rewa_value` and `all_dcdt_transfers` methods return `ManagedRef` instead of owned objects, because they are cached (to avoid accidental corruption of the underlying cache).
 
 ## [sc 0.39.8, vm 0.1.8] - 2023-03-29
@@ -518,7 +518,7 @@ First pre-release of the unified syntax. Syntax not yet stabilized, should only 
 
 ## [sc 0.39.0, codec 0.17.0, vm 0.1.0, scenario-format 0.19.0, sdk 0.1.0] - 2023-01-12
 - All crates were renamed, in line with the Dharitri brand.
-- New crate: `dharitri-vm`, extracted from the old debug crate.
+- New crate: `dharitri-chain-vm`, extracted from the old debug crate.
 - New crate: `dharitri-sdk`, adapted from a solution proposed by the community.
 - A `ScenarioWorld` facade, for contract tests.
 - The meta crate supports `twiggy` post-processing, this is a tool to analyze contract size and investigate bloat in the binaries.

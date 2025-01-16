@@ -12,8 +12,8 @@ use crate::{
     testing_framework::raw_converter::bytes_to_hex,
     ScenarioWorld,
 };
-use dharitri_scenario_format::interpret_trait::InterpretableFrom;
-use dharitri_vm::tx_mock::{TxContext, TxContextStack, TxFunctionName, TxResult};
+use dharitri_chain_scenario_format::interpret_trait::InterpretableFrom;
+use dharitri_chain_vm::tx_mock::{TxContext, TxContextStack, TxFunctionName, TxResult};
 use dharitri_sc::types::{BigUint, H256};
 use num_traits::Zero;
 
@@ -22,7 +22,7 @@ use super::{
     AddressFactory, DenaliGenerator, ScQueryDenali,
 };
 
-pub use dharitri_vm::tx_mock::TxTokenTransfer;
+pub use dharitri_chain_vm::tx_mock::TxTokenTransfer;
 
 #[derive(Clone)]
 pub struct ContractObjWrapper<

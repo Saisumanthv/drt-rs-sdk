@@ -1,6 +1,6 @@
 use crate::ScenarioTxEnv;
 
-use dharitri_scenario_format::{
+use dharitri_chain_scenario_format::{
     interpret_trait::InterpreterContext, value_interpreter::interpret_string,
 };
 use dharitri_sc::{

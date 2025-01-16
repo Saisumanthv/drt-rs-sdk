@@ -11,7 +11,7 @@ use crate::{
     },
     scenario_model::U64Value,
 };
-use dharitri_vm::{
+use dharitri_chain_vm::{
     types::VMAddress,
     world_mock::{AccountData, DcdtData},
 };

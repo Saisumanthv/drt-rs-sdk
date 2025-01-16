@@ -30,7 +30,7 @@ unwrap-infallible = "0.1.5"
 
 [features]
 default = ["wasm-incompatible"]
-wasm-incompatible = ["dharitri-vm/wasm-incompatible"]
+wasm-incompatible = ["dharitri-chain-vm/wasm-incompatible"]
 run-go-tests = []
 
 [dependencies.dharitri-sc]
@@ -42,13 +42,13 @@ path = "../base"
 version = "=0.0.1"
 path = "../meta-lib"
 
-[dependencies.dharitri-scenario-format]
+[dependencies.dharitri-chain-scenario-format]
 version = "0.0.1"
 path = "../../sdk/scenario-format"
 
 [dependencies.dharitri-vm-executor]
-version = "0.2.0"
+version = "0.0.3"
 
-[dependencies.dharitri-vm]
+[dependencies.dharitri-chain-vm]
 version = "=0.0.1"
 path = "../../chain/vm"

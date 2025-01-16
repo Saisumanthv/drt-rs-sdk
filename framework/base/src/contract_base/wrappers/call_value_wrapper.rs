@@ -1,6 +1,6 @@
 use core::marker::PhantomData;
 
-use dharitri_core::REWA_000000_TOKEN_IDENTIFIER;
+use dharitri_chain_core::REWA_000000_TOKEN_IDENTIFIER;
 
 use crate::{
     api::{
