@@ -3,6 +3,206 @@
         {
             "step": "setState",
             "accounts": {
+                "address:oracle1": {
+                    "nonce": "1",
+                    "balance": "20"
+                },
+                "address:oracle10": {
+                    "nonce": "1",
+                    "balance": "20"
+                },
+                "address:oracle11": {
+                    "nonce": "1",
+                    "balance": "20"
+                },
+                "address:oracle12": {
+                    "nonce": "1",
+                    "balance": "20"
+                },
+                "address:oracle13": {
+                    "nonce": "1",
+                    "balance": "20"
+                },
+                "address:oracle14": {
+                    "nonce": "1",
+                    "balance": "20"
+                },
+                "address:oracle15": {
+                    "nonce": "1",
+                    "balance": "20"
+                },
+                "address:oracle16": {
+                    "nonce": "1",
+                    "balance": "20"
+                },
+                "address:oracle17": {
+                    "nonce": "1",
+                    "balance": "20"
+                },
+                "address:oracle18": {
+                    "nonce": "1",
+                    "balance": "20"
+                },
+                "address:oracle19": {
+                    "nonce": "1",
+                    "balance": "20"
+                },
+                "address:oracle2": {
+                    "nonce": "1",
+                    "balance": "20"
+                },
+                "address:oracle20": {
+                    "nonce": "1",
+                    "balance": "20"
+                },
+                "address:oracle21": {
+                    "nonce": "1",
+                    "balance": "20"
+                },
+                "address:oracle22": {
+                    "nonce": "1",
+                    "balance": "20"
+                },
+                "address:oracle23": {
+                    "nonce": "1",
+                    "balance": "20"
+                },
+                "address:oracle24": {
+                    "nonce": "1",
+                    "balance": "20"
+                },
+                "address:oracle25": {
+                    "nonce": "1",
+                    "balance": "20"
+                },
+                "address:oracle26": {
+                    "nonce": "1",
+                    "balance": "20"
+                },
+                "address:oracle27": {
+                    "nonce": "1",
+                    "balance": "20"
+                },
+                "address:oracle28": {
+                    "nonce": "1",
+                    "balance": "20"
+                },
+                "address:oracle29": {
+                    "nonce": "1",
+                    "balance": "20"
+                },
+                "address:oracle3": {
+                    "nonce": "1",
+                    "balance": "20"
+                },
+                "address:oracle30": {
+                    "nonce": "1",
+                    "balance": "20"
+                },
+                "address:oracle31": {
+                    "nonce": "1",
+                    "balance": "20"
+                },
+                "address:oracle32": {
+                    "nonce": "1",
+                    "balance": "20"
+                },
+                "address:oracle33": {
+                    "nonce": "1",
+                    "balance": "20"
+                },
+                "address:oracle34": {
+                    "nonce": "1",
+                    "balance": "20"
+                },
+                "address:oracle35": {
+                    "nonce": "1",
+                    "balance": "20"
+                },
+                "address:oracle36": {
+                    "nonce": "1",
+                    "balance": "20"
+                },
+                "address:oracle37": {
+                    "nonce": "1",
+                    "balance": "20"
+                },
+                "address:oracle38": {
+                    "nonce": "1",
+                    "balance": "20"
+                },
+                "address:oracle39": {
+                    "nonce": "1",
+                    "balance": "20"
+                },
+                "address:oracle4": {
+                    "nonce": "1",
+                    "balance": "20"
+                },
+                "address:oracle40": {
+                    "nonce": "1",
+                    "balance": "20"
+                },
+                "address:oracle41": {
+                    "nonce": "1",
+                    "balance": "20"
+                },
+                "address:oracle42": {
+                    "nonce": "1",
+                    "balance": "20"
+                },
+                "address:oracle43": {
+                    "nonce": "1",
+                    "balance": "20"
+                },
+                "address:oracle44": {
+                    "nonce": "1",
+                    "balance": "20"
+                },
+                "address:oracle45": {
+                    "nonce": "1",
+                    "balance": "20"
+                },
+                "address:oracle46": {
+                    "nonce": "1",
+                    "balance": "20"
+                },
+                "address:oracle47": {
+                    "nonce": "1",
+                    "balance": "20"
+                },
+                "address:oracle48": {
+                    "nonce": "1",
+                    "balance": "20"
+                },
+                "address:oracle49": {
+                    "nonce": "1",
+                    "balance": "20"
+                },
+                "address:oracle5": {
+                    "nonce": "1",
+                    "balance": "20"
+                },
+                "address:oracle50": {
+                    "nonce": "1",
+                    "balance": "20"
+                },
+                "address:oracle6": {
+                    "nonce": "1",
+                    "balance": "20"
+                },
+                "address:oracle7": {
+                    "nonce": "1",
+                    "balance": "20"
+                },
+                "address:oracle8": {
+                    "nonce": "1",
+                    "balance": "20"
+                },
+                "address:oracle9": {
+                    "nonce": "1",
+                    "balance": "20"
+                },
                 "address:owner": {
                     "nonce": "1"
                 }
@@ -19,461 +219,11 @@
             }
         },
         {
-            "step": "setState",
-            "accounts": {
-                "address:oracle1": {
-                    "nonce": "1",
-                    "balance": "20"
-                }
-            }
-        },
-        {
-            "step": "setState",
-            "accounts": {
-                "address:oracle2": {
-                    "nonce": "1",
-                    "balance": "20"
-                }
-            }
-        },
-        {
-            "step": "setState",
-            "accounts": {
-                "address:oracle3": {
-                    "nonce": "1",
-                    "balance": "20"
-                }
-            }
-        },
-        {
-            "step": "setState",
-            "accounts": {
-                "address:oracle4": {
-                    "nonce": "1",
-                    "balance": "20"
-                }
-            }
-        },
-        {
-            "step": "setState",
-            "accounts": {
-                "address:oracle5": {
-                    "nonce": "1",
-                    "balance": "20"
-                }
-            }
-        },
-        {
-            "step": "setState",
-            "accounts": {
-                "address:oracle6": {
-                    "nonce": "1",
-                    "balance": "20"
-                }
-            }
-        },
-        {
-            "step": "setState",
-            "accounts": {
-                "address:oracle7": {
-                    "nonce": "1",
-                    "balance": "20"
-                }
-            }
-        },
-        {
-            "step": "setState",
-            "accounts": {
-                "address:oracle8": {
-                    "nonce": "1",
-                    "balance": "20"
-                }
-            }
-        },
-        {
-            "step": "setState",
-            "accounts": {
-                "address:oracle9": {
-                    "nonce": "1",
-                    "balance": "20"
-                }
-            }
-        },
-        {
-            "step": "setState",
-            "accounts": {
-                "address:oracle10": {
-                    "nonce": "1",
-                    "balance": "20"
-                }
-            }
-        },
-        {
-            "step": "setState",
-            "accounts": {
-                "address:oracle11": {
-                    "nonce": "1",
-                    "balance": "20"
-                }
-            }
-        },
-        {
-            "step": "setState",
-            "accounts": {
-                "address:oracle12": {
-                    "nonce": "1",
-                    "balance": "20"
-                }
-            }
-        },
-        {
-            "step": "setState",
-            "accounts": {
-                "address:oracle13": {
-                    "nonce": "1",
-                    "balance": "20"
-                }
-            }
-        },
-        {
-            "step": "setState",
-            "accounts": {
-                "address:oracle14": {
-                    "nonce": "1",
-                    "balance": "20"
-                }
-            }
-        },
-        {
-            "step": "setState",
-            "accounts": {
-                "address:oracle15": {
-                    "nonce": "1",
-                    "balance": "20"
-                }
-            }
-        },
-        {
-            "step": "setState",
-            "accounts": {
-                "address:oracle16": {
-                    "nonce": "1",
-                    "balance": "20"
-                }
-            }
-        },
-        {
-            "step": "setState",
-            "accounts": {
-                "address:oracle17": {
-                    "nonce": "1",
-                    "balance": "20"
-                }
-            }
-        },
-        {
-            "step": "setState",
-            "accounts": {
-                "address:oracle18": {
-                    "nonce": "1",
-                    "balance": "20"
-                }
-            }
-        },
-        {
-            "step": "setState",
-            "accounts": {
-                "address:oracle19": {
-                    "nonce": "1",
-                    "balance": "20"
-                }
-            }
-        },
-        {
-            "step": "setState",
-            "accounts": {
-                "address:oracle20": {
-                    "nonce": "1",
-                    "balance": "20"
-                }
-            }
-        },
-        {
-            "step": "setState",
-            "accounts": {
-                "address:oracle21": {
-                    "nonce": "1",
-                    "balance": "20"
-                }
-            }
-        },
-        {
-            "step": "setState",
-            "accounts": {
-                "address:oracle22": {
-                    "nonce": "1",
-                    "balance": "20"
-                }
-            }
-        },
-        {
-            "step": "setState",
-            "accounts": {
-                "address:oracle23": {
-                    "nonce": "1",
-                    "balance": "20"
-                }
-            }
-        },
-        {
-            "step": "setState",
-            "accounts": {
-                "address:oracle24": {
-                    "nonce": "1",
-                    "balance": "20"
-                }
-            }
-        },
-        {
-            "step": "setState",
-            "accounts": {
-                "address:oracle25": {
-                    "nonce": "1",
-                    "balance": "20"
-                }
-            }
-        },
-        {
-            "step": "setState",
-            "accounts": {
-                "address:oracle26": {
-                    "nonce": "1",
-                    "balance": "20"
-                }
-            }
-        },
-        {
-            "step": "setState",
-            "accounts": {
-                "address:oracle27": {
-                    "nonce": "1",
-                    "balance": "20"
-                }
-            }
-        },
-        {
-            "step": "setState",
-            "accounts": {
-                "address:oracle28": {
-                    "nonce": "1",
-                    "balance": "20"
-                }
-            }
-        },
-        {
-            "step": "setState",
-            "accounts": {
-                "address:oracle29": {
-                    "nonce": "1",
-                    "balance": "20"
-                }
-            }
-        },
-        {
-            "step": "setState",
-            "accounts": {
-                "address:oracle30": {
-                    "nonce": "1",
-                    "balance": "20"
-                }
-            }
-        },
-        {
-            "step": "setState",
-            "accounts": {
-                "address:oracle31": {
-                    "nonce": "1",
-                    "balance": "20"
-                }
-            }
-        },
-        {
-            "step": "setState",
-            "accounts": {
-                "address:oracle32": {
-                    "nonce": "1",
-                    "balance": "20"
-                }
-            }
-        },
-        {
-            "step": "setState",
-            "accounts": {
-                "address:oracle33": {
-                    "nonce": "1",
-                    "balance": "20"
-                }
-            }
-        },
-        {
-            "step": "setState",
-            "accounts": {
-                "address:oracle34": {
-                    "nonce": "1",
-                    "balance": "20"
-                }
-            }
-        },
-        {
-            "step": "setState",
-            "accounts": {
-                "address:oracle35": {
-                    "nonce": "1",
-                    "balance": "20"
-                }
-            }
-        },
-        {
-            "step": "setState",
-            "accounts": {
-                "address:oracle36": {
-                    "nonce": "1",
-                    "balance": "20"
-                }
-            }
-        },
-        {
-            "step": "setState",
-            "accounts": {
-                "address:oracle37": {
-                    "nonce": "1",
-                    "balance": "20"
-                }
-            }
-        },
-        {
-            "step": "setState",
-            "accounts": {
-                "address:oracle38": {
-                    "nonce": "1",
-                    "balance": "20"
-                }
-            }
-        },
-        {
-            "step": "setState",
-            "accounts": {
-                "address:oracle39": {
-                    "nonce": "1",
-                    "balance": "20"
-                }
-            }
-        },
-        {
-            "step": "setState",
-            "accounts": {
-                "address:oracle40": {
-                    "nonce": "1",
-                    "balance": "20"
-                }
-            }
-        },
-        {
-            "step": "setState",
-            "accounts": {
-                "address:oracle41": {
-                    "nonce": "1",
-                    "balance": "20"
-                }
-            }
-        },
-        {
-            "step": "setState",
-            "accounts": {
-                "address:oracle42": {
-                    "nonce": "1",
-                    "balance": "20"
-                }
-            }
-        },
-        {
-            "step": "setState",
-            "accounts": {
-                "address:oracle43": {
-                    "nonce": "1",
-                    "balance": "20"
-                }
-            }
-        },
-        {
-            "step": "setState",
-            "accounts": {
-                "address:oracle44": {
-                    "nonce": "1",
-                    "balance": "20"
-                }
-            }
-        },
-        {
-            "step": "setState",
-            "accounts": {
-                "address:oracle45": {
-                    "nonce": "1",
-                    "balance": "20"
-                }
-            }
-        },
-        {
-            "step": "setState",
-            "accounts": {
-                "address:oracle46": {
-                    "nonce": "1",
-                    "balance": "20"
-                }
-            }
-        },
-        {
-            "step": "setState",
-            "accounts": {
-                "address:oracle47": {
-                    "nonce": "1",
-                    "balance": "20"
-                }
-            }
-        },
-        {
-            "step": "setState",
-            "accounts": {
-                "address:oracle48": {
-                    "nonce": "1",
-                    "balance": "20"
-                }
-            }
-        },
-        {
-            "step": "setState",
-            "accounts": {
-                "address:oracle49": {
-                    "nonce": "1",
-                    "balance": "20"
-                }
-            }
-        },
-        {
-            "step": "setState",
-            "accounts": {
-                "address:oracle50": {
-                    "nonce": "1",
-                    "balance": "20"
-                }
-            }
-        },
-        {
             "step": "scDeploy",
             "id": "",
             "tx": {
                 "from": "address:owner",
-                "contractCode": "drtsc:../output/dharitri-sc-price-aggregator.drtsc.json",
+                "contractCode": "drtsc:../output/dharitri-price-aggregator-sc.drtsc.json",
                 "arguments": [
                     "0x52455741",
                     "0x14",
@@ -531,7 +281,7 @@
                     "0x6f7261636c6534395f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f",
                     "0x6f7261636c6535305f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f5f"
                 ],
-                "gasLimit": "120000000"
+                "gasLimit": "120,000,000"
             },
             "expect": {
                 "out": [],
@@ -547,7 +297,7 @@
                 "rewaValue": "20",
                 "function": "stake",
                 "arguments": [],
-                "gasLimit": "5000000"
+                "gasLimit": "5,000,000"
             },
             "expect": {
                 "out": [],
@@ -563,7 +313,7 @@
                 "rewaValue": "20",
                 "function": "stake",
                 "arguments": [],
-                "gasLimit": "5000000"
+                "gasLimit": "5,000,000"
             },
             "expect": {
                 "out": [],
@@ -579,7 +329,7 @@
                 "rewaValue": "20",
                 "function": "stake",
                 "arguments": [],
-                "gasLimit": "5000000"
+                "gasLimit": "5,000,000"
             },
             "expect": {
                 "out": [],
@@ -595,7 +345,7 @@
                 "rewaValue": "20",
                 "function": "stake",
                 "arguments": [],
-                "gasLimit": "5000000"
+                "gasLimit": "5,000,000"
             },
             "expect": {
                 "out": [],
@@ -611,7 +361,7 @@
                 "rewaValue": "20",
                 "function": "stake",
                 "arguments": [],
-                "gasLimit": "5000000"
+                "gasLimit": "5,000,000"
             },
             "expect": {
                 "out": [],
@@ -627,7 +377,7 @@
                 "rewaValue": "20",
                 "function": "stake",
                 "arguments": [],
-                "gasLimit": "5000000"
+                "gasLimit": "5,000,000"
             },
             "expect": {
                 "out": [],
@@ -643,7 +393,7 @@
                 "rewaValue": "20",
                 "function": "stake",
                 "arguments": [],
-                "gasLimit": "5000000"
+                "gasLimit": "5,000,000"
             },
             "expect": {
                 "out": [],
@@ -659,7 +409,7 @@
                 "rewaValue": "20",
                 "function": "stake",
                 "arguments": [],
-                "gasLimit": "5000000"
+                "gasLimit": "5,000,000"
             },
             "expect": {
                 "out": [],
@@ -675,7 +425,7 @@
                 "rewaValue": "20",
                 "function": "stake",
                 "arguments": [],
-                "gasLimit": "5000000"
+                "gasLimit": "5,000,000"
             },
             "expect": {
                 "out": [],
@@ -691,7 +441,7 @@
                 "rewaValue": "20",
                 "function": "stake",
                 "arguments": [],
-                "gasLimit": "5000000"
+                "gasLimit": "5,000,000"
             },
             "expect": {
                 "out": [],
@@ -707,7 +457,7 @@
                 "rewaValue": "20",
                 "function": "stake",
                 "arguments": [],
-                "gasLimit": "5000000"
+                "gasLimit": "5,000,000"
             },
             "expect": {
                 "out": [],
@@ -723,7 +473,7 @@
                 "rewaValue": "20",
                 "function": "stake",
                 "arguments": [],
-                "gasLimit": "5000000"
+                "gasLimit": "5,000,000"
             },
             "expect": {
                 "out": [],
@@ -739,7 +489,7 @@
                 "rewaValue": "20",
                 "function": "stake",
                 "arguments": [],
-                "gasLimit": "5000000"
+                "gasLimit": "5,000,000"
             },
             "expect": {
                 "out": [],
@@ -755,7 +505,7 @@
                 "rewaValue": "20",
                 "function": "stake",
                 "arguments": [],
-                "gasLimit": "5000000"
+                "gasLimit": "5,000,000"
             },
             "expect": {
                 "out": [],
@@ -771,7 +521,7 @@
                 "rewaValue": "20",
                 "function": "stake",
                 "arguments": [],
-                "gasLimit": "5000000"
+                "gasLimit": "5,000,000"
             },
             "expect": {
                 "out": [],
@@ -787,7 +537,7 @@
                 "rewaValue": "20",
                 "function": "stake",
                 "arguments": [],
-                "gasLimit": "5000000"
+                "gasLimit": "5,000,000"
             },
             "expect": {
                 "out": [],
@@ -803,7 +553,7 @@
                 "rewaValue": "20",
                 "function": "stake",
                 "arguments": [],
-                "gasLimit": "5000000"
+                "gasLimit": "5,000,000"
             },
             "expect": {
                 "out": [],
@@ -819,7 +569,7 @@
                 "rewaValue": "20",
                 "function": "stake",
                 "arguments": [],
-                "gasLimit": "5000000"
+                "gasLimit": "5,000,000"
             },
             "expect": {
                 "out": [],
@@ -835,7 +585,7 @@
                 "rewaValue": "20",
                 "function": "stake",
                 "arguments": [],
-                "gasLimit": "5000000"
+                "gasLimit": "5,000,000"
             },
             "expect": {
                 "out": [],
@@ -851,7 +601,7 @@
                 "rewaValue": "20",
                 "function": "stake",
                 "arguments": [],
-                "gasLimit": "5000000"
+                "gasLimit": "5,000,000"
             },
             "expect": {
                 "out": [],
@@ -867,7 +617,7 @@
                 "rewaValue": "20",
                 "function": "stake",
                 "arguments": [],
-                "gasLimit": "5000000"
+                "gasLimit": "5,000,000"
             },
             "expect": {
                 "out": [],
@@ -883,7 +633,7 @@
                 "rewaValue": "20",
                 "function": "stake",
                 "arguments": [],
-                "gasLimit": "5000000"
+                "gasLimit": "5,000,000"
             },
             "expect": {
                 "out": [],
@@ -899,7 +649,7 @@
                 "rewaValue": "20",
                 "function": "stake",
                 "arguments": [],
-                "gasLimit": "5000000"
+                "gasLimit": "5,000,000"
             },
             "expect": {
                 "out": [],
@@ -915,7 +665,7 @@
                 "rewaValue": "20",
                 "function": "stake",
                 "arguments": [],
-                "gasLimit": "5000000"
+                "gasLimit": "5,000,000"
             },
             "expect": {
                 "out": [],
@@ -931,7 +681,7 @@
                 "rewaValue": "20",
                 "function": "stake",
                 "arguments": [],
-                "gasLimit": "5000000"
+                "gasLimit": "5,000,000"
             },
             "expect": {
                 "out": [],
@@ -947,7 +697,7 @@
                 "rewaValue": "20",
                 "function": "stake",
                 "arguments": [],
-                "gasLimit": "5000000"
+                "gasLimit": "5,000,000"
             },
             "expect": {
                 "out": [],
@@ -963,7 +713,7 @@
                 "rewaValue": "20",
                 "function": "stake",
                 "arguments": [],
-                "gasLimit": "5000000"
+                "gasLimit": "5,000,000"
             },
             "expect": {
                 "out": [],
@@ -979,7 +729,7 @@
                 "rewaValue": "20",
                 "function": "stake",
                 "arguments": [],
-                "gasLimit": "5000000"
+                "gasLimit": "5,000,000"
             },
             "expect": {
                 "out": [],
@@ -995,7 +745,7 @@
                 "rewaValue": "20",
                 "function": "stake",
                 "arguments": [],
-                "gasLimit": "5000000"
+                "gasLimit": "5,000,000"
             },
             "expect": {
                 "out": [],
@@ -1011,7 +761,7 @@
                 "rewaValue": "20",
                 "function": "stake",
                 "arguments": [],
-                "gasLimit": "5000000"
+                "gasLimit": "5,000,000"
             },
             "expect": {
                 "out": [],
@@ -1027,7 +777,7 @@
                 "rewaValue": "20",
                 "function": "stake",
                 "arguments": [],
-                "gasLimit": "5000000"
+                "gasLimit": "5,000,000"
             },
             "expect": {
                 "out": [],
@@ -1043,7 +793,7 @@
                 "rewaValue": "20",
                 "function": "stake",
                 "arguments": [],
-                "gasLimit": "5000000"
+                "gasLimit": "5,000,000"
             },
             "expect": {
                 "out": [],
@@ -1059,7 +809,7 @@
                 "rewaValue": "20",
                 "function": "stake",
                 "arguments": [],
-                "gasLimit": "5000000"
+                "gasLimit": "5,000,000"
             },
             "expect": {
                 "out": [],
@@ -1075,7 +825,7 @@
                 "rewaValue": "20",
                 "function": "stake",
                 "arguments": [],
-                "gasLimit": "5000000"
+                "gasLimit": "5,000,000"
             },
             "expect": {
                 "out": [],
@@ -1091,7 +841,7 @@
                 "rewaValue": "20",
                 "function": "stake",
                 "arguments": [],
-                "gasLimit": "5000000"
+                "gasLimit": "5,000,000"
             },
             "expect": {
                 "out": [],
@@ -1107,7 +857,7 @@
                 "rewaValue": "20",
                 "function": "stake",
                 "arguments": [],
-                "gasLimit": "5000000"
+                "gasLimit": "5,000,000"
             },
             "expect": {
                 "out": [],
@@ -1123,7 +873,7 @@
                 "rewaValue": "20",
                 "function": "stake",
                 "arguments": [],
-                "gasLimit": "5000000"
+                "gasLimit": "5,000,000"
             },
             "expect": {
                 "out": [],
@@ -1139,7 +889,7 @@
                 "rewaValue": "20",
                 "function": "stake",
                 "arguments": [],
-                "gasLimit": "5000000"
+                "gasLimit": "5,000,000"
             },
             "expect": {
                 "out": [],
@@ -1155,7 +905,7 @@
                 "rewaValue": "20",
                 "function": "stake",
                 "arguments": [],
-                "gasLimit": "5000000"
+                "gasLimit": "5,000,000"
             },
             "expect": {
                 "out": [],
@@ -1171,7 +921,7 @@
                 "rewaValue": "20",
                 "function": "stake",
                 "arguments": [],
-                "gasLimit": "5000000"
+                "gasLimit": "5,000,000"
             },
             "expect": {
                 "out": [],
@@ -1187,7 +937,7 @@
                 "rewaValue": "20",
                 "function": "stake",
                 "arguments": [],
-                "gasLimit": "5000000"
+                "gasLimit": "5,000,000"
             },
             "expect": {
                 "out": [],
@@ -1203,7 +953,7 @@
                 "rewaValue": "20",
                 "function": "stake",
                 "arguments": [],
-                "gasLimit": "5000000"
+                "gasLimit": "5,000,000"
             },
             "expect": {
                 "out": [],
@@ -1219,7 +969,7 @@
                 "rewaValue": "20",
                 "function": "stake",
                 "arguments": [],
-                "gasLimit": "5000000"
+                "gasLimit": "5,000,000"
             },
             "expect": {
                 "out": [],
@@ -1235,7 +985,7 @@
                 "rewaValue": "20",
                 "function": "stake",
                 "arguments": [],
-                "gasLimit": "5000000"
+                "gasLimit": "5,000,000"
             },
             "expect": {
                 "out": [],
@@ -1251,7 +1001,7 @@
                 "rewaValue": "20",
                 "function": "stake",
                 "arguments": [],
-                "gasLimit": "5000000"
+                "gasLimit": "5,000,000"
             },
             "expect": {
                 "out": [],
@@ -1267,7 +1017,7 @@
                 "rewaValue": "20",
                 "function": "stake",
                 "arguments": [],
-                "gasLimit": "5000000"
+                "gasLimit": "5,000,000"
             },
             "expect": {
                 "out": [],
@@ -1283,7 +1033,7 @@
                 "rewaValue": "20",
                 "function": "stake",
                 "arguments": [],
-                "gasLimit": "5000000"
+                "gasLimit": "5,000,000"
             },
             "expect": {
                 "out": [],
@@ -1299,7 +1049,7 @@
                 "rewaValue": "20",
                 "function": "stake",
                 "arguments": [],
-                "gasLimit": "5000000"
+                "gasLimit": "5,000,000"
             },
             "expect": {
                 "out": [],
@@ -1315,7 +1065,7 @@
                 "rewaValue": "20",
                 "function": "stake",
                 "arguments": [],
-                "gasLimit": "5000000"
+                "gasLimit": "5,000,000"
             },
             "expect": {
                 "out": [],
@@ -1331,7 +1081,7 @@
                 "rewaValue": "20",
                 "function": "stake",
                 "arguments": [],
-                "gasLimit": "5000000"
+                "gasLimit": "5,000,000"
             },
             "expect": {
                 "out": [],
@@ -1365,7 +1115,7 @@
                 "to": "sc:price-aggregator",
                 "function": "unpause",
                 "arguments": [],
-                "gasLimit": "5000000"
+                "gasLimit": "5,000,000"
             },
             "expect": {
                 "out": [],
@@ -1383,10 +1133,10 @@
                     "0x52455741",
                     "0x55534443",
                     "0x5f",
-                    "0x53d6146bd4622a3c",
+                    "0xd7fd71920be3e621",
                     "0x"
                 ],
-                "gasLimit": "7000000"
+                "gasLimit": "7,000,000"
             },
             "expect": {
                 "out": [],
@@ -1404,10 +1154,10 @@
                     "0x52455741",
                     "0x55534443",
                     "0x64",
-                    "0xaf095f0e565e1422",
+                    "0x5a032236cff2ff06",
                     "0x"
                 ],
-                "gasLimit": "7000000"
+                "gasLimit": "7,000,000"
             },
             "expect": {
                 "out": [],
@@ -1425,10 +1175,10 @@
                     "0x52455741",
                     "0x55534443",
                     "0x64",
-                    "0x414c47bc417309bd",
+                    "0x2e874347688dffa1",
                     "0x"
                 ],
-                "gasLimit": "7000000"
+                "gasLimit": "7,000,000"
             },
             "expect": {
                 "out": [],
@@ -1446,10 +1196,10 @@
                     "0x52455741",
                     "0x55534443",
                     "0x64",
-                    "0x28434bf67a0f7caf",
+                    "0x4c94033d5e15a73a",
                     "0x"
                 ],
-                "gasLimit": "7000000"
+                "gasLimit": "7,000,000"
             },
             "expect": {
                 "out": [],
@@ -1467,10 +1217,10 @@
                     "0x52455741",
                     "0x55534443",
                     "0x64",
-                    "0x3f7383335da96503",
+                    "0x2bd5b88173750be6",
                     "0x"
                 ],
-                "gasLimit": "7000000"
+                "gasLimit": "7,000,000"
             },
             "expect": {
                 "out": [],
@@ -1488,10 +1238,10 @@
                     "0x52455741",
                     "0x55534443",
                     "0x64",
-                    "0x299d146c3ac87216",
+                    "0xe4cb406e5f95d9d7",
                     "0x"
                 ],
-                "gasLimit": "7000000"
+                "gasLimit": "7,000,000"
             },
             "expect": {
                 "out": [],
@@ -1509,10 +1259,10 @@
                     "0x52455741",
                     "0x55534443",
                     "0x64",
-                    "0xbfeb5c630c1cb891",
+                    "0xfd4dd723ed0b256e",
                     "0x"
                 ],
-                "gasLimit": "7000000"
+                "gasLimit": "7,000,000"
             },
             "expect": {
                 "out": [],
@@ -1530,10 +1280,10 @@
                     "0x52455741",
                     "0x55534443",
                     "0x64",
-                    "0x8ff05fbd6af3c656",
+                    "0x66b6bfe973064cfd",
                     "0x"
                 ],
-                "gasLimit": "7000000"
+                "gasLimit": "7,000,000"
             },
             "expect": {
                 "out": [],
@@ -1551,10 +1301,10 @@
                     "0x52455741",
                     "0x55534443",
                     "0x64",
-                    "0x5ba90264717cdca3",
+                    "0xbc6a51b940c5c479",
                     "0x"
                 ],
-                "gasLimit": "7000000"
+                "gasLimit": "7,000,000"
             },
             "expect": {
                 "out": [],
@@ -1572,10 +1322,10 @@
                     "0x52455741",
                     "0x55534443",
                     "0x64",
-                    "0x9ba8b4ff1e2503d5",
+                    "0x47ca1962093887df",
                     "0x"
                 ],
-                "gasLimit": "7000000"
+                "gasLimit": "7,000,000"
             },
             "expect": {
                 "out": [],
@@ -1593,10 +1343,10 @@
                     "0x52455741",
                     "0x55534443",
                     "0x64",
-                    "0x4f765963cd73f55a",
+                    "0xa9657f2b7c255e3c",
                     "0x"
                 ],
-                "gasLimit": "7000000"
+                "gasLimit": "7,000,000"
             },
             "expect": {
                 "out": [],
@@ -1614,10 +1364,10 @@
                     "0x52455741",
                     "0x55534443",
                     "0x64",
-                    "0x17ffecf6f660c9c4",
+                    "0xadaf4aaa5e63f2e5",
                     "0x"
                 ],
-                "gasLimit": "7000000"
+                "gasLimit": "7,000,000"
             },
             "expect": {
                 "out": [],
@@ -1635,10 +1385,10 @@
                     "0x52455741",
                     "0x55534443",
                     "0x64",
-                    "0x2299f4f97745d79c",
+                    "0x153a1384b3d68656",
                     "0x"
                 ],
-                "gasLimit": "7000000"
+                "gasLimit": "7,000,000"
             },
             "expect": {
                 "out": [],
@@ -1656,10 +1406,10 @@
                     "0x52455741",
                     "0x55534443",
                     "0x64",
-                    "0x20542cd76f583515",
+                    "0x4ba5dda59b2ba4e9",
                     "0x"
                 ],
-                "gasLimit": "7000000"
+                "gasLimit": "7,000,000"
             },
             "expect": {
                 "out": [],
@@ -1677,10 +1427,10 @@
                     "0x52455741",
                     "0x55534443",
                     "0x64",
-                    "0x86a32f6f97eb6afc",
+                    "0x973e0d62157afb51",
                     "0x"
                 ],
-                "gasLimit": "7000000"
+                "gasLimit": "7,000,000"
             },
             "expect": {
                 "out": [],
@@ -1698,10 +1448,10 @@
                     "0x52455741",
                     "0x55534443",
                     "0x64",
-                    "0x8f2738d36e479298",
+                    "0xe18cb77b44399b45",
                     "0x"
                 ],
-                "gasLimit": "7000000"
+                "gasLimit": "7,000,000"
             },
             "expect": {
                 "out": [],
@@ -1719,10 +1469,10 @@
                     "0x52455741",
                     "0x55534443",
                     "0x64",
-                    "0x27bf55c0044c4e11",
+                    "0x30a1ed7ed6069074",
                     "0x"
                 ],
-                "gasLimit": "7000000"
+                "gasLimit": "7,000,000"
             },
             "expect": {
                 "out": [],
@@ -1740,10 +1490,10 @@
                     "0x52455741",
                     "0x55534443",
                     "0x64",
-                    "0x6b875cc159fdc36e",
+                    "0xfbd288d325739548",
                     "0x"
                 ],
-                "gasLimit": "7000000"
+                "gasLimit": "7,000,000"
             },
             "expect": {
                 "out": [],
@@ -1761,10 +1511,10 @@
                     "0x52455741",
                     "0x55534443",
                     "0x64",
-                    "0xf94b7ba11ee3053c",
+                    "0x83ad3ad74745e6f5",
                     "0x"
                 ],
-                "gasLimit": "7000000"
+                "gasLimit": "7,000,000"
             },
             "expect": {
                 "out": [],
@@ -1782,10 +1532,10 @@
                     "0x52455741",
                     "0x55534443",
                     "0x64",
-                    "0xdfe89cdbc936b9d2",
+                    "0x0cc85234d5ea00b2",
                     "0x"
                 ],
-                "gasLimit": "7000000"
+                "gasLimit": "7,000,000"
             },
             "expect": {
                 "out": [],
@@ -1803,10 +1553,10 @@
                     "0x52455741",
                     "0x55534443",
                     "0x64",
-                    "0x1b30657bd0aae7e3",
+                    "0x8dae036c75e9a62c",
                     "0x"
                 ],
-                "gasLimit": "7000000"
+                "gasLimit": "7,000,000"
             },
             "expect": {
                 "out": [],
@@ -1824,10 +1574,10 @@
                     "0x52455741",
                     "0x55534443",
                     "0x64",
-                    "0x3e6960100398f3b0",
+                    "0x31549118c983eaa0",
                     "0x"
                 ],
-                "gasLimit": "7000000"
+                "gasLimit": "7,000,000"
             },
             "expect": {
                 "out": [],
@@ -1845,10 +1595,10 @@
                     "0x52455741",
                     "0x55534443",
                     "0x64",
-                    "0x2845bcbce7afde1d",
+                    "0x8228096b6388b4bd",
                     "0x"
                 ],
-                "gasLimit": "7000000"
+                "gasLimit": "7,000,000"
             },
             "expect": {
                 "out": [],
@@ -1866,10 +1616,10 @@
                     "0x52455741",
                     "0x55534443",
                     "0x64",
-                    "0x57b4abf00becc147",
+                    "0x2dc8b16251c44710",
                     "0x"
                 ],
-                "gasLimit": "7000000"
+                "gasLimit": "7,000,000"
             },
             "expect": {
                 "out": [],
@@ -1887,10 +1637,10 @@
                     "0x52455741",
                     "0x55534443",
                     "0x64",
-                    "0x3f9de0026eb2de0b",
+                    "0xbc66b6f85858d98c",
                     "0x"
                 ],
-                "gasLimit": "7000000"
+                "gasLimit": "7,000,000"
             },
             "expect": {
                 "out": [],
@@ -1908,10 +1658,10 @@
                     "0x52455741",
                     "0x55534443",
                     "0x64",
-                    "0x8ed300372a9be78e",
+                    "0x2937c9b0c1073c0b",
                     "0x"
                 ],
-                "gasLimit": "7000000"
+                "gasLimit": "7,000,000"
             },
             "expect": {
                 "out": [],
@@ -1929,10 +1679,10 @@
                     "0x52455741",
                     "0x55534443",
                     "0x64",
-                    "0x650c473dba0a6929",
+                    "0xa2b7bd06214aabc4",
                     "0x"
                 ],
-                "gasLimit": "7000000"
+                "gasLimit": "7,000,000"
             },
             "expect": {
                 "out": [],
@@ -1950,10 +1700,10 @@
                     "0x52455741",
                     "0x55534443",
                     "0x64",
-                    "0x9e0ddd4a2c56ad31",
+                    "0x61ae8ac001144476",
                     "0x"
                 ],
-                "gasLimit": "7000000"
+                "gasLimit": "7,000,000"
             },
             "expect": {
                 "out": [],
@@ -1971,10 +1721,10 @@
                     "0x52455741",
                     "0x55534443",
                     "0x64",
-                    "0x264fb484e488aa82",
+                    "0x5f6de265c643495f",
                     "0x"
                 ],
-                "gasLimit": "7000000"
+                "gasLimit": "7,000,000"
             },
             "expect": {
                 "out": [],
@@ -1992,10 +1742,10 @@
                     "0x52455741",
                     "0x55534443",
                     "0x64",
-                    "0x9ff19acb6a06a104",
+                    "0x67430307e2f864f0",
                     "0x"
                 ],
-                "gasLimit": "7000000"
+                "gasLimit": "7,000,000"
             },
             "expect": {
                 "out": [],
@@ -2013,10 +1763,10 @@
                     "0x52455741",
                     "0x55534443",
                     "0x64",
-                    "0xc2be7af479db320e",
+                    "0x7de010a49d52cd3f",
                     "0x"
                 ],
-                "gasLimit": "7000000"
+                "gasLimit": "7,000,000"
             },
             "expect": {
                 "out": [],
@@ -2034,10 +1784,10 @@
                     "0x52455741",
                     "0x55534443",
                     "0x64",
-                    "0x171bac7aa07bfb53",
+                    "0xb27799264f3b84ec",
                     "0x"
                 ],
-                "gasLimit": "7000000"
+                "gasLimit": "7,000,000"
             },
             "expect": {
                 "out": [],
@@ -2055,10 +1805,10 @@
                     "0x52455741",
                     "0x55534443",
                     "0x64",
-                    "0xeec14dfac7cbcd8e",
+                    "0x53d7a1ade83e0f2e",
                     "0x"
                 ],
-                "gasLimit": "7000000"
+                "gasLimit": "7,000,000"
             },
             "expect": {
                 "out": [],
@@ -2076,10 +1826,10 @@
                     "0x52455741",
                     "0x55534443",
                     "0x64",
-                    "0x47635cb3537172ce",
+                    "0x2ec40e01673b8ad7",
                     "0x"
                 ],
-                "gasLimit": "7000000"
+                "gasLimit": "7,000,000"
             },
             "expect": {
                 "out": [],
@@ -2097,10 +1847,10 @@
                     "0x52455741",
                     "0x55534443",
                     "0x64",
-                    "0x8aff37ef891ae72e",
+                    "0xfb616537f76f8ffb",
                     "0x"
                 ],
-                "gasLimit": "7000000"
+                "gasLimit": "7,000,000"
             },
             "expect": {
                 "out": [],
@@ -2118,10 +1868,10 @@
                     "0x52455741",
                     "0x55534443",
                     "0x64",
-                    "0x5059b3e97e6285b9",
+                    "0x387268d229f4ec9a",
                     "0x"
                 ],
-                "gasLimit": "7000000"
+                "gasLimit": "7,000,000"
             },
             "expect": {
                 "out": [],
@@ -2139,10 +1889,10 @@
                     "0x52455741",
                     "0x55534443",
                     "0x64",
-                    "0x8fbb39dc3c9bc762",
+                    "0xdea0f1c84325ea3a",
                     "0x"
                 ],
-                "gasLimit": "7000000"
+                "gasLimit": "7,000,000"
             },
             "expect": {
                 "out": [],
@@ -2160,10 +1910,10 @@
                     "0x52455741",
                     "0x55534443",
                     "0x64",
-                    "0xa5e4459d2c6c6a57",
+                    "0x12eb7cb637de6e86",
                     "0x"
                 ],
-                "gasLimit": "7000000"
+                "gasLimit": "7,000,000"
             },
             "expect": {
                 "out": [],
@@ -2181,10 +1931,10 @@
                     "0x52455741",
                     "0x55534443",
                     "0x64",
-                    "0x03a73d08c4de7409",
+                    "0x5f6b1784511d622d",
                     "0x"
                 ],
-                "gasLimit": "7000000"
+                "gasLimit": "7,000,000"
             },
             "expect": {
                 "out": [],
@@ -2202,10 +1952,10 @@
                     "0x52455741",
                     "0x55534443",
                     "0x64",
-                    "0x55ff81b51d349f1b",
+                    "0x1a41106366209d8d",
                     "0x"
                 ],
-                "gasLimit": "7000000"
+                "gasLimit": "7,000,000"
             },
             "expect": {
                 "out": [],
@@ -2223,10 +1973,10 @@
                     "0x52455741",
                     "0x55534443",
                     "0x64",
-                    "0xeeeed238bc5a034c",
+                    "0x2324bca02526fec9",
                     "0x"
                 ],
-                "gasLimit": "7000000"
+                "gasLimit": "7,000,000"
             },
             "expect": {
                 "out": [],
@@ -2244,10 +1994,10 @@
                     "0x52455741",
                     "0x55534443",
                     "0x64",
-                    "0x8e23655abbaa59fa",
+                    "0xccf33fc47ef34300",
                     "0x"
                 ],
-                "gasLimit": "7000000"
+                "gasLimit": "7,000,000"
             },
             "expect": {
                 "out": [],
@@ -2265,10 +2015,10 @@
                     "0x52455741",
                     "0x55534443",
                     "0x64",
-                    "0xdef57b6acb8dbb0b",
+                    "0xebfab26bff9c74a3",
                     "0x"
                 ],
-                "gasLimit": "7000000"
+                "gasLimit": "7,000,000"
             },
             "expect": {
                 "out": [],
@@ -2286,10 +2036,10 @@
                     "0x52455741",
                     "0x55534443",
                     "0x64",
-                    "0x416f774b52aff5f6",
+                    "0x116a45e410db659b",
                     "0x"
                 ],
-                "gasLimit": "7000000"
+                "gasLimit": "7,000,000"
             },
             "expect": {
                 "out": [],
@@ -2307,10 +2057,10 @@
                     "0x52455741",
                     "0x55534443",
                     "0x64",
-                    "0x4fc66a406819b0b3",
+                    "0xc9bddc2b06ba1f1e",
                     "0x"
                 ],
-                "gasLimit": "7000000"
+                "gasLimit": "7,000,000"
             },
             "expect": {
                 "out": [],
@@ -2328,10 +2078,10 @@
                     "0x52455741",
                     "0x55534443",
                     "0x64",
-                    "0x1cdafe34bed9b56f",
+                    "0xde7473b9bfdfe96c",
                     "0x"
                 ],
-                "gasLimit": "7000000"
+                "gasLimit": "7,000,000"
             },
             "expect": {
                 "out": [],
@@ -2349,10 +2099,10 @@
                     "0x52455741",
                     "0x55534443",
                     "0x64",
-                    "0x0ce6dc364d253f91",
+                    "0x91c2ff3a5c73267e",
                     "0x"
                 ],
-                "gasLimit": "7000000"
+                "gasLimit": "7,000,000"
             },
             "expect": {
                 "out": [],
@@ -2370,10 +2120,10 @@
                     "0x52455741",
                     "0x55534443",
                     "0x64",
-                    "0x5a1e7a5dc0ad2c2f",
+                    "0x95bb44dffc62bb47",
                     "0x"
                 ],
-                "gasLimit": "7000000"
+                "gasLimit": "7,000,000"
             },
             "expect": {
                 "out": [],
@@ -2391,10 +2141,10 @@
                     "0x52455741",
                     "0x55534443",
                     "0x64",
-                    "0xa53268b009292af4",
+                    "0x2f28d194b7659f9f",
                     "0x"
                 ],
-                "gasLimit": "7000000"
+                "gasLimit": "7,000,000"
             },
             "expect": {
                 "out": [],
@@ -2412,10 +2162,10 @@
                     "0x52455741",
                     "0x55534443",
                     "0x64",
-                    "0x0bf61080f2435778",
+                    "0xc1bd397146f3353e",
                     "0x"
                 ],
-                "gasLimit": "7000000"
+                "gasLimit": "7,000,000"
             },
             "expect": {
                 "out": [],

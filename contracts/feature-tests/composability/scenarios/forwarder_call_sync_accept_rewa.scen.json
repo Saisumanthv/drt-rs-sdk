@@ -55,8 +55,6 @@
                         "endpoint": "str:accept_funds_echo_payment",
                         "topics": [
                             "str:accept_funds",
-                            "str:REWA",
-                            "0",
                             "1000"
                         ],
                         "data": [
@@ -68,8 +66,6 @@
                         "endpoint": "str:forward_sync_accept_funds",
                         "topics": [
                             "str:accept_funds_sync_result",
-                            "str:REWA",
-                            "0",
                             "1000"
                         ],
                         "data": [

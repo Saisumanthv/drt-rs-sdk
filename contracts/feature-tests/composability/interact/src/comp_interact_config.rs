@@ -8,18 +8,10 @@ use crate::forwarder_queue_proxy::QueuedCallType;
 /// Config file
 const CONFIG_FILE: &str = "config.toml";
 
-#[derive(Debug, Deserialize)]
-#[serde(rename_all = "lowercase")]
-pub enum ChainType {
-    Real,
-    Simulator,
-}
-
 /// Multisig Interact configuration
 #[derive(Debug, Deserialize)]
 pub struct Config {
-    gateway_uri: String,
-    chain_type: ChainType,
+    gateway: String,
     call_type: String,
     token_id: String,
     token_nonce: u64,
@@ -35,17 +27,9 @@ impl Config {
         toml::from_str(&content).unwrap()
     }
 
-    // Returns the gateway URI
-    pub fn gateway_uri(&self) -> &str {
-        &self.gateway_uri
-    }
-
-    // Returns if chain type is chain simulator
-    pub fn use_chain_simulator(&self) -> bool {
-        match self.chain_type {
-            ChainType::Real => false,
-            ChainType::Simulator => true,
-        }
+    // Returns the gateway
+    pub fn gateway(&self) -> &str {
+        &self.gateway
     }
 
     pub fn call_type(&self) -> QueuedCallType {
@@ -65,7 +49,10 @@ impl Config {
     }
 
     pub fn token_amount(&self) -> BigUint {
-        BigUint::from_str(&self.amount).unwrap_or_default()
+        match BigUint::from_str(&self.amount) {
+            Ok(amount) => amount,
+            Err(_) => BigUint::default(),
+        }
     }
 
     pub fn token_nonce(&self) -> u64 {

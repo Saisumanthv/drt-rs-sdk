@@ -62,7 +62,7 @@
                     "storage": {
                         "str:wrappedRewaTokenId": "str:REWA-abcdef"
                     },
-                    "code": "drtsc:../output/dharitri-sc-wrewa-swap.drtsc.json"
+                    "code": "drtsc:../output/dharitri-wrewa-swap-sc.drtsc.json"
                 }
             }
         }

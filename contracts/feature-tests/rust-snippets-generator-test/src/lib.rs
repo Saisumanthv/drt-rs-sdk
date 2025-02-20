@@ -11,13 +11,14 @@ dharitri_sc::derive_imports!();
 // cargo run snippets
 // Add --overwrite if you want to overwrite existing snippets
 
-// Additionally, we also have to update the interactor snippets manually to add relative paths:
+// Additionally, we also have to update the interact-rs snippets manually to add relative paths:
 // [dependencies.dharitri-sc-snippets]
-// version = "0.0.1"
+// version = "0.50.3"
 // path = "../../../../framework/snippets"
 
-#[type_abi]
-#[derive(TopEncode, TopDecode, NestedEncode, NestedDecode, ManagedVecItem, Debug, Clone)]
+#[derive(
+    TypeAbi, TopEncode, TopDecode, NestedEncode, NestedDecode, ManagedVecItem, Debug, Clone,
+)]
 pub struct MyCoolStruct<M: ManagedTypeApi> {
     pub awesome: BigUint<M>,
 }

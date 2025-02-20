@@ -7,13 +7,13 @@ pub trait ForwarderSftModule: fwd_storage_legacy::ForwarderStorageModule {
     #[payable("REWA")]
     #[endpoint]
     fn sft_issue(&self, token_display_name: ManagedBuffer, token_ticker: ManagedBuffer) {
-        let issue_cost = self.call_value().rewa();
+        let issue_cost = self.call_value().rewa_value();
         let caller = self.blockchain().get_caller();
 
         self.send()
             .dcdt_system_sc_proxy()
             .issue_semi_fungible(
-                issue_cost.clone(),
+                issue_cost.clone_value(),
                 &token_display_name,
                 &token_ticker,
                 SemiFungibleTokenProperties {

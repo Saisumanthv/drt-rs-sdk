@@ -5,8 +5,7 @@ use dharitri_sc::{derive_imports::*, imports::*};
 pub mod nft_marketplace_proxy;
 mod nft_module;
 
-#[type_abi]
-#[derive(TopEncode, TopDecode)]
+#[derive(TypeAbi, TopEncode, TopDecode)]
 pub struct ExampleAttributes {
     pub creation_timestamp: u64,
 }

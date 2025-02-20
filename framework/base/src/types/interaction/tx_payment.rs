@@ -1,11 +1,9 @@
-mod test_dcdt_transfer;
 mod tx_payment_rewa;
 mod tx_payment_rewa_or_dcdt;
 mod tx_payment_rewa_or_dcdt_refs;
 mod tx_payment_rewa_or_multi_dcdt;
 mod tx_payment_rewa_or_multi_dcdt_ref;
 mod tx_payment_rewa_value;
-mod tx_payment_multi_rewa_or_dcdt;
 mod tx_payment_multi_dcdt;
 mod tx_payment_none;
 mod tx_payment_not_payable;
@@ -13,7 +11,6 @@ mod tx_payment_single_dcdt;
 mod tx_payment_single_dcdt_ref;
 mod tx_payment_single_dcdt_triple;
 
-pub use test_dcdt_transfer::TestDcdtTransfer;
 pub use tx_payment_rewa::{Rewa, RewaPayment};
 pub use tx_payment_rewa_value::TxRewaValue;
 pub use tx_payment_multi_dcdt::TxPaymentMultiDcdt;
@@ -21,7 +18,7 @@ pub use tx_payment_not_payable::NotPayable;
 
 use crate::{
     api::ManagedTypeApi,
-    types::{BigUint, ManagedAddress, ManagedBuffer, MultiRewaOrDcdtPayment},
+    types::{BigUint, ManagedAddress, ManagedBuffer, MultiDcdtPayment},
 };
 
 use super::{AnnotatedValue, FunctionCall, TxEnv, TxFrom, TxToSpecified};
@@ -119,7 +116,7 @@ where
     Api: ManagedTypeApi,
 {
     pub rewa: Option<AnnotatedRewaPayment<Api>>,
-    pub multi_dcdt: MultiRewaOrDcdtPayment<Api>,
+    pub multi_dcdt: MultiDcdtPayment<Api>,
 }
 
 impl<Api> Default for FullPaymentData<Api>

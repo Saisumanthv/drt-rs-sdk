@@ -1,6 +1,6 @@
 use dharitri_sc::{
     storage::{
-        mappers::{SetMapper, StorageClearable, StorageMapper, StorageMapperFromAddress},
+        mappers::{SetMapper, StorageClearable, StorageMapper},
         StorageKey,
     },
     types::ManagedAddress,

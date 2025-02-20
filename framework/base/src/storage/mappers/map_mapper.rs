@@ -2,7 +2,7 @@ use core::marker::PhantomData;
 
 use super::{
     set_mapper::{self, CurrentStorage, StorageAddress},
-    SetMapper, StorageClearable, StorageMapper, StorageMapperFromAddress,
+    SetMapper, StorageClearable, StorageMapper,
 };
 use crate::{
     abi::{TypeAbi, TypeAbiFrom, TypeDescriptionContainer, TypeName},
@@ -99,13 +99,13 @@ where
     }
 }
 
-impl<SA, K, V> StorageMapperFromAddress<SA> for MapMapper<SA, K, V, ManagedAddress<SA>>
+impl<SA, K, V> MapMapper<SA, K, V, ManagedAddress<SA>>
 where
     SA: StorageMapperApi,
     K: TopEncode + TopDecode + NestedEncode + NestedDecode,
     V: TopEncode + TopDecode,
 {
-    fn new_from_address(address: ManagedAddress<SA>, base_key: StorageKey<SA>) -> Self {
+    pub fn new_from_address(address: ManagedAddress<SA>, base_key: StorageKey<SA>) -> Self {
         MapMapper {
             _phantom_api: PhantomData,
             address: address.clone(),
@@ -234,7 +234,7 @@ where
     }
 }
 
-impl<SA, A, K, V> Iterator for Iter<'_, SA, A, K, V>
+impl<'a, SA, A, K, V> Iterator for Iter<'a, SA, A, K, V>
 where
     SA: StorageMapperApi,
     A: StorageAddress<SA>,
@@ -279,7 +279,7 @@ where
     }
 }
 
-impl<SA, A, K, V> Iterator for Values<'_, SA, A, K, V>
+impl<'a, SA, A, K, V> Iterator for Values<'a, SA, A, K, V>
 where
     SA: StorageMapperApi,
     A: StorageAddress<SA>,
@@ -344,7 +344,7 @@ where
     pub(super) _marker: PhantomData<&'a mut (K, V)>,
 }
 
-impl<SA, A, K, V> Entry<'_, SA, A, K, V>
+impl<'a, SA, A, K, V> Entry<'a, SA, A, K, V>
 where
     SA: StorageMapperApi,
     A: StorageAddress<SA>,
@@ -438,7 +438,7 @@ where
     }
 }
 
-impl<SA, A, K, V> VacantEntry<'_, SA, A, K, V>
+impl<'a, SA, A, K, V> VacantEntry<'a, SA, A, K, V>
 where
     SA: StorageMapperApi,
     A: StorageAddress<SA>,
@@ -470,7 +470,7 @@ where
     }
 }
 
-impl<SA, A, K, V> OccupiedEntry<'_, SA, A, K, V>
+impl<'a, SA, A, K, V> OccupiedEntry<'a, SA, A, K, V>
 where
     SA: StorageMapperApi,
     A: StorageAddress<SA>,
@@ -488,7 +488,7 @@ where
     }
 }
 
-impl<SA, K, V> OccupiedEntry<'_, SA, CurrentStorage, K, V>
+impl<'a, SA, K, V> OccupiedEntry<'a, SA, CurrentStorage, K, V>
 where
     SA: StorageMapperApi,
     K: TopEncode + TopDecode + NestedEncode + NestedDecode + Clone,

@@ -22,7 +22,6 @@ type ForwarderContract = ContractInfo<forwarder_legacy::Proxy<StaticApi>>;
 fn world() -> ScenarioWorld {
     let mut blockchain = ScenarioWorld::new();
 
-    blockchain.set_current_dir_from_workspace("contracts/feature-tests/composability");
     blockchain.register_contract(FORWARDER_PATH_EXPR, forwarder_legacy::ContractBuilder);
     blockchain
 }

@@ -1,6 +1,6 @@
-use dharitri_sc_price_aggregator::{
+use dharitri_price_aggregator_sc::{
     price_aggregator_data::{OracleStatus, TimestampedPrice, TokenPair},
-    PriceAggregator, MAX_ROUND_DURATION_SECONDS,
+    ContractObj, PriceAggregator, MAX_ROUND_DURATION_SECONDS,
 };
 
 use dharitri_sc_scenario::imports::*;
@@ -19,15 +19,14 @@ const USD_TICKER: &[u8] = b"USDC";
 const PRICE_AGGREGATOR_ADDRESS: TestSCAddress = TestSCAddress::new("price-aggregator");
 const OWNER_ADDRESS: TestAddress = TestAddress::new("owner");
 const PRICE_AGGREGATOR_PATH: DrtscPath =
-    DrtscPath::new("output/dharitri-sc-price-aggregator.drtsc.json");
+    DrtscPath::new("output/dharitri-price-aggregator-sc.drtsc.json");
 
 fn world() -> ScenarioWorld {
     let mut blockchain = ScenarioWorld::new();
 
-    blockchain.set_current_dir_from_workspace("contracts/core/price-aggregator");
     blockchain.register_contract(
         PRICE_AGGREGATOR_PATH,
-        dharitri_sc_price_aggregator::ContractBuilder,
+        dharitri_price_aggregator_sc::ContractBuilder,
     );
 
     blockchain
@@ -36,6 +35,7 @@ fn world() -> ScenarioWorld {
 struct PriceAggregatorTestState {
     world: ScenarioWorld,
     oracles: Vec<AddressValue>,
+    price_aggregator_whitebox: WhiteboxContract<ContractObj<DebugApi>>,
 }
 
 impl PriceAggregatorTestState {
@@ -57,7 +57,16 @@ impl PriceAggregatorTestState {
             oracles.push(address_value);
         }
 
-        Self { world, oracles }
+        let price_aggregator_whitebox = WhiteboxContract::new(
+            PRICE_AGGREGATOR_ADDRESS,
+            dharitri_price_aggregator_sc::contract_obj,
+        );
+
+        Self {
+            world,
+            oracles,
+            price_aggregator_whitebox,
+        }
     }
 
     fn deploy(&mut self) -> &mut Self {
@@ -194,10 +203,9 @@ fn test_price_aggregator_submit() {
     state.submit(&state.oracles[0].clone(), 95, 100);
 
     let current_timestamp = 100;
-
-    state.world.query().to(PRICE_AGGREGATOR_ADDRESS).whitebox(
-        dharitri_sc_price_aggregator::contract_obj,
-        |sc| {
+    state
+        .world
+        .whitebox_query(&state.price_aggregator_whitebox, |sc| {
             let token_pair = TokenPair {
                 from: managed_buffer!(REWA_TICKER),
                 to: managed_buffer!(USD_TICKER),
@@ -229,15 +237,14 @@ fn test_price_aggregator_submit() {
                     accepted_submissions: 1
                 }
             );
-        },
-    );
+        });
 
     // first oracle submit again - submission not accepted
     state.submit(&state.oracles[0].clone(), 95, 100);
 
-    state.world.query().to(PRICE_AGGREGATOR_ADDRESS).whitebox(
-        dharitri_sc_price_aggregator::contract_obj,
-        |sc| {
+    state
+        .world
+        .whitebox_query(&state.price_aggregator_whitebox, |sc| {
             assert_eq!(
                 sc.oracle_status()
                     .get(&managed_address!(&state.oracles[0].to_address()))
@@ -247,8 +254,7 @@ fn test_price_aggregator_submit() {
                     accepted_submissions: 1
                 }
             );
-        },
-    );
+        });
 }
 
 #[test]
@@ -277,9 +283,9 @@ fn test_price_aggregator_submit_round_ok() {
     // submit third
     state.submit(&state.oracles[2].clone(), 105, 12_000);
 
-    state.world.query().to(PRICE_AGGREGATOR_ADDRESS).whitebox(
-        dharitri_sc_price_aggregator::contract_obj,
-        |sc| {
+    state
+        .world
+        .whitebox_query(&state.price_aggregator_whitebox, |sc| {
             let result =
                 sc.latest_price_feed(managed_buffer!(REWA_TICKER), managed_buffer!(USD_TICKER));
 
@@ -306,8 +312,7 @@ fn test_price_aggregator_submit_round_ok() {
                     decimals
                 }
             );
-        },
-    );
+        });
 }
 
 #[test]
@@ -333,9 +338,9 @@ fn test_price_aggregator_discarded_round() {
     // submit second - this will discard the previous submission
     state.submit(&state.oracles[1].clone(), current_timestamp - 1, 11_000);
 
-    state.world.query().to(PRICE_AGGREGATOR_ADDRESS).whitebox(
-        dharitri_sc_price_aggregator::contract_obj,
-        |sc| {
+    state
+        .world
+        .whitebox_query(&state.price_aggregator_whitebox, |sc| {
             let token_pair = TokenPair {
                 from: managed_buffer!(REWA_TICKER),
                 to: managed_buffer!(USD_TICKER),
@@ -348,8 +353,7 @@ fn test_price_aggregator_discarded_round() {
                     .unwrap(),
                 managed_biguint!(11_000)
             );
-        },
-    );
+        });
 }
 
 #[test]

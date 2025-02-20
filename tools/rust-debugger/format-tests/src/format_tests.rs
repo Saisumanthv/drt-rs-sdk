@@ -7,7 +7,10 @@ use dharitri_sc::{
         ManagedType, ManagedVec, TokenIdentifier,
     },
 };
-use dharitri_sc_scenario::imports::*;
+use dharitri_sc_scenario::{
+    api::{DebugApi, DebugHandle},
+    num_bigint::{BigInt as RustBigInt, BigUint as RustBigUint},
+};
 
 macro_rules! push {
     ($list: ident, $name:ident, $expected: expr ) => {{
@@ -181,7 +184,7 @@ fn main() {
 
     let invalid_handle = DebugHandle::from(-1000);
     let biguint_with_invalid_handle: BigUint<DebugApi> =
-        unsafe { BigUint::from_handle(invalid_handle.clone()) };
+        BigUint::from_handle(invalid_handle.clone());
     push!(
         to_check,
         biguint_with_invalid_handle,
@@ -189,7 +192,7 @@ fn main() {
     );
 
     let big_float_with_invalid_handle: BigFloat<DebugApi> =
-        unsafe { BigFloat::from_handle(invalid_handle.clone()) };
+        BigFloat::from_handle(invalid_handle.clone());
     push!(
         to_check,
         big_float_with_invalid_handle,
@@ -197,7 +200,7 @@ fn main() {
     );
 
     let managed_buffer_with_invalid_handle: ManagedBuffer<DebugApi> =
-        unsafe { ManagedBuffer::from_handle(invalid_handle.clone()) };
+        ManagedBuffer::from_handle(invalid_handle.clone());
     push!(
         to_check,
         managed_buffer_with_invalid_handle,
@@ -205,7 +208,7 @@ fn main() {
     );
 
     let token_identifier_with_invalid_handle: TokenIdentifier<DebugApi> =
-        unsafe { TokenIdentifier::from_handle(invalid_handle.clone()) };
+        TokenIdentifier::from_handle(invalid_handle.clone());
     push!(
         to_check,
         token_identifier_with_invalid_handle,
@@ -213,7 +216,7 @@ fn main() {
     );
 
     let optional_value_some_with_invalid_handle: OptionalValue<BigUint<DebugApi>> =
-        OptionalValue::Some(unsafe { BigUint::from_handle(invalid_handle.clone()) });
+        OptionalValue::Some(BigUint::from_handle(invalid_handle.clone()));
     push!(
         to_check,
         optional_value_some_with_invalid_handle,

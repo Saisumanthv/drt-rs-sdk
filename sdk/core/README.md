@@ -4,8 +4,21 @@
 
 General purpose collection of tools & SDKs to interact with the Dharitri blockchain from Rust projects.
 
-It provides communication via the Dharitri gateway API.
+## Example
 
+```rust
+use dharitri_sdk::blockchain::rpc::{CommunicationProxy, DEVNET_GATEWAY};
+
+#[tokio::test]
+async fn get_network_config() {
+    let blockchain = CommunicationProxy::new(DEVNET_GATEWAY.to_string());
+    let network_config = blockchain.get_network_config().await.unwrap();
+
+    println!("network_config: {:?}", network_config)
+}
+```
+
+More examples in `./examples`.
 
 ## Acknowledgements
 

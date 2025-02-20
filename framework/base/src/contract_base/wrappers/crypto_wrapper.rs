@@ -1,8 +1,11 @@
 use core::marker::PhantomData;
 
 use crate::{
-    api::{CryptoApi, CryptoApiImpl, KECCAK256_RESULT_LEN, SHA256_RESULT_LEN},
-    types::{ManagedBuffer, ManagedByteArray, ManagedType, ManagedVec, MessageHashType},
+    api::{
+        use_raw_handle, CryptoApi, CryptoApiImpl, StaticVarApiImpl, KECCAK256_RESULT_LEN,
+        SHA256_RESULT_LEN,
+    },
+    types::{ManagedBuffer, ManagedByteArray, ManagedType, MessageHashType},
 };
 
 #[derive(Default)]
@@ -27,33 +30,30 @@ where
         &self,
         data: B,
     ) -> ManagedByteArray<A, SHA256_RESULT_LEN> {
-        unsafe {
-            let result = ManagedByteArray::new_uninit();
-            A::crypto_api_impl().sha256_managed(result.get_handle(), data.borrow().get_handle());
-            result
-        }
+        let new_handle: A::ManagedBufferHandle =
+            use_raw_handle(A::static_var_api_impl().next_handle());
+        A::crypto_api_impl().sha256_managed(new_handle.clone(), data.borrow().get_handle());
+        ManagedByteArray::from_handle(new_handle)
     }
 
     pub fn keccak256<B: core::borrow::Borrow<ManagedBuffer<A>>>(
         &self,
         data: B,
     ) -> ManagedByteArray<A, KECCAK256_RESULT_LEN> {
-        unsafe {
-            let result = ManagedByteArray::new_uninit();
-            A::crypto_api_impl().keccak256_managed(result.get_handle(), data.borrow().get_handle());
-            result
-        }
+        let new_handle: A::ManagedBufferHandle =
+            use_raw_handle(A::static_var_api_impl().next_handle());
+        A::crypto_api_impl().keccak256_managed(new_handle.clone(), data.borrow().get_handle());
+        ManagedByteArray::from_handle(new_handle)
     }
 
     pub fn ripemd160<B: core::borrow::Borrow<ManagedBuffer<A>>>(
         &self,
         data: B,
     ) -> ManagedByteArray<A, { crate::api::RIPEMD_RESULT_LEN }> {
-        unsafe {
-            let result = ManagedByteArray::new_uninit();
-            A::crypto_api_impl().ripemd160_managed(result.get_handle(), data.borrow().get_handle());
-            result
-        }
+        let new_handle: A::ManagedBufferHandle =
+            use_raw_handle(A::static_var_api_impl().next_handle());
+        A::crypto_api_impl().ripemd160_managed(new_handle.clone(), data.borrow().get_handle());
+        ManagedByteArray::from_handle(new_handle)
     }
 
     pub fn verify_bls(
@@ -61,7 +61,7 @@ where
         key: &ManagedBuffer<A>,
         message: &ManagedBuffer<A>,
         signature: &ManagedBuffer<A>,
-    ) {
+    ) -> bool {
         A::crypto_api_impl().verify_bls_managed(
             key.get_handle(),
             message.get_handle(),
@@ -69,9 +69,7 @@ where
         )
     }
 
-    /// Calls the Vm to verify ed25519 signature.
-    ///
-    /// Does not return result, will fail tx directly!
+    /// Will crash if the verification fails.
     ///
     /// The error comes straight form the VM, the message is "invalid signature".
     pub fn verify_ed25519(
@@ -122,62 +120,13 @@ where
         r: &ManagedBuffer<A>,
         s: &ManagedBuffer<A>,
     ) -> ManagedBuffer<A> {
-        unsafe {
-            let result = ManagedBuffer::new_uninit();
-            A::crypto_api_impl().encode_secp256k1_der_signature_managed(
-                r.get_handle(),
-                s.get_handle(),
-                result.get_handle(),
-            );
-            result
-        }
-    }
-
-    /// Calls the Vm to verify secp256r1 signature.
-    ///
-    /// Does not return result, will fail tx directly!
-    pub fn verify_secp256r1(
-        &self,
-        key: &ManagedBuffer<A>,
-        message: &ManagedBuffer<A>,
-        signature: &ManagedBuffer<A>,
-    ) {
-        A::crypto_api_impl().verify_secp256r1_managed(
-            key.get_handle(),
-            message.get_handle(),
-            signature.get_handle(),
-        )
-    }
-
-    /// Calls the Vm to verify BLS signature share.
-    ///
-    /// Does not return result, will fail tx directly!
-    pub fn verify_bls_signature_share(
-        &self,
-        key: &ManagedBuffer<A>,
-        message: &ManagedBuffer<A>,
-        signature: &ManagedBuffer<A>,
-    ) {
-        A::crypto_api_impl().verify_bls_signature_share_managed(
-            key.get_handle(),
-            message.get_handle(),
-            signature.get_handle(),
-        )
-    }
-
-    /// Calls the Vm to verify BLS aggregated signature.
-    ///
-    /// Does not return result, will fail tx directly!
-    pub fn verify_bls_aggregated_signature(
-        &self,
-        keys: &ManagedVec<A, ManagedBuffer<A>>,
-        message: &ManagedBuffer<A>,
-        signature: &ManagedBuffer<A>,
-    ) {
-        A::crypto_api_impl().verify_bls_aggregated_signature_managed(
-            keys.get_handle(),
-            message.get_handle(),
-            signature.get_handle(),
-        )
+        let new_handle: A::ManagedBufferHandle =
+            use_raw_handle(A::static_var_api_impl().next_handle());
+        A::crypto_api_impl().encode_secp256k1_der_signature_managed(
+            r.get_handle(),
+            s.get_handle(),
+            new_handle.clone(),
+        );
+        ManagedBuffer::from_handle(new_handle)
     }
 }

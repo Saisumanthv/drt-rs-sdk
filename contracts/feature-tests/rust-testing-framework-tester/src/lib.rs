@@ -1,12 +1,11 @@
 #![no_std]
 
-use dharitri_sc::proxy_imports::*;
+dharitri_sc::imports!();
+dharitri_sc::derive_imports!();
 
 pub mod dummy_module;
-pub mod rust_testing_framework_tester_proxy;
 
-#[type_abi]
-#[derive(TopEncode, TopDecode, Clone, Debug, PartialEq, Eq)]
+#[derive(TopEncode, TopDecode, TypeAbi, Clone, Debug, PartialEq, Eq)]
 pub struct NftDummyAttributes {
     pub creation_epoch: u64,
     pub cool_factor: u8,
@@ -21,7 +20,7 @@ pub struct StructWithManagedTypes<M: ManagedTypeApi> {
 pub trait RustTestingFrameworkTester: dummy_module::DummyModule {
     #[init]
     fn init(&self) -> ManagedBuffer {
-        self.total_value().set(BigUint::from(1u32));
+        self.total_value().set(&BigUint::from(1u32));
         b"constructor-result".into()
     }
 
@@ -57,13 +56,13 @@ pub trait RustTestingFrameworkTester: dummy_module::DummyModule {
     #[payable("REWA")]
     #[endpoint]
     fn receive_rewa(&self) -> BigUint {
-        self.call_value().rewa().clone()
+        self.call_value().rewa_value().clone_value()
     }
 
     #[payable("REWA")]
     #[endpoint]
     fn recieve_rewa_half(&self) {
-        let payment_amount = &*self.call_value().rewa() / 2u32;
+        let payment_amount = &*self.call_value().rewa_value() / 2u32;
         self.tx().to(ToCaller).rewa(payment_amount).transfer();
     }
 
@@ -71,7 +70,7 @@ pub trait RustTestingFrameworkTester: dummy_module::DummyModule {
     #[endpoint]
     fn receive_dcdt(&self) -> (TokenIdentifier, BigUint) {
         let payment = self.call_value().single_dcdt();
-        (payment.token_identifier.clone(), payment.amount.clone())
+        (payment.token_identifier, payment.amount)
     }
 
     #[payable("*")]
@@ -84,7 +83,7 @@ pub trait RustTestingFrameworkTester: dummy_module::DummyModule {
     #[endpoint]
     fn receive_dcdt_half(&self) {
         let payment = self.call_value().single_dcdt();
-        let amount = &payment.amount / 2u32;
+        let amount = payment.amount / 2u32;
 
         self.tx()
             .to(ToCaller)
@@ -95,7 +94,7 @@ pub trait RustTestingFrameworkTester: dummy_module::DummyModule {
     #[payable("*")]
     #[endpoint]
     fn receive_multi_dcdt(&self) -> ManagedVec<DcdtTokenPayment<Self::Api>> {
-        self.call_value().all_dcdt_transfers().clone()
+        self.call_value().all_dcdt_transfers().clone_value()
     }
 
     #[payable("*")]

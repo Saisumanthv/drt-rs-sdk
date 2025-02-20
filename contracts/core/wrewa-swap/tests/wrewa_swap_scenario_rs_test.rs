@@ -2,11 +2,10 @@ use dharitri_sc_scenario::*;
 
 fn world() -> ScenarioWorld {
     let mut blockchain = ScenarioWorld::new();
-    blockchain.set_current_dir_from_workspace("contracts/core/wrewa-swap");
 
     blockchain.register_contract(
-        "drtsc:output/dharitri-sc-wrewa-swap.drtsc.json",
-        dharitri_sc_wrewa_swap::ContractBuilder,
+        "drtsc:output/dharitri-wrewa-swap-sc.drtsc.json",
+        dharitri_wrewa_swap_sc::ContractBuilder,
     );
     blockchain
 }

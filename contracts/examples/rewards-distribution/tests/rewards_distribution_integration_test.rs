@@ -6,7 +6,7 @@ use dharitri_sc_scenario::imports::*;
 use std::iter::zip;
 
 use rewards_distribution::{
-    rewards_distribution_proxy, RewardsDistribution, DIVISION_SAFETY_CONSTANT,
+    rewards_distribution_proxy, ContractObj, RewardsDistribution, DIVISION_SAFETY_CONSTANT,
 };
 
 const ALICE_ADDRESS: TestAddress = TestAddress::new("alice");
@@ -21,7 +21,6 @@ const NFT_TOKEN_ID: TestTokenIdentifier = TestTokenIdentifier::new("NFT-123456")
 fn world() -> ScenarioWorld {
     let mut blockchain = ScenarioWorld::new();
 
-    blockchain.set_current_dir_from_workspace("contracts/examples/rewards-distribution");
     blockchain.register_contract(
         REWARDS_DISTRIBUTION_PATH,
         rewards_distribution::ContractBuilder,
@@ -32,6 +31,7 @@ fn world() -> ScenarioWorld {
 
 struct RewardsDistributionTestState {
     world: ScenarioWorld,
+    rewards_distribution_whitebox: WhiteboxContract<ContractObj<DebugApi>>,
 }
 
 impl RewardsDistributionTestState {
@@ -40,7 +40,15 @@ impl RewardsDistributionTestState {
 
         world.account(OWNER_ADDRESS).nonce(1);
 
-        Self { world }
+        let rewards_distribution_whitebox = WhiteboxContract::new(
+            REWARDS_DISTRIBUTION_ADDRESS,
+            rewards_distribution::contract_obj,
+        );
+
+        Self {
+            world,
+            rewards_distribution_whitebox,
+        }
     }
 
     fn deploy_seed_nft_minter_contract(&mut self) -> &mut Self {
@@ -102,12 +110,10 @@ fn test_compute_brackets() {
         .owner(OWNER_ADDRESS)
         .code(REWARDS_DISTRIBUTION_PATH);
 
-    state
-        .world
-        .tx()
-        .from(OWNER_ADDRESS)
-        .to(REWARDS_DISTRIBUTION_ADDRESS)
-        .whitebox(rewards_distribution::contract_obj, |sc| {
+    state.world.whitebox_call(
+        &state.rewards_distribution_whitebox,
+        ScCallStep::new().from(OWNER_ADDRESS),
+        |sc| {
             let brackets = utils::to_brackets(&[
                 (10, 2_000),
                 (90, 6_000),
@@ -134,7 +140,8 @@ fn test_compute_brackets() {
                 assert_eq!(computed.end_index, expected_end_index);
                 assert_eq!(computed.nft_reward_percent, expected_reward_percent);
             }
-        });
+        },
+    );
 }
 
 #[test]

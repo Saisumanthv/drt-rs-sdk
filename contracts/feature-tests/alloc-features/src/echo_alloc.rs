@@ -2,6 +2,9 @@ dharitri_sc::imports!();
 
 use crate::types::*;
 
+// String is not part of the standard imports because we want to discourage its use
+use dharitri_sc::types::String;
+
 /// Test serialization for heap-allocated types.
 #[dharitri_sc::module]
 pub trait EchoAllocTypes {

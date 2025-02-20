@@ -7,6 +7,7 @@ import re
 import struct
 
 DEBUG_API_TYPE = "dharitri_sc_scenario::api::impl_vh::vm_hooks_api::VMHooksApi<dharitri_sc_scenario::api::impl_vh::debug_api::DebugApiBackend>"
+ANY_NUMBER = "[0-9]+"
 ANY_TYPE = ".*"
 SOME_OR_NONE = "(Some|None)"
 
@@ -17,24 +18,25 @@ NUM_BIG_UINT_TYPE = "num_bigint::biguint::BigUint"
 # 2. SC wasm - Managed basic types
 MOD_PATH = "dharitri_sc::types::managed::basic"
 
-BIG_INT_TYPE = f"{MOD_PATH}::big_int::BigInt<{DEBUG_API_TYPE} ?>"
-BIG_FLOAT_TYPE = f"{MOD_PATH}::big_float::BigFloat<{DEBUG_API_TYPE} ?>"
-MANAGED_BUFFER_TYPE = f"{MOD_PATH}::managed_buffer::ManagedBuffer<{DEBUG_API_TYPE} ?>"
+BIG_INT_TYPE = f"{MOD_PATH}::big_int::BigInt<{DEBUG_API_TYPE}>"
+BIG_UINT_TYPE = f"{MOD_PATH}::big_uint::BigUint<{DEBUG_API_TYPE}>"
+BIG_FLOAT_TYPE = f"{MOD_PATH}::big_float::BigFloat<{DEBUG_API_TYPE}>"
+MANAGED_BUFFER_TYPE = f"{MOD_PATH}::managed_buffer::ManagedBuffer<{DEBUG_API_TYPE}>"
 
 # 3. SC wasm - Managed wrapped types
 MOD_PATH = "dharitri_sc::types::managed::wrapped"
 
-BIG_UINT_TYPE = f"{MOD_PATH}::big_uint::BigUint<{DEBUG_API_TYPE} ?>"
-TOKEN_IDENTIFIER_TYPE = f"{MOD_PATH}::token_identifier::TokenIdentifier<{DEBUG_API_TYPE} ?>"
-MANAGED_ADDRESS_TYPE = f"{MOD_PATH}::managed_address::ManagedAddress<{DEBUG_API_TYPE} ?>"
-MANAGED_BYTE_ARRAY_TYPE = f"{MOD_PATH}::managed_byte_array::ManagedByteArray<{DEBUG_API_TYPE} ?>"
+TOKEN_IDENTIFIER_TYPE = f"{MOD_PATH}::token_identifier::TokenIdentifier<{DEBUG_API_TYPE}>"
+MANAGED_ADDRESS_TYPE = f"{MOD_PATH}::managed_address::ManagedAddress<{DEBUG_API_TYPE}>"
+MANAGED_BYTE_ARRAY_TYPE = f"{MOD_PATH}::managed_byte_array::ManagedByteArray<{DEBUG_API_TYPE}, {ANY_NUMBER}>"
 
 # ManagedOption
 MANAGED_OPTION_INNER_TYPE_INDEX = 1
 MANAGED_OPTION_NONE_HANDLE = 2147483646  # i32::MAX - 1
 MANAGED_OPTION_TYPE = f"{MOD_PATH}::managed_option::ManagedOption<{DEBUG_API_TYPE}, {ANY_TYPE}>"
-DCDT_TOKEN_PAYMENT_TYPE = f"{MOD_PATH}::dcdt_token_payment::DcdtTokenPayment<{DEBUG_API_TYPE} ?>"
-REWA_OR_DCDT_TOKEN_IDENTIFIER_TYPE = f"{MOD_PATH}::rewa_or_dcdt_token_identifier::RewaOrDcdtTokenIdentifier<{DEBUG_API_TYPE} ?>"
+
+DCDT_TOKEN_PAYMENT_TYPE = f"{MOD_PATH}::dcdt_token_payment::DcdtTokenPayment<{DEBUG_API_TYPE}>"
+REWA_OR_DCDT_TOKEN_IDENTIFIER_TYPE = f"{MOD_PATH}::rewa_or_dcdt_token_identifier::RewaOrDcdtTokenIdentifier<{DEBUG_API_TYPE}>"
 
 # ManagedVec
 MANAGED_VEC_INNER_TYPE_INDEX = 1
@@ -42,16 +44,16 @@ MANAGED_VEC_TYPE = f"{MOD_PATH}::managed_vec::ManagedVec<{DEBUG_API_TYPE}, {ANY_
 
 # 4. SC wasm - Managed multi value types
 
-# 5. VM core types
-MOD_PATH = "dharitri_chain_core::types"
+# 5. SC wasm - heap
+MOD_PATH = "dharitri_sc::types::heap"
 
-HEAP_ADDRESS_TYPE = f"{MOD_PATH}::address::Address"
+HEAP_ADDRESS_TYPE = f"{MOD_PATH}::h256_address::Address"
 BOXED_BYTES_TYPE = f"{MOD_PATH}::boxed_bytes::BoxedBytes"
 
 # 6. Dharitri codec - Multi-types
 MOD_PATH = "dharitri_sc_codec::multi_types"
 
-OPTIONAL_VALUE_TYPE = f"{MOD_PATH}::multi_value_optional::OptionalValue<{ANY_TYPE}>"
+OPTIONAL_VALUE_TYPE = f"{MOD_PATH}::multi_value_optional::OptionalValue<{ANY_TYPE}>::{SOME_OR_NONE}"
 
 
 class InvalidHandle(Exception):
@@ -239,7 +241,7 @@ class ManagedType(Handler):
         return full_value
 
     def extract_value_from_raw_handle(self, context: lldb.value, raw_handle: int, map_picker: Callable) -> lldb.value:
-        managed_types = context[0].managed_types.data.value
+        managed_types = context.managed_types
         chosen_map = map_picker(managed_types)
         value = map_lookup(chosen_map, raw_handle)
         return value
@@ -286,7 +288,7 @@ class PlainManagedVecItem(ManagedVecItem, ManagedType):
 class NumBigInt(Handler):
     def summary(self, num_big_int: lldb.value) -> str:
         value_int = num_bigint_data_to_int(num_big_int.data.data)
-        if num_big_int.sign.sbvalue.GetValue() == 'Minus':
+        if num_big_int.sign.sbvalue.GetValue() == 'num_bigint::bigint::Sign::Minus':
             return str(-value_int)
         return str(value_int)
 
@@ -318,20 +320,9 @@ class ManagedBuffer(PlainManagedVecItem, ManagedType):
         return format_buffer_hex(buffer)
 
 
-class BigUint(PlainManagedVecItem, ManagedType):
-    def map_picker(self) -> Callable:
-        return pick_big_int
-    
-    def lookup(self, big_uint: lldb.value) -> lldb.value:
-        return big_uint.value
-
-    def value_summary(self, big_uint: lldb.value, context: lldb.value, type_info: lldb.SBType) -> str:
-        return big_uint.sbvalue.GetSummary()
-
-
 class TokenIdentifier(PlainManagedVecItem, ManagedType):
     def lookup(self, token_identifier: lldb.value) -> lldb.value:
-        return token_identifier.data.buffer
+        return token_identifier.buffer
 
     def value_summary(self, buffer: lldb.value, context: lldb.value, type_info: lldb.SBType) -> str:
         return buffer_as_string(buffer)
@@ -417,13 +408,14 @@ class DcdtTokenPayment(ManagedVecItem, ManagedType):
 
 class RewaOrDcdtTokenIdentifier(PlainManagedVecItem, ManagedType):
     def lookup(self, rewa_or_dcdt_token_identifier: lldb.value) -> lldb.value:
-        return rewa_or_dcdt_token_identifier.buffer
+        return rewa_or_dcdt_token_identifier.data
 
-    def value_summary(self, buffer: lldb.value, context: lldb.value, type_info: lldb.SBType) -> str:
-        token_id = buffer_as_string(buffer)
-        if token_id == '"REWA-000000"':
+    @check_invalid_handle
+    def summary_from_raw_handle(self, raw_handle: int, context: lldb.value, type_info: lldb.SBType) -> str:
+        if raw_handle == MANAGED_OPTION_NONE_HANDLE:
             return "RewaOrDcdtTokenIdentifier::rewa()"
-        return f"RewaOrDcdtTokenIdentifier::dcdt({token_id})" 
+        token_summary = TokenIdentifier().summary_from_raw_handle(raw_handle, context, None)
+        return f"RewaOrDcdtTokenIdentifier::dcdt({token_summary})"
 
 
 class ManagedVec(PlainManagedVecItem, ManagedType):
@@ -458,23 +450,22 @@ class BoxedBytes(Handler):
 
 class OptionalValue(Handler):
     def summary(self, optional_value: lldb.value) -> str:
-        base_type = optional_value.sbvalue.GetType().GetName()
-        if optional_value.value.sbvalue.GetType().GetName().startswith(f'{base_type}::Some'):
-            summary = optional_value.value.sbvalue.GetChildAtIndex(0).GetSummary()
+        if optional_value.sbvalue.GetType().GetName().endswith('::Some'):
+            summary = optional_value.sbvalue.GetChildAtIndex(0).GetSummary()
             return f"OptionalValue::Some({summary})"
         return "OptionalValue::None"
 
 
-DHARITRI_WASM_TYPE_HANDLERS = [
+NUMBAT_WASM_TYPE_HANDLERS = [
     # 1. num_bigint library
     (NUM_BIG_INT_TYPE, NumBigInt),
     (NUM_BIG_UINT_TYPE, NumBigUint),
     # 2. SC wasm - Managed basic types
     (BIG_INT_TYPE, BigInt),
+    (BIG_UINT_TYPE, BigInt),
     (BIG_FLOAT_TYPE, BigFloat),
     (MANAGED_BUFFER_TYPE, ManagedBuffer),
     # 3. SC wasm - Managed wrapped types
-    (BIG_UINT_TYPE, BigUint),
     (TOKEN_IDENTIFIER_TYPE, TokenIdentifier),
     (MANAGED_ADDRESS_TYPE, ManagedAddress),
     (MANAGED_BYTE_ARRAY_TYPE, ManagedByteArray),
@@ -503,7 +494,7 @@ def get_inner_type_handler(type_info: lldb.SBType, inner_type_index: int) -> Tup
 
 
 def get_handler(type_name: str) -> Handler:
-    for rust_type, handler_class in DHARITRI_WASM_TYPE_HANDLERS:
+    for rust_type, handler_class in NUMBAT_WASM_TYPE_HANDLERS:
         if re.fullmatch(rust_type, type_name) is not None:
             return handler_class()
     raise UnknownType(type_name)
@@ -518,7 +509,7 @@ def summarize_handler(handler_type: Type[Handler], valobj: SBValue, dictionary) 
 def __lldb_init_module(debugger: SBDebugger, dict):
     python_module_name = Path(__file__).with_suffix('').name
 
-    for rust_type, handler_class in DHARITRI_WASM_TYPE_HANDLERS:
+    for rust_type, handler_class in NUMBAT_WASM_TYPE_HANDLERS:
         # Add summary binding
         summary_function_name = f"handle{handler_class.__name__}"
         globals()[summary_function_name] = partial(summarize_handler, handler_class)

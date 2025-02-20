@@ -6,7 +6,7 @@ use crate::{
     tuple_util::NestedTupleFlatten,
     types::{
         decode_result, BackTransfers, ManagedBuffer, ManagedVec, OriginalResultMarker, RHListExec,
-        Tx, TxDataFunctionCall, TxGas, TxNoPayment, TxPayment, TxScEnv, TxToSpecified,
+        Tx, TxDataFunctionCall, TxGas, TxPayment, TxScEnv, TxToSpecified,
     },
 };
 
@@ -93,11 +93,10 @@ where
     }
 }
 
-impl<Api, To, Payment, Gas, FC, RH> Tx<TxScEnv<Api>, (), To, Payment, Gas, FC, RH>
+impl<Api, To, Gas, FC, RH> Tx<TxScEnv<Api>, (), To, (), Gas, FC, RH>
 where
     Api: CallTypeApi,
     To: TxToSpecified<TxScEnv<Api>>,
-    Payment: TxNoPayment<TxScEnv<Api>>,
     Gas: TxGas<TxScEnv<Api>>,
     FC: TxDataFunctionCall<TxScEnv<Api>>,
     RH: RHListExec<SyncCallRawResult<Api>, TxScEnv<Api>>,

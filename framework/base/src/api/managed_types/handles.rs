@@ -10,12 +10,15 @@ pub trait HandleTypeInfo {
 
 use crate::codec::TryStaticCast;
 
-use crate::api::{ErrorApi, ErrorApiImpl};
+use crate::{
+    api::{ErrorApi, ErrorApiImpl},
+    types::ManagedVecItem,
+};
 
 pub type RawHandle = i32;
 
 pub trait HandleConstraints:
-    TryStaticCast + Debug + Clone + From<RawHandle> + PartialEq + PartialEq<RawHandle>
+    ManagedVecItem + TryStaticCast + Debug + Clone + From<RawHandle> + PartialEq + PartialEq<RawHandle>
 {
     fn new(handle: RawHandle) -> Self;
     fn to_be_bytes(&self) -> [u8; 4];

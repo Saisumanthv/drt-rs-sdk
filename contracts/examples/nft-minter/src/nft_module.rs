@@ -3,8 +3,7 @@ use dharitri_sc::{derive_imports::*, imports::*};
 const NFT_AMOUNT: u32 = 1;
 const ROYALTIES_MAX: u32 = 10_000;
 
-#[type_abi]
-#[derive(TopEncode, TopDecode)]
+#[derive(TypeAbi, TopEncode, TopDecode)]
 pub struct PriceTag<M: ManagedTypeApi> {
     pub token: RewaOrDcdtTokenIdentifier<M>,
     pub nonce: u64,
@@ -21,11 +20,11 @@ pub trait NftModule {
     fn issue_token(&self, token_name: ManagedBuffer, token_ticker: ManagedBuffer) {
         require!(self.nft_token_id().is_empty(), "Token already issued");
 
-        let payment_amount = self.call_value().rewa();
+        let payment_amount = self.call_value().rewa_value();
         self.send()
             .dcdt_system_sc_proxy()
             .issue_non_fungible(
-                payment_amount.clone(),
+                payment_amount.clone_value(),
                 &token_name,
                 &token_ticker,
                 NonFungibleTokenProperties {
@@ -50,8 +49,8 @@ pub trait NftModule {
         self.send()
             .dcdt_system_sc_proxy()
             .set_special_roles(
-                self.blockchain().get_sc_address(),
-                self.nft_token_id().get(),
+                &self.blockchain().get_sc_address(),
+                &self.nft_token_id().get(),
                 [DcdtLocalRole::NftCreate][..].iter().cloned(),
             )
             .async_call_and_exit()
@@ -59,7 +58,7 @@ pub trait NftModule {
 
     // endpoints
 
-    #[payable]
+    #[payable("*")]
     #[endpoint(buyNft)]
     fn buy_nft(&self, nft_nonce: u64) {
         let payment = self.call_value().rewa_or_single_dcdt();
@@ -124,7 +123,7 @@ pub trait NftModule {
     ) {
         match result {
             ManagedAsyncCallResult::Ok(token_id) => {
-                self.nft_token_id().set(token_id.unwrap_dcdt());
+                self.nft_token_id().set(&token_id.unwrap_dcdt());
             },
             ManagedAsyncCallResult::Err(_) => {
                 let returned = self.call_value().rewa_or_single_dcdt();

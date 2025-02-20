@@ -3,8 +3,7 @@ use crate::bonding_curve::curves::curve_function::CurveFunction;
 dharitri_sc::imports!();
 dharitri_sc::derive_imports!();
 
-#[type_abi]
-#[derive(TopEncode, TopDecode, NestedEncode, NestedDecode, PartialEq, Eq, Clone)]
+#[derive(TopEncode, TopDecode, NestedEncode, NestedDecode, TypeAbi, PartialEq, Eq, Clone)]
 pub struct CurveArguments<M: ManagedTypeApi> {
     pub available_supply: BigUint<M>,
     pub balance: BigUint<M>,
@@ -16,8 +15,7 @@ impl<M: ManagedTypeApi> CurveArguments<M> {
     }
 }
 
-#[type_abi]
-#[derive(TopEncode, TopDecode, NestedEncode, NestedDecode, PartialEq, Eq, Clone)]
+#[derive(TopEncode, TopDecode, NestedEncode, NestedDecode, TypeAbi, PartialEq, Eq, Clone)]
 pub struct BondingCurve<
     M: ManagedTypeApi,
     T: CurveFunction<M> + TopEncode + TopDecode + NestedEncode + NestedDecode + TypeAbi,
@@ -41,8 +39,7 @@ impl<
     }
 }
 
-#[type_abi]
-#[derive(TopEncode, TopDecode, NestedEncode, NestedDecode, PartialEq, Eq, Clone)]
+#[derive(TopEncode, TopDecode, NestedEncode, NestedDecode, TypeAbi, PartialEq, Eq, Clone)]
 pub struct TokenOwnershipData<M: ManagedTypeApi> {
     pub token_nonces: ManagedVec<M, u64>,
     pub owner: ManagedAddress<M>,

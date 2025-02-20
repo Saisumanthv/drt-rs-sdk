@@ -18,7 +18,7 @@ pub struct ScenarioEnvQuery<'w> {
     pub data: ScenarioTxEnvData,
 }
 
-impl TxEnv for ScenarioEnvQuery<'_> {
+impl<'w> TxEnv for ScenarioEnvQuery<'w> {
     type Api = StaticApi;
 
     type RHExpect = TxExpect;
@@ -36,7 +36,7 @@ impl TxEnv for ScenarioEnvQuery<'_> {
     }
 }
 
-impl ScenarioTxEnv for ScenarioEnvQuery<'_> {
+impl<'w> ScenarioTxEnv for ScenarioEnvQuery<'w> {
     fn env_data(&self) -> &ScenarioTxEnvData {
         &self.data
     }

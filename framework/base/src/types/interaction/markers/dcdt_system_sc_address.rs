@@ -1,20 +1,19 @@
 use hex_literal::hex;
-use dharitri_chain_core::types::Address;
 use dharitri_sc_codec::{EncodeErrorHandler, TopEncode, TopEncodeOutput};
 
 use crate::{
     abi::TypeAbiFrom,
-    api::ManagedTypeApi,
-    types::{AnnotatedValue, ManagedAddress, ManagedBuffer, TxEnv, TxTo, TxToSpecified},
+    api::{CallTypeApi, ManagedTypeApi},
+    types::{AnnotatedValue, ManagedAddress, ManagedBuffer, TxScEnv, TxTo, TxToSpecified},
 };
 
 /// Address of the system smart contract that manages DCDT.
 const SYSTEM_SC_ADDRESS_BYTES: [u8; 32] =
     hex!("000000000000000000010000000000000000000000000000000000000002ffff");
 const SYSTEM_SC_ADDRESS_BECH32: &str =
-    "drt1qqqqqqqqqqqqqqqpqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqzllls6prdez";
+    "drt1yvesqqqqqqqqqqqqqqqqqqqqqqqqyvesqqqqqqqqqqqqqqqzlllsd5j0s2";
 const SYSTEM_SC_ADDRESS_ANNOTATION: &str =
-    "bech32:drt1qqqqqqqqqqqqqqqpqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqzllls6prdez";
+    "bech32:drt1yvesqqqqqqqqqqqqqqqqqqqqqqqqyvesqqqqqqqqqqqqqqqzlllsd5j0s2";
 
 /// Indicates the system SC address, which is the same on any Dharitri blockchain.
 pub struct DCDTSystemSCAddress;
@@ -27,10 +26,6 @@ impl DCDTSystemSCAddress {
         ManagedAddress::from(SYSTEM_SC_ADDRESS_BYTES)
     }
 
-    pub fn to_address(&self) -> Address {
-        SYSTEM_SC_ADDRESS_BYTES.into()
-    }
-
     pub fn to_bech32_str(&self) -> &str {
         SYSTEM_SC_ADDRESS_BECH32
     }
@@ -40,21 +35,21 @@ impl DCDTSystemSCAddress {
     }
 }
 
-impl<Env> AnnotatedValue<Env, ManagedAddress<Env::Api>> for DCDTSystemSCAddress
+impl<Api> AnnotatedValue<TxScEnv<Api>, ManagedAddress<Api>> for DCDTSystemSCAddress
 where
-    Env: TxEnv,
+    Api: CallTypeApi,
 {
-    fn annotation(&self, _env: &Env) -> ManagedBuffer<Env::Api> {
+    fn annotation(&self, _env: &TxScEnv<Api>) -> ManagedBuffer<Api> {
         ManagedBuffer::from(SYSTEM_SC_ADDRESS_ANNOTATION)
     }
 
-    fn to_value(&self, _env: &Env) -> ManagedAddress<Env::Api> {
+    fn to_value(&self, _env: &TxScEnv<Api>) -> ManagedAddress<Api> {
         DCDTSystemSCAddress.to_managed_address()
     }
 }
 
-impl<Env> TxTo<Env> for DCDTSystemSCAddress where Env: TxEnv {}
-impl<Env> TxToSpecified<Env> for DCDTSystemSCAddress where Env: TxEnv {}
+impl<Api> TxTo<TxScEnv<Api>> for DCDTSystemSCAddress where Api: CallTypeApi {}
+impl<Api> TxToSpecified<TxScEnv<Api>> for DCDTSystemSCAddress where Api: CallTypeApi {}
 
 impl TopEncode for DCDTSystemSCAddress {
     fn top_encode_or_handle_err<O, H>(&self, output: O, h: H) -> Result<(), H::HandledErr>

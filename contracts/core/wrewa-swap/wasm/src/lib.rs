@@ -15,7 +15,7 @@ dharitri_sc_wasm_adapter::allocator!();
 dharitri_sc_wasm_adapter::panic_handler!();
 
 dharitri_sc_wasm_adapter::endpoints! {
-    dharitri_sc_wrewa_swap
+    dharitri_wrewa_swap_sc
     (
         init => init
         wrapRewa => wrap_rewa

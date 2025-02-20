@@ -1,8 +1,7 @@
 dharitri_sc::imports!();
 dharitri_sc::derive_imports!();
 
-#[type_abi]
-#[derive(TopEncode, TopDecode, NestedEncode, NestedDecode)]
+#[derive(TopEncode, TopDecode, NestedEncode, NestedDecode, TypeAbi)]
 pub struct TokenAttributesStruct<M: ManagedTypeApi> {
     field_biguint: BigUint<M>,
     field_u64: u64,

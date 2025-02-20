@@ -91,11 +91,11 @@ pub trait ForwarderRawAsync: super::forwarder_raw_common::ForwarderRawCommon {
         endpoint_name: ManagedBuffer,
         args: MultiValueEncoded<ManagedBuffer>,
     ) {
-        let payment = self.call_value().rewa();
+        let payment = self.call_value().rewa_value();
         self.forward_contract_call(
             to,
             RewaOrDcdtTokenIdentifier::rewa(),
-            payment.clone(),
+            payment.clone_value(),
             endpoint_name,
             args,
         )
@@ -114,8 +114,8 @@ pub trait ForwarderRawAsync: super::forwarder_raw_common::ForwarderRawCommon {
         let (token, payment) = self.call_value().single_fungible_dcdt();
         self.forward_contract_call(
             to,
-            RewaOrDcdtTokenIdentifier::dcdt(token.clone()),
-            payment.clone(),
+            RewaOrDcdtTokenIdentifier::dcdt(token),
+            payment,
             endpoint_name,
             args,
         )

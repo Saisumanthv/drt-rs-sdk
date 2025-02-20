@@ -5,8 +5,7 @@ use dharitri_sc::{
 
 use dharitri_sc::derive_imports::*;
 
-#[type_abi]
-#[derive(NestedEncode, NestedDecode, TopEncode, TopDecode)]
+#[derive(NestedEncode, NestedDecode, TopEncode, TopDecode, TypeAbi)]
 pub struct LotteryInfo<M: ManagedTypeApi> {
     pub token_identifier: RewaOrDcdtTokenIdentifier<M>,
     pub ticket_price: BigUint<M>,

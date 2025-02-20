@@ -11,8 +11,6 @@ use crate::{
     },
 };
 
-use super::TestAddress;
-
 const SC_PREFIX: &str = "sc:";
 const VM_TYPE_LEN: usize = 2;
 const DEFAULT_VM_TYPE: &[u8] = &[5, 0];
@@ -32,7 +30,7 @@ impl<'a> TestSCAddress<'a> {
     }
 }
 
-impl<Env> AnnotatedValue<Env, ManagedAddress<Env::Api>> for TestSCAddress<'_>
+impl<'a, Env> AnnotatedValue<Env, ManagedAddress<Env::Api>> for TestSCAddress<'a>
 where
     Env: TxEnv,
 {
@@ -48,47 +46,14 @@ where
     }
 }
 
-impl TestSCAddress<'_> {
+impl<'a> TestSCAddress<'a> {
     pub fn to_address(&self) -> Address {
-        self.eval_to_array().into()
-    }
-
-    pub fn to_managed_address<Api: ManagedTypeApi>(&self) -> ManagedAddress<Api> {
-        self.eval_to_array().into()
+        let expr: [u8; 32] = self.eval_to_array();
+        expr.into()
     }
 }
 
-impl PartialEq<TestAddress<'_>> for TestSCAddress<'_> {
-    fn eq(&self, other: &TestAddress) -> bool {
-        self.to_address() == other.to_address()
-    }
-}
-
-impl PartialEq<Address> for TestSCAddress<'_> {
-    fn eq(&self, other: &Address) -> bool {
-        &self.to_address() == other
-    }
-}
-
-impl<'a> PartialEq<TestSCAddress<'a>> for Address {
-    fn eq(&self, other: &TestSCAddress<'a>) -> bool {
-        self == &other.to_address()
-    }
-}
-
-impl<Api: ManagedTypeApi> PartialEq<ManagedAddress<Api>> for TestSCAddress<'_> {
-    fn eq(&self, other: &ManagedAddress<Api>) -> bool {
-        self.to_address() == other.to_address()
-    }
-}
-
-impl<'a, Api: ManagedTypeApi> PartialEq<TestSCAddress<'a>> for ManagedAddress<Api> {
-    fn eq(&self, other: &TestSCAddress<'a>) -> bool {
-        self.to_address() == other.to_address()
-    }
-}
-
-impl<Env> TxFrom<Env> for TestSCAddress<'_>
+impl<'a, Env> TxFrom<Env> for TestSCAddress<'a>
 where
     Env: TxEnv,
 {
@@ -97,11 +62,11 @@ where
         expr.into()
     }
 }
-impl<Env> TxFromSpecified<Env> for TestSCAddress<'_> where Env: TxEnv {}
-impl<Env> TxTo<Env> for TestSCAddress<'_> where Env: TxEnv {}
-impl<Env> TxToSpecified<Env> for TestSCAddress<'_> where Env: TxEnv {}
+impl<'a, Env> TxFromSpecified<Env> for TestSCAddress<'a> where Env: TxEnv {}
+impl<'a, Env> TxTo<Env> for TestSCAddress<'a> where Env: TxEnv {}
+impl<'a, Env> TxToSpecified<Env> for TestSCAddress<'a> where Env: TxEnv {}
 
-impl TestSCAddress<'_> {
+impl<'a> TestSCAddress<'a> {
     pub fn eval_to_array(&self) -> [u8; 32] {
         let result = *b"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00______________________";
         let expr_bytes = self.name.as_bytes();
@@ -130,7 +95,7 @@ impl TestSCAddress<'_> {
     }
 }
 
-impl TopEncode for TestSCAddress<'_> {
+impl<'a> TopEncode for TestSCAddress<'a> {
     fn top_encode_or_handle_err<O, H>(&self, output: O, h: H) -> Result<(), H::HandledErr>
     where
         O: TopEncodeOutput,
@@ -140,7 +105,7 @@ impl TopEncode for TestSCAddress<'_> {
     }
 }
 
-impl<Api> TypeAbiFrom<TestSCAddress<'_>> for ManagedAddress<Api> where Api: ManagedTypeApi {}
+impl<'a, Api> TypeAbiFrom<TestSCAddress<'a>> for ManagedAddress<Api> where Api: ManagedTypeApi {}
 
 #[cfg(test)]
 pub mod tests {

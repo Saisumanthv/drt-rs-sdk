@@ -1,6 +1,6 @@
 use super::BigFloat;
 use crate::{
-    api::{BigFloatApiImpl, ManagedTypeApi},
+    api::{use_raw_handle, BigFloatApiImpl, ManagedTypeApi, StaticVarApiImpl},
     types::managed::managed_type_trait::ManagedType,
 };
 use core::ops::{Add, AddAssign, Div, DivAssign, Mul, MulAssign, Neg, Sub, SubAssign};
@@ -16,7 +16,7 @@ macro_rules! binary_operator {
                     self.handle.clone(),
                     other.handle.clone(),
                 );
-                self
+                BigFloat::from_handle(self.handle.clone())
             }
         }
 
@@ -24,15 +24,14 @@ macro_rules! binary_operator {
             type Output = BigFloat<M>;
 
             fn $method(self, other: &BigFloat<M>) -> BigFloat<M> {
-                unsafe {
-                    let result = BigFloat::new_uninit();
-                    M::managed_type_impl().$api_func(
-                        result.get_handle(),
-                        self.handle.clone(),
-                        other.handle.clone(),
-                    );
-                    result
-                }
+                let result_handle: M::BigFloatHandle =
+                    use_raw_handle(M::static_var_api_impl().next_handle());
+                M::managed_type_impl().$api_func(
+                    result_handle.clone(),
+                    self.handle.clone(),
+                    other.handle.clone(),
+                );
+                BigFloat::from_handle(result_handle)
             }
         }
     };
@@ -80,10 +79,9 @@ impl<M: ManagedTypeApi> Neg for BigFloat<M> {
     type Output = BigFloat<M>;
 
     fn neg(self) -> Self::Output {
-        unsafe {
-            let result = BigFloat::new_uninit();
-            M::managed_type_impl().bf_neg(result.get_handle(), self.handle.clone());
-            result
-        }
+        let result_handle: M::BigFloatHandle =
+            use_raw_handle(M::static_var_api_impl().next_handle());
+        M::managed_type_impl().bf_neg(result_handle.clone(), self.handle);
+        BigFloat::from_handle(result_handle)
     }
 }

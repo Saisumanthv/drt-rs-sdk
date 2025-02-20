@@ -6,7 +6,6 @@ mod fwd_call_promise_direct;
 mod fwd_call_promises;
 mod fwd_call_promises_bt;
 pub mod fwd_call_sync_bt;
-pub mod promises_feature_proxy;
 pub mod vault_proxy;
 
 dharitri_sc::imports!();

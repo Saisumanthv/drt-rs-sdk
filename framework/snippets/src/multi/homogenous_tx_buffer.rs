@@ -3,33 +3,24 @@ use dharitri_sc_scenario::{
         tuple_util::NestedTupleFlatten,
         types::{RHListExec, TxBaseWithEnv},
     },
-    scenario::tx_to_step::{StepWrapper, TxToStep},
+    scenario::tx_to_step::{StepWithResponse, StepWrapper, TxToStep},
     scenario_model::TxResponse,
     ScenarioTxEnvData,
 };
-use dharitri_sdk::gateway::GatewayAsyncService;
 
-use crate::{InteractorBase, InteractorEnvExec, InteractorStep, StepBuffer};
+use crate::{Interactor, InteractorEnvExec, InteractorStep, StepBuffer};
 
-pub struct HomogenousTxBuffer<'w, GatewayProxy, Step, RH>
-where
-    GatewayProxy: GatewayAsyncService,
-{
-    env: InteractorEnvExec<'w, GatewayProxy>,
+pub struct HomogenousTxBuffer<'w, Step, RH> {
+    env: InteractorEnvExec<'w>,
     steps: Vec<StepWrapper<ScenarioTxEnvData, Step, RH>>,
 }
 
-impl<GatewayProxy> InteractorBase<GatewayProxy>
-where
-    GatewayProxy: GatewayAsyncService,
-{
+impl Interactor {
     /// Creates a buffer that can hold multiple transactions, and then execute them all at once.
     ///
     /// This buffer holds transactions of the same type (call/deploy) and with identical result handler types.
     /// Therefore, after execution, all results will have the same type.
-    pub fn homogenous_call_buffer<Step, RH>(
-        &mut self,
-    ) -> HomogenousTxBuffer<'_, GatewayProxy, Step, RH> {
+    pub fn homogenous_call_buffer<Step, RH>(&mut self) -> HomogenousTxBuffer<'_, Step, RH> {
         let data = self.new_env_data();
         let env = InteractorEnvExec { world: self, data };
         HomogenousTxBuffer {
@@ -39,10 +30,9 @@ where
     }
 }
 
-impl<'w, GatewayProxy, Step, RH> HomogenousTxBuffer<'w, GatewayProxy, Step, RH>
+impl<'w, Step, RH> HomogenousTxBuffer<'w, Step, RH>
 where
-    GatewayProxy: GatewayAsyncService,
-    Step: InteractorStep,
+    Step: InteractorStep + StepWithResponse,
     RH: RHListExec<TxResponse, ScenarioTxEnvData>,
     RH::ListReturns: NestedTupleFlatten,
 {
@@ -63,7 +53,7 @@ where
     pub async fn run(mut self) -> Vec<<RH::ListReturns as NestedTupleFlatten>::Unpacked> {
         let mut step_buffer = StepBuffer::default();
         for step in &mut self.steps {
-            step_buffer.refs.push(step.step.as_interactor_step());
+            step_buffer.refs.push(&mut step.step);
         }
         self.env.world.multi_sc_exec(step_buffer).await;
 

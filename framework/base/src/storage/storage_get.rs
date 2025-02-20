@@ -2,8 +2,8 @@ use core::{convert::Infallible, marker::PhantomData};
 
 use crate::{
     api::{
-        const_handles, use_raw_handle, ErrorApi, ErrorApiImpl, HandleConstraints,
-        ManagedBufferApiImpl, ManagedTypeApi, StorageReadApi, StorageReadApiImpl,
+        const_handles, use_raw_handle, ErrorApi, ErrorApiImpl, ManagedBufferApiImpl,
+        ManagedTypeApi, StaticVarApiImpl, StorageReadApi, StorageReadApiImpl,
     },
     codec::*,
     err_msg,
@@ -33,12 +33,11 @@ where
     }
 
     fn to_managed_buffer(&self) -> ManagedBuffer<A> {
-        unsafe {
-            let result = ManagedBuffer::new_uninit();
-            A::storage_read_api_impl()
-                .storage_load_managed_buffer_raw(self.key.buffer.get_handle(), result.get_handle());
-            result
-        }
+        let mbuf_handle: A::ManagedBufferHandle =
+            use_raw_handle(A::static_var_api_impl().next_handle());
+        A::storage_read_api_impl()
+            .storage_load_managed_buffer_raw(self.key.buffer.get_handle(), mbuf_handle.clone());
+        ManagedBuffer::from_handle(mbuf_handle)
     }
 
     fn to_big_uint(&self) -> BigUint<A> {
@@ -57,7 +56,7 @@ where
     }
 }
 
-impl<A> TopDecodeInput for StorageGetInput<'_, A>
+impl<'k, A> TopDecodeInput for StorageGetInput<'k, A>
 where
     A: StorageReadApi + ManagedTypeApi + ErrorApi + 'static,
 {
@@ -136,10 +135,9 @@ where
     T: TopDecode,
     A: StorageReadApi + ManagedTypeApi + ErrorApi,
 {
-    let handle = key.get_handle().get_raw_handle_unchecked();
     T::top_decode_or_handle_err(
         StorageGetInput::new(key),
-        StorageGetErrorHandler::<A>::new(handle),
+        StorageGetErrorHandler::<A>::default(),
     )
     .unwrap_infallible()
 }
@@ -163,20 +161,17 @@ where
     M: ManagedTypeApi + ErrorApi,
 {
     _phantom: PhantomData<M>,
-    key: i32,
 }
 
 impl<M> Copy for StorageGetErrorHandler<M> where M: ManagedTypeApi + ErrorApi {}
 
-impl<M> StorageGetErrorHandler<M>
+impl<M> Default for StorageGetErrorHandler<M>
 where
     M: ManagedTypeApi + ErrorApi,
 {
-    #[inline]
-    pub fn new(key: i32) -> Self {
-        StorageGetErrorHandler {
+    fn default() -> Self {
+        Self {
             _phantom: PhantomData,
-            key,
         }
     }
 }
@@ -188,10 +183,7 @@ where
     type HandledErr = Infallible;
 
     fn handle_error(&self, err: DecodeError) -> Self::HandledErr {
-        let mut message_buffer =
-            ManagedBuffer::<M>::new_from_bytes(err_msg::STORAGE_DECODE_ERROR_1.as_bytes());
-        M::managed_type_impl().mb_append(message_buffer.get_handle(), self.key.into());
-        message_buffer.append_bytes(err_msg::STORAGE_DECODE_ERROR_2.as_bytes());
+        let mut message_buffer = ManagedBuffer::<M>::new_from_bytes(err_msg::STORAGE_DECODE_ERROR);
         message_buffer.append_bytes(err.message_bytes());
         M::error_api_impl().signal_error_from_buffer(message_buffer.get_handle())
     }

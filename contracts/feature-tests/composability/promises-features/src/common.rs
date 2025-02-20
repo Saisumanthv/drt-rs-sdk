@@ -1,8 +1,7 @@
 dharitri_sc::imports!();
 dharitri_sc::derive_imports!();
 
-#[type_abi]
-#[derive(TopEncode, TopDecode)]
+#[derive(TopEncode, TopDecode, TypeAbi)]
 pub struct CallbackData<M: ManagedTypeApi> {
     pub callback_name: ManagedBuffer<M>,
     pub token_identifier: RewaOrDcdtTokenIdentifier<M>,
@@ -20,9 +19,6 @@ pub trait CommonModule {
         #[indexed] nonce: u64,
         #[indexed] payment: &BigUint,
     );
-
-    #[event("callback_result")]
-    fn callback_result(&self, #[indexed] result: MultiValueEncoded<ManagedBuffer>);
 
     #[view]
     #[storage_mapper("callback_data")]

@@ -8,23 +8,17 @@ members = [
   "framework/base",
   "framework/derive",
   "framework/meta",
-  "framework/meta-lib",
   "framework/scenario",
   "framework/snippets",
   "framework/wasm-adapter",
 
-  "chain/core",
-  "chain/vm",
-
   "sdk/core",
-  "sdk/dapp",
-  "sdk/http",
   "sdk/scenario-format",
 
   "tools/drtpy-snippet-generator",
   "tools/payload-macro-generator",
-  # "tools/plotter",
-  "tools/interactor-system-func-calls/",
+
+  "vm",
 
   "contracts/modules",
 
@@ -55,7 +49,7 @@ members = [
 
   "contracts/examples/adder",
   "contracts/examples/adder/meta",
-  "contracts/examples/adder/interactor",
+  "contracts/examples/adder/interact",
   "contracts/examples/dcdt-transfer-with-fee",
   "contracts/examples/dcdt-transfer-with-fee/meta",
   "contracts/examples/bonding-curve-contract",
@@ -101,8 +95,6 @@ members = [
   "contracts/examples/proxy-pause/meta",
   "contracts/examples/ping-pong-rewa",
   "contracts/examples/ping-pong-rewa/meta",
-  "contracts/examples/ping-pong-rewa/interactor",
-  "contracts/examples/ping-pong-rewa/dapp",
   "contracts/examples/rewards-distribution",
   "contracts/examples/rewards-distribution/meta",
   "contracts/examples/seed-nft-minter",
@@ -133,7 +125,6 @@ members = [
   "contracts/feature-tests/composability/execute-on-dest-dcdt-issue-callback/child",
   "contracts/feature-tests/composability/execute-on-dest-dcdt-issue-callback/child/meta",
   "contracts/feature-tests/composability/forwarder",
-  "contracts/feature-tests/composability/forwarder-interactor",
   "contracts/feature-tests/composability/forwarder/meta",
   "contracts/feature-tests/composability/forwarder-legacy",
   "contracts/feature-tests/composability/forwarder-legacy/meta",
@@ -182,7 +173,6 @@ members = [
   "contracts/feature-tests/panic-message-features",
   "contracts/feature-tests/panic-message-features/meta",
   "contracts/feature-tests/payable-features",
-  "contracts/feature-tests/payable-features/interactor",
   "contracts/feature-tests/payable-features/meta",
   "contracts/feature-tests/rust-snippets-generator-test",
   "contracts/feature-tests/rust-snippets-generator-test/meta",

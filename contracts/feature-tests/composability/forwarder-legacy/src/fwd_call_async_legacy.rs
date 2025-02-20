@@ -1,8 +1,7 @@
 dharitri_sc::imports!();
 dharitri_sc::derive_imports!();
 
-#[type_abi]
-#[derive(TopEncode, TopDecode)]
+#[derive(TopEncode, TopDecode, TypeAbi)]
 pub struct CallbackData<M: ManagedTypeApi> {
     callback_name: ManagedBuffer<M>,
     token_identifier: RewaOrDcdtTokenIdentifier<M>,

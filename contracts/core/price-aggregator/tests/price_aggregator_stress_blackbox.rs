@@ -1,6 +1,6 @@
-use dharitri_sc_price_aggregator::{
+use dharitri_price_aggregator_sc::{
     price_aggregator_data::{OracleStatus, TokenPair},
-    PriceAggregator,
+    ContractObj, PriceAggregator,
 };
 
 use dharitri_sc_scenario::imports::*;
@@ -11,7 +11,7 @@ const NR_ORACLES: usize = 50;
 const OWNER: TestAddress = TestAddress::new("owner");
 const PRICE_AGGREGATOR_ADDRESS: TestSCAddress = TestSCAddress::new("price-aggregator");
 const PRICE_AGGREGATOR_PATH: DrtscPath =
-    DrtscPath::new("../output/dharitri-sc-price-aggregator.drtsc.json");
+    DrtscPath::new("../output/dharitri-price-aggregator-sc.drtsc.json");
 const SLASH_AMOUNT: u64 = 10;
 const SLASH_QUORUM: usize = 3;
 const STAKE_AMOUNT: u64 = 20;
@@ -23,10 +23,9 @@ mod price_aggregator_proxy;
 fn world() -> ScenarioWorld {
     let mut blockchain = ScenarioWorld::new();
 
-    blockchain.set_current_dir_from_workspace("contracts/core/price-aggregator");
     blockchain.register_contract(
         PRICE_AGGREGATOR_PATH,
-        dharitri_sc_price_aggregator::ContractBuilder,
+        dharitri_price_aggregator_sc::ContractBuilder,
     );
 
     blockchain
@@ -35,6 +34,7 @@ fn world() -> ScenarioWorld {
 struct PriceAggregatorTestState {
     world: ScenarioWorld,
     oracles: Vec<AddressValue>,
+    price_aggregator_whitebox: WhiteboxContract<ContractObj<DebugApi>>,
 }
 
 impl PriceAggregatorTestState {
@@ -60,7 +60,16 @@ impl PriceAggregatorTestState {
             oracles.push(address_value);
         }
 
-        Self { world, oracles }
+        let price_aggregator_whitebox = WhiteboxContract::new(
+            PRICE_AGGREGATOR_ADDRESS,
+            dharitri_price_aggregator_sc::contract_obj,
+        );
+
+        Self {
+            world,
+            oracles,
+            price_aggregator_whitebox,
+        }
     }
 
     fn deploy(&mut self) -> &mut Self {
@@ -161,9 +170,9 @@ fn test_price_aggregator_submit() {
     }
 
     let current_timestamp = 100;
-    state.world.query().to(PRICE_AGGREGATOR_ADDRESS).whitebox(
-        dharitri_sc_price_aggregator::contract_obj,
-        |sc| {
+    state
+        .world
+        .whitebox_query(&state.price_aggregator_whitebox, |sc| {
             let blockchain_timestamp = sc.blockchain().get_block_timestamp();
 
             let token_pair = TokenPair {
@@ -198,8 +207,7 @@ fn test_price_aggregator_submit() {
                     }
                 );
             }
-        },
-    );
+        });
 
     // submit last that resets the round
     state.submit(

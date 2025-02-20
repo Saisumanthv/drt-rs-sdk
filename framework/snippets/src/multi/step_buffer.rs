@@ -1,10 +1,10 @@
 use dharitri_sc_scenario::scenario_model::{ScCallStep, ScDeployStep};
 
-use super::InteractorStepRef;
+use crate::InteractorStep;
 
 #[derive(Default)]
 pub struct StepBuffer<'a> {
-    pub refs: Vec<InteractorStepRef<'a>>,
+    pub refs: Vec<&'a mut dyn InteractorStep>,
 }
 
 impl<'a> StepBuffer<'a> {
@@ -17,7 +17,7 @@ impl<'a> StepBuffer<'a> {
         'b: 'a,
         S: AsMut<ScCallStep>,
     {
-        self.refs.push(InteractorStepRef::ScCall(step.as_mut()));
+        self.refs.push(step.as_mut());
     }
 
     pub fn add_sc_call_vec<'b, S>(&'a mut self, steps: &'b mut Vec<S>)
@@ -26,7 +26,7 @@ impl<'a> StepBuffer<'a> {
         S: AsMut<ScCallStep>,
     {
         for step in steps {
-            self.refs.push(InteractorStepRef::ScCall(step.as_mut()));
+            self.refs.push(step.as_mut());
         }
     }
 
@@ -37,7 +37,7 @@ impl<'a> StepBuffer<'a> {
     {
         let mut buffer = Self::default();
         for step in steps {
-            buffer.refs.push(InteractorStepRef::ScCall(step.as_mut()));
+            buffer.refs.push(step.as_mut());
         }
         buffer
     }
@@ -49,8 +49,12 @@ impl<'a> StepBuffer<'a> {
     {
         let mut buffer = Self::default();
         for step in steps {
-            buffer.refs.push(InteractorStepRef::ScDeploy(step.as_mut()));
+            buffer.refs.push(step.as_mut());
         }
         buffer
+    }
+
+    pub fn to_refs_vec(&'a self) -> Vec<&'a dyn InteractorStep> {
+        self.refs.iter().map(|r| &**r).collect()
     }
 }

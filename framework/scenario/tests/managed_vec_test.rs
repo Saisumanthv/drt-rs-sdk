@@ -1,6 +1,6 @@
 use std::ops::Deref;
 
-use dharitri_sc::types::{BigUint, ManagedRef, ManagedVec};
+use dharitri_sc::types::{BigUint, ManagedVec};
 use dharitri_sc_scenario::api::StaticApi;
 
 #[test]
@@ -145,7 +145,6 @@ fn test_take_biguint() {
 }
 
 #[test]
-#[allow(deprecated)]
 fn test_sort_u64() {
     let mut vec = Vec::<u64>::new();
     let mut managed_vec = ManagedVec::<StaticApi, u64>::new();
@@ -164,7 +163,6 @@ fn test_sort_u64() {
 }
 
 #[test]
-#[allow(deprecated)]
 fn test_sort_biguint() {
     let mut vec = Vec::<BigUint<StaticApi>>::new();
     let mut managed_vec = ManagedVec::<StaticApi, BigUint<StaticApi>>::new();
@@ -187,7 +185,6 @@ fn flip(n: &u64) -> u64 {
 }
 
 #[test]
-#[allow(deprecated)]
 fn test_sort_by_u64() {
     let mut vec = Vec::<u64>::new();
     let mut managed_vec = ManagedVec::<StaticApi, u64>::new();
@@ -207,7 +204,6 @@ fn test_sort_by_u64() {
 }
 
 #[test]
-#[allow(deprecated)]
 fn test_sort_by_biguint() {
     let mut vec = Vec::<BigUint<StaticApi>>::new();
     let mut managed_vec = ManagedVec::<StaticApi, BigUint<StaticApi>>::new();
@@ -236,7 +232,6 @@ fn test_sort_by_biguint() {
 }
 
 #[test]
-#[allow(deprecated)]
 fn test_sort_by_key_u64() {
     let mut vec = Vec::<u64>::new();
     let mut managed_vec = ManagedVec::<StaticApi, u64>::new();
@@ -256,7 +251,6 @@ fn test_sort_by_key_u64() {
 }
 
 #[test]
-#[allow(deprecated)]
 fn test_sort_by_key_biguint() {
     let mut vec = Vec::<BigUint<StaticApi>>::new();
     let mut managed_vec = ManagedVec::<StaticApi, BigUint<StaticApi>>::new();
@@ -277,7 +271,6 @@ fn test_sort_by_key_biguint() {
 }
 
 #[test]
-#[allow(deprecated)]
 fn test_sort_by_cached_key_u64() {
     let mut vec = Vec::<u64>::new();
     let mut managed_vec = ManagedVec::<StaticApi, u64>::new();
@@ -294,7 +287,6 @@ fn test_sort_by_cached_key_u64() {
 }
 
 #[test]
-#[allow(deprecated)]
 fn test_sort_by_cached_key_biguint() {
     let mut vec = Vec::<BigUint<StaticApi>>::new();
     let mut managed_vec = ManagedVec::<StaticApi, BigUint<StaticApi>>::new();
@@ -312,7 +304,6 @@ fn test_sort_by_cached_key_biguint() {
 }
 
 #[test]
-#[allow(deprecated)]
 fn test_sort_unstable_u64() {
     let mut vec = Vec::<u64>::new();
     let mut managed_vec = ManagedVec::<StaticApi, u64>::new();
@@ -457,7 +448,6 @@ fn test_dedup_biguint() {
 }
 
 #[test]
-#[allow(deprecated)]
 fn test_sorted_dedup_u64() {
     let mut vec = Vec::<u64>::new();
     let mut managed_vec = ManagedVec::<StaticApi, u64>::new();
@@ -475,7 +465,6 @@ fn test_sorted_dedup_u64() {
 }
 
 #[test]
-#[allow(deprecated)]
 fn test_sorted_dedup_biguint() {
     let mut vec = Vec::<BigUint<StaticApi>>::new();
     let mut managed_vec = ManagedVec::<StaticApi, BigUint<StaticApi>>::new();
@@ -594,19 +583,4 @@ fn test_managed_vec_get_mut() {
 
     assert_eq!(*managed_vec.get(0), 200u32);
     assert_eq!(*managed_vec.get(1), 300u32);
-}
-
-#[test]
-fn test_is_single_item() {
-    let mut managed_vec = ManagedVec::<StaticApi, BigUint<StaticApi>>::new();
-    assert!(managed_vec.is_single_item().is_none());
-
-    managed_vec.push(BigUint::<StaticApi>::from(1u32));
-    assert_eq!(
-        managed_vec.is_single_item(),
-        Some(ManagedRef::new(&BigUint::<StaticApi>::from(1u32)))
-    );
-
-    managed_vec.push(BigUint::<StaticApi>::from(2u32));
-    assert!(managed_vec.is_single_item().is_none());
 }

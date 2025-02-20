@@ -9,13 +9,14 @@ use crate::{
 };
 
 use crate as dharitri_sc; // needed by the TypeAbi generated code
-use crate::derive::type_abi;
+use crate::derive::TypeAbi;
 
 /// Encodes any type of payment, which either:
 /// - REWA (can be zero in case of no payment whatsoever);
 /// - Multi-DCDT (one or more DCDT transfers).
-#[type_abi]
-#[derive(TopDecode, TopEncode, NestedDecode, NestedEncode, Clone, PartialEq, Eq, Debug)]
+#[derive(
+    TopDecode, TopEncode, TypeAbi, NestedDecode, NestedEncode, Clone, PartialEq, Eq, Debug,
+)]
 pub enum RewaOrMultiDcdtPayment<M: ManagedTypeApi> {
     Rewa(BigUint<M>),
     MultiDcdt(ManagedVec<M, DcdtTokenPayment<M>>),
@@ -49,7 +50,7 @@ impl<M: ManagedTypeApi> RewaOrMultiDcdtPayment<M> {
     }
 }
 
-impl<M: ManagedTypeApi> RewaOrMultiDcdtPaymentRefs<'_, M> {
+impl<'a, M: ManagedTypeApi> RewaOrMultiDcdtPaymentRefs<'a, M> {
     pub fn to_owned_payment(&self) -> RewaOrMultiDcdtPayment<M> {
         match self {
             RewaOrMultiDcdtPaymentRefs::Rewa(rewa_value) => {

@@ -6,9 +6,9 @@
 
 // Init:                                 1
 // Upgrade:                              1
-// Endpoints:                           30
+// Endpoints:                           28
 // Async Callback (empty):               1
-// Total number of exported functions:  33
+// Total number of exported functions:  31
 
 #![no_std]
 
@@ -31,7 +31,6 @@ dharitri_sc_wasm_adapter::endpoints! {
         optional_result => optional_result
         address_vs_h256 => address_vs_h256
         managed_address_vs_byte_array => managed_address_vs_byte_array
-        process_managed_decimal => process_managed_decimal
         dcdt_local_role => dcdt_local_role
         dcdt_token_payment => dcdt_token_payment
         dcdt_token_data => dcdt_token_data
@@ -46,7 +45,6 @@ dharitri_sc_wasm_adapter::endpoints! {
         item_for_slice => item_for_slice
         item_for_option => item_for_option
         operation_completion_status => operation_completion_status
-        takes_object_with_managed_buffer_read_to_end => takes_object_with_managed_buffer_read_to_end
         payable_rewa => payable_rewa
         payable_some_token => payable_some_token
         payable_any_token => payable_any_token

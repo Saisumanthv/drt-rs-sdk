@@ -1,9 +1,7 @@
 use dharitri_sc::{
     api::ManagedTypeApi,
-    codec::{
-        self,
-        derive::{NestedDecode, NestedEncode, TopDecode, TopEncode},
-    },
+    codec,
+    codec::derive::{NestedDecode, NestedEncode, TopDecode, TopEncode},
     derive::ManagedVecItem,
     types::{
         BigUint, DcdtTokenPayment, ManagedByteArray, ManagedType, ManagedVecItemPayload,
@@ -52,6 +50,9 @@ fn struct_to_bytes_writer() {
         eth_address_2: ManagedByteArray::new_from_bytes(&[2u8; 20]),
     };
 
+    let mut payload = <ManagedStructWithToken<StaticApi> as dharitri_sc::types::ManagedVecItem>::PAYLOAD::new_buffer();
+    let payload_slice = payload.payload_slice_mut();
+
     let handle1 = s.token.token_identifier.get_handle().to_be_bytes();
     let handle2 = s.token.amount.get_handle().to_be_bytes();
     let handle3 = s.eth_address_1.get_handle().to_be_bytes();
@@ -62,12 +63,14 @@ fn struct_to_bytes_writer() {
         handle3[1], handle3[2], handle3[3], handle4[0], handle4[1], handle4[2], handle4[3],
     ];
 
-    let mut payload = <ManagedStructWithToken<StaticApi> as dharitri_sc::types::ManagedVecItem>::PAYLOAD::new_buffer();
-    <ManagedStructWithToken<StaticApi> as dharitri_sc::types::ManagedVecItem>::save_to_payload(
-        s,
-        &mut payload,
+    <ManagedStructWithToken<StaticApi> as dharitri_sc::types::ManagedVecItem>::to_byte_writer(
+        &s,
+        |bytes| {
+            payload_slice.copy_from_slice(bytes);
+
+            assert_eq!(payload_slice, expected);
+        },
     );
-    assert_eq!(payload.buffer, expected);
 }
 
 #[test]
@@ -90,8 +93,14 @@ fn struct_from_bytes_reader() {
     ];
 
     let struct_from_bytes =
-        <ManagedStructWithToken<StaticApi> as dharitri_sc::types::ManagedVecItem>::read_from_payload(
-            &arr.into()
+        <ManagedStructWithToken<StaticApi> as dharitri_sc::types::ManagedVecItem>::from_byte_reader(
+            |bytes| {
+                bytes.copy_from_slice(
+                    &arr
+                        [0
+                            ..<ManagedStructWithToken::<StaticApi> as dharitri_sc::types::ManagedVecItem>::payload_size()],
+                );
+            },
         );
 
     assert_eq!(s, struct_from_bytes);

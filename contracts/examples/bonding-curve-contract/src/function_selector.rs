@@ -5,8 +5,9 @@ use crate::bonding_curve::{
     utils::structs::CurveArguments,
 };
 
-#[type_abi]
-#[derive(TopEncode, TopDecode, NestedEncode, NestedDecode, PartialEq, Eq, Clone, Default)]
+#[derive(
+    TopEncode, TopDecode, NestedEncode, NestedDecode, TypeAbi, PartialEq, Eq, Clone, Default,
+)]
 pub enum FunctionSelector<M: ManagedTypeApi> {
     Linear(LinearFunction<M>),
     CustomExample(BigUint<M>),

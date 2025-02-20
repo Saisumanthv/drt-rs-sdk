@@ -5,8 +5,7 @@ use dharitri_sc::{
     types::{BigUint, ManagedAddress},
 };
 
-#[type_abi]
-#[derive(NestedEncode, NestedDecode, TopEncode, TopDecode)]
+#[derive(NestedEncode, NestedDecode, TopEncode, TopDecode, TypeAbi)]
 pub enum AuctionType {
     Selling,
     Siring,

@@ -74,68 +74,9 @@ pub trait ForwarderSyncCallModule {
             .returns(ReturnsResult)
             .sync_call();
 
-        self.accept_funds_sync_result_event(&result);
-    }
+        let (rewa_value, dcdt_transfers_multi) = result.into_tuple();
 
-    #[endpoint]
-    #[payable("REWA")]
-    fn forward_sync_accept_funds_rh_rewa(&self, to: ManagedAddress) -> BigUint {
-        let payment = self.call_value().rewa();
-        let half_gas = self.blockchain().get_gas_left() / 2;
-
-        self.tx()
-            .to(&to)
-            .gas(half_gas)
-            .typed(vault_proxy::VaultProxy)
-            .retrieve_funds_rewa_or_single_dcdt()
-            .rewa(payment)
-            .returns(ReturnsBackTransfersREWA)
-            .sync_call()
-    }
-
-    #[endpoint]
-    #[payable("*")]
-    fn forward_sync_accept_funds_rh_single_dcdt(
-        &self,
-        to: ManagedAddress,
-    ) -> DcdtTokenPayment<Self::Api> {
-        let payment = self.call_value().single_dcdt();
-        let half_gas = self.blockchain().get_gas_left() / 2;
-
-        let result = self
-            .tx()
-            .to(&to)
-            .gas(half_gas)
-            .typed(vault_proxy::VaultProxy)
-            .retrieve_funds_rewa_or_single_dcdt()
-            .single_dcdt(
-                &payment.token_identifier,
-                payment.token_nonce,
-                &payment.amount,
-            )
-            .returns(ReturnsBackTransfersSingleDCDT)
-            .sync_call();
-
-        result
-    }
-
-    #[endpoint]
-    #[payable("*")]
-    fn forward_sync_accept_funds_rh_multi_dcdt(
-        &self,
-        to: ManagedAddress,
-    ) -> ManagedVec<Self::Api, DcdtTokenPayment<Self::Api>> {
-        let payment = self.call_value().all_dcdt_transfers().clone();
-        let half_gas = self.blockchain().get_gas_left() / 2;
-
-        self.tx()
-            .to(&to)
-            .gas(half_gas)
-            .typed(vault_proxy::VaultProxy)
-            .retrieve_funds_multi_dcdt()
-            .multi_dcdt(payment)
-            .returns(ReturnsBackTransfersMultiDCDT)
-            .sync_call()
+        self.accept_funds_sync_result_event(&rewa_value, &dcdt_transfers_multi);
     }
 
     #[payable("*")]
@@ -157,7 +98,8 @@ pub trait ForwarderSyncCallModule {
     #[event("accept_funds_sync_result")]
     fn accept_funds_sync_result_event(
         &self,
-        #[indexed] multi_dcdt: &MultiValueEncoded<RewaOrDcdtTokenPaymentMultiValue>,
+        #[indexed] rewa_value: &BigUint,
+        #[indexed] multi_dcdt: &MultiValueEncoded<DcdtTokenPaymentMultiValue>,
     );
 
     #[endpoint]

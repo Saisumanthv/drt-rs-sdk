@@ -1,5 +1,5 @@
 [package]
-name = "dharitri-sc-wrewa-swap-meta"
+name = "dharitri-wrewa-swap-sc-meta"
 version = "0.0.0"
 authors = ["Dharitri <contact@dharitri.org>"]
 edition = "2021"
@@ -7,14 +7,14 @@ publish = false
 
 [dev-dependencies]
 
-[dependencies.dharitri-sc-wrewa-swap]
+[dependencies.dharitri-wrewa-swap-sc]
 path = ".."
 
 [dependencies.dharitri-sc]
-version = "0.0.1"
+version = "0.50.3"
 path = "../../../../framework/base"
 
-[dependencies.dharitri-sc-meta-lib]
-version = "0.0.1"
-path = "../../../../framework/meta-lib"
+[dependencies.dharitri-sc-meta]
+version = "0.50.3"
+path = "../../../../framework/meta"
 default-features = false

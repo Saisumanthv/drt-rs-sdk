@@ -1,4 +1,5 @@
 use crate::value_interpreter::*;
+use bech32::FromBase32;
 use sha3::{Digest, Keccak256};
 
 pub const SC_ADDRESS_NUM_LEADING_ZEROS: usize = 8;
@@ -70,6 +71,6 @@ pub(crate) fn sc_address_expression(input: &str, vm_type: &VMIdentifier) -> Vec<
 }
 
 pub(crate) fn bech32(input: &str) -> Vec<u8> {
-    let (_hrp, decoded) = bech32::decode(input).expect("bech32 decode error");
-    decoded
+    let (_, decoded, _) = bech32::decode(input).expect("bech32 decode error");
+    Vec::<u8>::from_base32(&decoded).expect("bech32 base64 decode error")
 }

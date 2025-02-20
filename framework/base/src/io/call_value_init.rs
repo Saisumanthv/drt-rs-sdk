@@ -28,10 +28,11 @@ where
 /// Called initially in the generated code whenever `#[payable("REWA")]` annotation is provided.
 pub fn payable_rewa<A>()
 where
-    A: CallValueApi + ErrorApi + ManagedTypeApi,
+    A: CallValueApi + ErrorApi,
 {
-    // will crash if anything other than (single) REWA was transferred
-    let _ = CallValueWrapper::<A>::new().rewa();
+    if A::call_value_api_impl().dcdt_num_transfers() > 0 {
+        A::error_api_impl().signal_error(err_msg::NON_PAYABLE_FUNC_DCDT.as_bytes());
+    }
 }
 
 /// Called initially in the generated code whenever `#[payable("<token identifier>")]` annotation is provided.

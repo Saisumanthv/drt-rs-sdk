@@ -5,7 +5,6 @@ const ADDER_PATH_EXPR: &str = "drtsc:output/scenario-tester.drtsc.json";
 fn world() -> ScenarioWorld {
     let mut blockchain = ScenarioWorld::new();
 
-    blockchain.set_current_dir_from_workspace("contracts/feature-tests/scenario-tester");
     blockchain.register_contract(
         "drtsc:output/scenario-tester.drtsc.json",
         scenario_tester::ContractBuilder,
@@ -30,7 +29,7 @@ fn st_blackbox_upgrade() {
                 .code(&st_code)
                 .argument("5")
                 .gas_limit("5,000,000")
-                .expect(TxExpect::ok().result("str:init-result")),
+                .expect(TxExpect::ok().no_result()),
         )
         .sc_call(
             ScCallStep::new()

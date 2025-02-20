@@ -3,9 +3,16 @@
 dharitri_sc::imports!();
 dharitri_sc::derive_imports!();
 
-#[type_abi]
 #[derive(
-    ManagedVecItem, TopEncode, TopDecode, NestedEncode, NestedDecode, Clone, PartialEq, Debug,
+    ManagedVecItem,
+    TopEncode,
+    TopDecode,
+    NestedEncode,
+    NestedDecode,
+    TypeAbi,
+    Clone,
+    PartialEq,
+    Debug,
 )]
 pub struct TokenAttributes<M: ManagedTypeApi> {
     pub amount: BigUint<M>,

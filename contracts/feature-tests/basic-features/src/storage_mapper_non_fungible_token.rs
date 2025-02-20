@@ -1,8 +1,7 @@
 dharitri_sc::imports!();
 dharitri_sc::derive_imports!();
 
-#[type_abi]
-#[derive(TopEncode, TopDecode)]
+#[derive(TypeAbi, TopEncode, TopDecode)]
 pub struct RgbColor {
     r: u8,
     g: u8,
@@ -16,10 +15,10 @@ pub trait NonFungibleTokenMapperFeatures:
     #[payable("REWA")]
     #[endpoint]
     fn issue_and_set_all_roles_meta(&self, token_ticker: ManagedBuffer) {
-        let payment = self.call_value().rewa();
+        let payment = self.call_value().rewa_value();
         self.non_fungible_token_mapper().issue_and_set_all_roles(
             DcdtTokenType::Meta,
-            payment.clone(),
+            payment.clone_value(),
             ManagedBuffer::new(),
             token_ticker,
             0,

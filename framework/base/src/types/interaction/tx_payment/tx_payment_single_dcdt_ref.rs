@@ -1,11 +1,13 @@
 use crate::{
     contract_base::SendRawWrapper,
-    types::{BigUint, DcdtTokenPaymentRefs, ManagedAddress, ManagedVec, TxFrom, TxToSpecified},
+    types::{
+        BigUint, DcdtTokenPaymentRefs, ManagedAddress, MultiDcdtPayment, TxFrom, TxToSpecified,
+    },
 };
 
 use super::{FullPaymentData, FunctionCall, TxEnv, TxPayment};
 
-impl<Env> TxPayment<Env> for DcdtTokenPaymentRefs<'_, Env::Api>
+impl<'a, Env> TxPayment<Env> for DcdtTokenPaymentRefs<'a, Env::Api>
 where
     Env: TxEnv,
 {
@@ -72,9 +74,7 @@ where
     fn into_full_payment_data(self, _env: &Env) -> FullPaymentData<Env::Api> {
         FullPaymentData {
             rewa: None,
-            multi_dcdt: ManagedVec::from_single_item(
-                self.to_owned_payment().into_multi_rewa_or_dcdt_payment(),
-            ),
+            multi_dcdt: MultiDcdtPayment::from_single_item(self.to_owned_payment()),
         }
     }
 }

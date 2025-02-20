@@ -1,45 +1,61 @@
-use crate::types::ManagedVecItem;
-use core::{borrow::Borrow, marker::PhantomData, mem::ManuallyDrop, ops::Deref};
+use crate::{
+    api::ManagedTypeApi,
+    types::{ManagedType, ManagedVec, ManagedVecItem},
+};
+use core::{
+    marker::PhantomData,
+    ops::{Deref, DerefMut},
+};
 
-pub struct ManagedVecRef<'a, T>
+pub struct ManagedVecRef<'a, M, T>
 where
+    M: ManagedTypeApi,
     T: ManagedVecItem,
 {
-    _phantom: PhantomData<&'a T>, // needed for the lifetime, even though T is present
-    item: ManuallyDrop<T>,
+    _phantom_m: PhantomData<M>,
+    _phantom_t: PhantomData<&'a mut T>, // needed for the lifetime, even though T is present
+    managed_vec_handle: M::ManagedBufferHandle,
+    item_index: usize,
+    item: T,
 }
 
-impl<T> ManagedVecRef<'_, T>
+impl<'a, M, T> ManagedVecRef<'a, M, T>
 where
+    M: ManagedTypeApi,
     T: ManagedVecItem,
 {
-    /// Creates a new ManagedVecRef instance.
-    ///
-    /// ## Safety
-    ///
-    /// The ManagedVecRef object might not drop its content, effectively leading to a leak.
-    pub unsafe fn new(item: T) -> Self {
-        ManagedVecRef {
-            _phantom: PhantomData,
-            item: ManuallyDrop::new(item),
+    #[inline]
+    fn wrap_as_managed_vec(managed_vec_handle: M::ManagedBufferHandle) -> ManagedVec<M, T> {
+        ManagedVec::from_handle(managed_vec_handle)
+    }
+
+    pub(super) fn new(managed_vec_handle: M::ManagedBufferHandle, item_index: usize) -> Self {
+        let item =
+            unsafe { Self::wrap_as_managed_vec(managed_vec_handle.clone()).get_unsafe(item_index) };
+        Self {
+            _phantom_m: PhantomData,
+            _phantom_t: PhantomData,
+            managed_vec_handle,
+            item_index,
+            item,
         }
     }
 }
 
-impl<T> Drop for ManagedVecRef<'_, T>
+impl<'a, M, T> Drop for ManagedVecRef<'a, M, T>
 where
+    M: ManagedTypeApi,
     T: ManagedVecItem,
 {
     fn drop(&mut self) {
-        // TODO: improve
-        unsafe {
-            ManuallyDrop::drop(&mut self.item);
-        }
+        let _ = Self::wrap_as_managed_vec(self.managed_vec_handle.clone())
+            .set(self.item_index, &self.item);
     }
 }
 
-impl<T> Deref for ManagedVecRef<'_, T>
+impl<'a, M, T> Deref for ManagedVecRef<'a, M, T>
 where
+    M: ManagedTypeApi,
     T: ManagedVecItem,
 {
     type Target = T;
@@ -49,11 +65,12 @@ where
     }
 }
 
-impl<T> Borrow<T> for ManagedVecRef<'_, T>
+impl<'a, M, T> DerefMut for ManagedVecRef<'a, M, T>
 where
+    M: ManagedTypeApi,
     T: ManagedVecItem,
 {
-    fn borrow(&self) -> &T {
-        self.deref()
+    fn deref_mut(&mut self) -> &mut Self::Target {
+        &mut self.item
     }
 }

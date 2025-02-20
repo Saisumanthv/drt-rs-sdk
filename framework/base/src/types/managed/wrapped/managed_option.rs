@@ -2,7 +2,6 @@ use core::marker::PhantomData;
 
 use crate::{
     abi::TypeAbiFrom,
-    api::HandleConstraints,
     codec::{
         DecodeErrorHandler, EncodeErrorHandler, NestedDecode, NestedDecodeInput, NestedEncode,
         NestedEncodeOutput, TopDecode, TopDecodeInput, TopEncode, TopEncodeOutput,
@@ -42,7 +41,7 @@ where
     }
 
     pub fn some(value: T) -> Self {
-        unsafe { Self::new_with_handle(value.forget_into_handle()) }
+        Self::new_with_handle(value.get_handle())
     }
 
     pub fn none() -> Self {
@@ -144,12 +143,7 @@ where
         F: FnOnce(Context, &T) -> R,
     {
         if self.is_some() {
-            unsafe {
-                let obj = T::from_handle(self.handle.clone());
-                let result = f(context, &obj);
-                let _ = obj.forget_into_handle();
-                result
-            }
+            f(context, &T::from_handle(self.handle.clone()))
         } else {
             default(context)
         }
@@ -163,7 +157,11 @@ where
 {
     #[allow(clippy::redundant_clone)] // the clone is not redundant
     fn clone(&self) -> Self {
-        self.map_ref_or_else((), |()| Self::none(), |(), obj| Self::some(obj.clone()))
+        if self.is_some() {
+            Self::some(T::from_handle(self.handle.clone()).clone())
+        } else {
+            Self::none()
+        }
     }
 }
 
@@ -179,10 +177,7 @@ where
             return true;
         }
         if self.is_some() && other.is_some() {
-            unsafe {
-                return ManagedRef::<'_, _, T>::wrap_handle(self.handle.clone())
-                    == ManagedRef::<'_, _, T>::wrap_handle(other.handle.clone());
-            }
+            return T::from_handle(self.handle.clone()) == T::from_handle(other.handle.clone());
         }
         false
     }
@@ -204,18 +199,19 @@ where
     const SKIPS_RESERIALIZATION: bool = false;
     type Ref<'a> = Self;
 
-    fn read_from_payload(payload: &Self::PAYLOAD) -> Self {
-        let handle = use_raw_handle(i32::read_from_payload(payload));
+    fn from_byte_reader<Reader: FnMut(&mut [u8])>(reader: Reader) -> Self {
+        let handle = T::OwnHandle::from_byte_reader(reader);
         Self::new_with_handle(handle)
     }
 
-    unsafe fn borrow_from_payload<'a>(payload: &Self::PAYLOAD) -> Self::Ref<'a> {
-        // TODO: managed ref
-        Self::read_from_payload(payload)
+    unsafe fn from_byte_reader_as_borrow<'a, Reader: FnMut(&mut [u8])>(
+        reader: Reader,
+    ) -> Self::Ref<'a> {
+        Self::from_byte_reader(reader)
     }
 
-    fn save_to_payload(self, payload: &mut Self::PAYLOAD) {
-        self.handle.get_raw_handle().save_to_payload(payload);
+    fn to_byte_writer<R, Writer: FnMut(&[u8]) -> R>(&self, writer: Writer) -> R {
+        <T::OwnHandle as ManagedVecItem>::to_byte_writer(&self.handle.clone(), writer)
     }
 }
 
@@ -312,10 +308,7 @@ where
     }
 
     fn type_name_rust() -> TypeName {
-        TypeName::from(alloc::format!(
-            "ManagedOption<$API, {}>",
-            T::type_name_rust()
-        ))
+        Option::<T>::type_name_rust()
     }
 
     fn provide_type_descriptions<TDC: TypeDescriptionContainer>(accumulator: &mut TDC) {
@@ -329,10 +322,12 @@ where
     T: ManagedType<M> + core::fmt::Debug,
 {
     fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
-        self.map_ref_or_else(
-            f,
-            |f| f.write_str("ManagedOption::None"),
-            |f, obj| f.debug_tuple("ManagedOption::Some").field(obj).finish(),
-        )
+        if self.is_some() {
+            f.debug_tuple("ManagedOption::Some")
+                .field(&T::from_handle(self.handle.clone()))
+                .finish()
+        } else {
+            f.write_str("ManagedOption::None")
+        }
     }
 }

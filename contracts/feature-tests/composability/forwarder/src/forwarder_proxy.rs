@@ -120,42 +120,6 @@ where
             .original_result()
     }
 
-    pub fn forward_sync_accept_funds_rh_rewa<
-        Arg0: ProxyArg<ManagedAddress<Env::Api>>,
-    >(
-        self,
-        to: Arg0,
-    ) -> TxTypedCall<Env, From, To, (), Gas, BigUint<Env::Api>> {
-        self.wrapped_tx
-            .raw_call("forward_sync_accept_funds_rh_rewa")
-            .argument(&to)
-            .original_result()
-    }
-
-    pub fn forward_sync_accept_funds_rh_single_dcdt<
-        Arg0: ProxyArg<ManagedAddress<Env::Api>>,
-    >(
-        self,
-        to: Arg0,
-    ) -> TxTypedCall<Env, From, To, (), Gas, DcdtTokenPayment<Env::Api>> {
-        self.wrapped_tx
-            .raw_call("forward_sync_accept_funds_rh_single_dcdt")
-            .argument(&to)
-            .original_result()
-    }
-
-    pub fn forward_sync_accept_funds_rh_multi_dcdt<
-        Arg0: ProxyArg<ManagedAddress<Env::Api>>,
-    >(
-        self,
-        to: Arg0,
-    ) -> TxTypedCall<Env, From, To, (), Gas, ManagedVec<Env::Api, DcdtTokenPayment<Env::Api>>> {
-        self.wrapped_tx
-            .raw_call("forward_sync_accept_funds_rh_multi_dcdt")
-            .argument(&to)
-            .original_result()
-    }
-
     pub fn forward_sync_accept_funds_with_fees<
         Arg0: ProxyArg<ManagedAddress<Env::Api>>,
         Arg1: ProxyArg<BigUint<Env::Api>>,
@@ -345,7 +309,7 @@ where
 
     pub fn send_async_accept_multi_transfer<
         Arg0: ProxyArg<ManagedAddress<Env::Api>>,
-        Arg1: ProxyArg<MultiValueEncoded<Env::Api, MultiValue3<RewaOrDcdtTokenIdentifier<Env::Api>, u64, BigUint<Env::Api>>>>,
+        Arg1: ProxyArg<MultiValueEncoded<Env::Api, MultiValue3<TokenIdentifier<Env::Api>, u64, BigUint<Env::Api>>>>,
     >(
         self,
         to: Arg0,
@@ -445,7 +409,7 @@ where
 
     pub fn transf_exec_multi_accept_funds<
         Arg0: ProxyArg<ManagedAddress<Env::Api>>,
-        Arg1: ProxyArg<MultiValueEncoded<Env::Api, MultiValue3<RewaOrDcdtTokenIdentifier<Env::Api>, u64, BigUint<Env::Api>>>>,
+        Arg1: ProxyArg<MultiValueEncoded<Env::Api, MultiValue3<TokenIdentifier<Env::Api>, u64, BigUint<Env::Api>>>>,
     >(
         self,
         to: Arg0,
@@ -1171,190 +1135,6 @@ where
             .original_result()
     }
 
-    pub fn issue_dynamic_token<
-        Arg0: ProxyArg<ManagedBuffer<Env::Api>>,
-        Arg1: ProxyArg<ManagedBuffer<Env::Api>>,
-        Arg2: ProxyArg<DcdtTokenType>,
-        Arg3: ProxyArg<usize>,
-    >(
-        self,
-        token_display_name: Arg0,
-        token_ticker: Arg1,
-        token_type: Arg2,
-        num_decimals: Arg3,
-    ) -> TxTypedCall<Env, From, To, (), Gas, ()> {
-        self.wrapped_tx
-            .raw_call("issue_dynamic_token")
-            .argument(&token_display_name)
-            .argument(&token_ticker)
-            .argument(&token_type)
-            .argument(&num_decimals)
-            .original_result()
-    }
-
-    pub fn issue_token_all_roles<
-        Arg0: ProxyArg<ManagedBuffer<Env::Api>>,
-        Arg1: ProxyArg<ManagedBuffer<Env::Api>>,
-        Arg2: ProxyArg<DcdtTokenType>,
-        Arg3: ProxyArg<usize>,
-    >(
-        self,
-        token_display_name: Arg0,
-        token_ticker: Arg1,
-        token_type: Arg2,
-        num_decimals: Arg3,
-    ) -> TxTypedCall<Env, From, To, (), Gas, ()> {
-        self.wrapped_tx
-            .raw_call("issue_token_all_roles")
-            .argument(&token_display_name)
-            .argument(&token_ticker)
-            .argument(&token_type)
-            .argument(&num_decimals)
-            .original_result()
-    }
-
-    pub fn change_to_dynamic<
-        Arg0: ProxyArg<TokenIdentifier<Env::Api>>,
-    >(
-        self,
-        token_id: Arg0,
-    ) -> TxTypedCall<Env, From, To, NotPayable, Gas, ()> {
-        self.wrapped_tx
-            .payment(NotPayable)
-            .raw_call("change_to_dynamic")
-            .argument(&token_id)
-            .original_result()
-    }
-
-    pub fn update_token<
-        Arg0: ProxyArg<TokenIdentifier<Env::Api>>,
-    >(
-        self,
-        token_id: Arg0,
-    ) -> TxTypedCall<Env, From, To, NotPayable, Gas, ()> {
-        self.wrapped_tx
-            .payment(NotPayable)
-            .raw_call("update_token")
-            .argument(&token_id)
-            .original_result()
-    }
-
-    pub fn modify_royalties<
-        Arg0: ProxyArg<TokenIdentifier<Env::Api>>,
-        Arg1: ProxyArg<u64>,
-        Arg2: ProxyArg<u64>,
-    >(
-        self,
-        token_id: Arg0,
-        nonce: Arg1,
-        new_royalty: Arg2,
-    ) -> TxTypedCall<Env, From, To, NotPayable, Gas, ()> {
-        self.wrapped_tx
-            .payment(NotPayable)
-            .raw_call("modify_royalties")
-            .argument(&token_id)
-            .argument(&nonce)
-            .argument(&new_royalty)
-            .original_result()
-    }
-
-    pub fn set_new_uris<
-        Arg0: ProxyArg<TokenIdentifier<Env::Api>>,
-        Arg1: ProxyArg<u64>,
-        Arg2: ProxyArg<MultiValueEncoded<Env::Api, ManagedBuffer<Env::Api>>>,
-    >(
-        self,
-        token_id: Arg0,
-        nonce: Arg1,
-        new_uris: Arg2,
-    ) -> TxTypedCall<Env, From, To, NotPayable, Gas, ()> {
-        self.wrapped_tx
-            .payment(NotPayable)
-            .raw_call("set_new_uris")
-            .argument(&token_id)
-            .argument(&nonce)
-            .argument(&new_uris)
-            .original_result()
-    }
-
-    pub fn modify_creator<
-        Arg0: ProxyArg<TokenIdentifier<Env::Api>>,
-        Arg1: ProxyArg<u64>,
-    >(
-        self,
-        token_id: Arg0,
-        nonce: Arg1,
-    ) -> TxTypedCall<Env, From, To, NotPayable, Gas, ()> {
-        self.wrapped_tx
-            .payment(NotPayable)
-            .raw_call("modify_creator")
-            .argument(&token_id)
-            .argument(&nonce)
-            .original_result()
-    }
-
-    pub fn metadata_recreate<
-        Arg0: ProxyArg<TokenIdentifier<Env::Api>>,
-        Arg1: ProxyArg<u64>,
-        Arg2: ProxyArg<ManagedBuffer<Env::Api>>,
-        Arg3: ProxyArg<u64>,
-        Arg4: ProxyArg<ManagedBuffer<Env::Api>>,
-        Arg5: ProxyArg<Color>,
-        Arg6: ProxyArg<MultiValueEncoded<Env::Api, ManagedBuffer<Env::Api>>>,
-    >(
-        self,
-        token_id: Arg0,
-        nonce: Arg1,
-        name: Arg2,
-        royalties: Arg3,
-        hash: Arg4,
-        new_attributes: Arg5,
-        uris: Arg6,
-    ) -> TxTypedCall<Env, From, To, NotPayable, Gas, ()> {
-        self.wrapped_tx
-            .payment(NotPayable)
-            .raw_call("metadata_recreate")
-            .argument(&token_id)
-            .argument(&nonce)
-            .argument(&name)
-            .argument(&royalties)
-            .argument(&hash)
-            .argument(&new_attributes)
-            .argument(&uris)
-            .original_result()
-    }
-
-    pub fn metadata_update<
-        Arg0: ProxyArg<TokenIdentifier<Env::Api>>,
-        Arg1: ProxyArg<u64>,
-        Arg2: ProxyArg<ManagedBuffer<Env::Api>>,
-        Arg3: ProxyArg<u64>,
-        Arg4: ProxyArg<ManagedBuffer<Env::Api>>,
-        Arg5: ProxyArg<Color>,
-        Arg6: ProxyArg<MultiValueEncoded<Env::Api, ManagedBuffer<Env::Api>>>,
-    >(
-        self,
-        token_id: Arg0,
-        nonce: Arg1,
-        name: Arg2,
-        royalties: Arg3,
-        hash: Arg4,
-        new_attributes: Arg5,
-        uris: Arg6,
-    ) -> TxTypedCall<Env, From, To, NotPayable, Gas, ()> {
-        self.wrapped_tx
-            .payment(NotPayable)
-            .raw_call("metadata_update")
-            .argument(&token_id)
-            .argument(&nonce)
-            .argument(&name)
-            .argument(&royalties)
-            .argument(&hash)
-            .argument(&new_attributes)
-            .argument(&uris)
-            .original_result()
-    }
-
     pub fn last_issued_token(
         self,
     ) -> TxTypedCall<Env, From, To, NotPayable, Gas, TokenIdentifier<Env::Api>> {
@@ -1375,7 +1155,7 @@ where
 }
 
 #[type_abi]
-#[derive(TopEncode, TopDecode, Debug)]
+#[derive(TopEncode, TopDecode)]
 pub struct CallbackData<Api>
 where
     Api: ManagedTypeApi,
@@ -1388,7 +1168,7 @@ where
 }
 
 #[type_abi]
-#[derive(TopEncode, TopDecode, Clone, Copy, PartialEq, Debug, Default)]
+#[derive(TopEncode, TopDecode, Clone, Copy, PartialEq, Debug)]
 pub struct Color {
     pub r: u8,
     pub g: u8,

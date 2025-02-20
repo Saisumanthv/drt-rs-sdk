@@ -36,12 +36,10 @@ where
             call_value_handle.get_raw_handle(),
         );
 
-        unsafe {
-            (
-                BigUint::from_raw_handle(call_value_handle.get_raw_handle()),
-                ManagedVec::from_raw_handle(dcdt_transfer_value_handle.get_raw_handle()),
-            )
-        }
+        (
+            BigUint::from_raw_handle(call_value_handle.get_raw_handle()),
+            ManagedVec::from_raw_handle(dcdt_transfer_value_handle.get_raw_handle()),
+        )
     }
 
     pub fn to_call_data_string(&self) -> ManagedBuffer<SA> {
@@ -208,7 +206,7 @@ where
     pub(super) fn transfer_execute_dcdt(self, payments: ManagedVec<SA, DcdtTokenPayment<SA>>) {
         match payments.len() {
             0 => self.transfer_execute_rewa(BigUint::zero()),
-            1 => self.transfer_execute_single_dcdt(payments.get(0).clone()),
+            1 => self.transfer_execute_single_dcdt(payments.get(0)),
             _ => self.transfer_execute_multi_dcdt(payments),
         }
     }

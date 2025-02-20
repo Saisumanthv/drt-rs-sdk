@@ -8,6 +8,8 @@ mod facade;
 pub mod managed_test_util;
 pub mod scenario;
 pub mod scenario_macros;
+pub mod standalone;
+pub mod test_wallets;
 mod vm_go_tool;
 
 pub mod whitebox_legacy;
@@ -24,7 +26,7 @@ pub use num_bigint;
 
 pub use dharitri_sc;
 
-pub use dharitri_sc_meta_lib as meta;
+pub use dharitri_sc_meta as meta;
 
 /// Exposing the scenario model. Might be moved in the future,
 /// but the export will hopefully remain the same.

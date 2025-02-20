@@ -1,9 +1,7 @@
-use dharitri_sc_codec::IntoMultiValue;
-
 use crate::{
     abi::TypeAbiFrom,
     api::ManagedTypeApi,
-    types::{BigUint, RewaOrDcdtTokenIdentifier, RewaOrDcdtTokenPaymentMultiValue},
+    types::{BigUint, RewaOrDcdtTokenIdentifier},
 };
 
 use crate::codec::{
@@ -12,28 +10,26 @@ use crate::codec::{
 };
 
 use crate as dharitri_sc; // needed by the TypeAbi generated code
-use crate::derive::type_abi;
+use crate::derive::TypeAbi;
 
-use super::{
-    managed_vec_item_read_from_payload_index, managed_vec_item_save_to_payload_index,
-    DcdtTokenPayment, DcdtTokenPaymentRefs, ManagedVec, ManagedVecItem,
-    ManagedVecItemPayloadBuffer, ManagedVecRef,
-};
+use super::{DcdtTokenPayment, DcdtTokenPaymentRefs};
 
-#[type_abi]
-#[derive(TopDecode, TopEncode, NestedDecode, NestedEncode, Clone, PartialEq, Eq, Debug)]
+#[derive(
+    TopDecode, TopEncode, NestedDecode, NestedEncode, TypeAbi, Clone, PartialEq, Eq, Debug,
+)]
 pub struct RewaOrDcdtTokenPayment<M: ManagedTypeApi> {
     pub token_identifier: RewaOrDcdtTokenIdentifier<M>,
     pub token_nonce: u64,
     pub amount: BigUint<M>,
 }
 
-/// Alias for a list of payments of REWA or DCDT tokens.
-pub type MultiRewaOrDcdtPayment<Api> = ManagedVec<Api, RewaOrDcdtTokenPayment<Api>>;
-
 impl<M: ManagedTypeApi> RewaOrDcdtTokenPayment<M> {
     pub fn no_payment() -> Self {
-        Self::rewa_payment(BigUint::zero())
+        RewaOrDcdtTokenPayment {
+            token_identifier: RewaOrDcdtTokenIdentifier::rewa(),
+            token_nonce: 0,
+            amount: BigUint::zero(),
+        }
     }
 
     pub fn new(
@@ -46,11 +42,6 @@ impl<M: ManagedTypeApi> RewaOrDcdtTokenPayment<M> {
             token_nonce,
             amount,
         }
-    }
-
-    /// A payment of token REWA-000000.
-    pub fn rewa_payment(amount: BigUint<M>) -> Self {
-        Self::new(RewaOrDcdtTokenIdentifier::rewa(), 0, amount)
     }
 
     /// Will convert to just DCDT or terminate execution if the token is REWA.
@@ -135,15 +126,6 @@ impl<M: ManagedTypeApi> From<DcdtTokenPayment<M>> for RewaOrDcdtTokenPayment<M> 
     }
 }
 
-impl<M: ManagedTypeApi> IntoMultiValue for RewaOrDcdtTokenPayment<M> {
-    type MultiValue = RewaOrDcdtTokenPaymentMultiValue<M>;
-
-    #[inline]
-    fn into_multi_value(self) -> Self::MultiValue {
-        self.into()
-    }
-}
-
 impl<M> TypeAbiFrom<&[u8]> for RewaOrDcdtTokenPayment<M> where M: ManagedTypeApi {}
 
 impl<M: ManagedTypeApi> RewaOrDcdtTokenPayment<M> {
@@ -199,36 +181,5 @@ impl<'a, M: ManagedTypeApi> RewaOrDcdtTokenPaymentRefs<'a, M> {
                 )
             },
         )
-    }
-}
-
-impl<M: ManagedTypeApi> ManagedVecItem for RewaOrDcdtTokenPayment<M> {
-    type PAYLOAD = ManagedVecItemPayloadBuffer<16>;
-    const SKIPS_RESERIALIZATION: bool = false;
-    type Ref<'a> = ManagedVecRef<'a, Self>;
-
-    fn read_from_payload(payload: &Self::PAYLOAD) -> Self {
-        let mut index = 0;
-        unsafe {
-            RewaOrDcdtTokenPayment {
-                token_identifier: managed_vec_item_read_from_payload_index(payload, &mut index),
-                token_nonce: managed_vec_item_read_from_payload_index(payload, &mut index),
-                amount: managed_vec_item_read_from_payload_index(payload, &mut index),
-            }
-        }
-    }
-
-    unsafe fn borrow_from_payload<'a>(payload: &Self::PAYLOAD) -> Self::Ref<'a> {
-        ManagedVecRef::new(Self::read_from_payload(payload))
-    }
-
-    fn save_to_payload(self, payload: &mut Self::PAYLOAD) {
-        let mut index = 0;
-
-        unsafe {
-            managed_vec_item_save_to_payload_index(self.token_identifier, payload, &mut index);
-            managed_vec_item_save_to_payload_index(self.token_nonce, payload, &mut index);
-            managed_vec_item_save_to_payload_index(self.amount, payload, &mut index);
-        }
     }
 }

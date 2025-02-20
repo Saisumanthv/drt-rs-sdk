@@ -45,19 +45,15 @@ pub trait CallPromisesBackTransfersModule: common::CommonModule {
         }
 
         for dcdt_transfer in &back_transfers.dcdt_payments {
-            let dcdt_token_id =
-                RewaOrDcdtTokenIdentifier::dcdt(dcdt_transfer.token_identifier.clone());
-            self.retrieve_funds_callback_event(
-                &dcdt_token_id,
-                dcdt_transfer.token_nonce,
-                &dcdt_transfer.amount,
-            );
+            let (token, nonce, payment) = dcdt_transfer.into_tuple();
+            let dcdt_token_id = RewaOrDcdtTokenIdentifier::dcdt(token);
+            self.retrieve_funds_callback_event(&dcdt_token_id, nonce, &payment);
 
             let _ = self.callback_data().push(&CallbackData {
                 callback_name: ManagedBuffer::from(b"retrieve_funds_callback"),
                 token_identifier: dcdt_token_id,
-                token_nonce: dcdt_transfer.token_nonce,
-                token_amount: dcdt_transfer.amount.clone(),
+                token_nonce: nonce,
+                token_amount: payment,
                 args: ManagedVec::new(),
             });
         }

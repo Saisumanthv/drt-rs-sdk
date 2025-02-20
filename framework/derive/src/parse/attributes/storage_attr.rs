@@ -36,20 +36,6 @@ impl StorageMapperAttribute {
     }
 }
 
-pub struct StorageMapperFromAddressAttribute {
-    pub identifier: String,
-}
-
-impl StorageMapperFromAddressAttribute {
-    pub fn parse(attr: &syn::Attribute) -> Option<Self> {
-        is_attr_one_string_arg(attr, ATTR_STORAGE_MAPPER_FROM_ADDRESS).map(|arg_str| {
-            StorageMapperFromAddressAttribute {
-                identifier: arg_str,
-            }
-        })
-    }
-}
-
 pub struct StorageIsEmptyAttribute {
     pub identifier: String,
 }

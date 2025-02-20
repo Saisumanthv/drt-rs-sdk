@@ -1,9 +1,7 @@
 use dharitri_sc::{
     api::ManagedTypeApi,
-    codec::{
-        self,
-        derive::{NestedDecode, NestedEncode, TopDecode, TopEncode},
-    },
+    codec,
+    codec::derive::{NestedDecode, NestedEncode, TopDecode, TopEncode},
     derive::ManagedVecItem,
     types::{BigUint, ManagedType, ManagedVecItemPayload},
 };
@@ -41,15 +39,20 @@ fn managed_struct_to_bytes_writer() {
         num: 0x12345,
     };
 
+    let mut payload = <ManagedStructWithBigUint<StaticApi> as dharitri_sc::types::ManagedVecItem>::PAYLOAD::new_buffer();
+    let payload_slice = payload.payload_slice_mut();
+
     let handle_bytes = s.big_uint.get_handle().to_be_bytes();
     let expected = [0xff, 0xff, 0xff, handle_bytes[3], 0x00, 0x01, 0x23, 0x45];
 
-    let mut payload = <ManagedStructWithBigUint<StaticApi> as dharitri_sc::types::ManagedVecItem>::PAYLOAD::new_buffer();
-    <ManagedStructWithBigUint<StaticApi> as dharitri_sc::types::ManagedVecItem>::save_to_payload(
-        s,
-        &mut payload,
+    <ManagedStructWithBigUint<StaticApi> as dharitri_sc::types::ManagedVecItem>::to_byte_writer(
+        &s,
+        |bytes| {
+            payload_slice.copy_from_slice(bytes);
+
+            assert_eq!(payload_slice, expected);
+        },
     );
-    assert_eq!(payload.buffer, expected);
 }
 
 #[test]
@@ -62,8 +65,14 @@ fn managed_struct_from_bytes_reader() {
     let arr: [u8; 8] = [0xff, 0xff, 0xff, handle_bytes[3], 0x00, 0x01, 0x23, 0x45];
 
     let struct_from_bytes =
-        <ManagedStructWithBigUint<StaticApi> as dharitri_sc::types::ManagedVecItem>::read_from_payload(
-            &arr.into()
+        <ManagedStructWithBigUint<StaticApi> as dharitri_sc::types::ManagedVecItem>::from_byte_reader(
+            |bytes| {
+                bytes.copy_from_slice(
+                    &arr
+                        [0
+                            ..<ManagedStructWithBigUint::<StaticApi> as dharitri_sc::types::ManagedVecItem>::payload_size()],
+                );
+            },
         );
     assert_eq!(s, struct_from_bytes);
 }

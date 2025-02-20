@@ -59,7 +59,7 @@ where
     pub fn top_decode_from_managed_buffer_custom_message<T: TopDecode>(
         &self,
         buffer: &ManagedBuffer<M>,
-        error_message: &'static str,
+        error_message: &'static [u8],
     ) -> T {
         T::top_decode_or_handle_err(
             buffer.clone(), // TODO: remove clone
@@ -83,16 +83,16 @@ where
     M: ManagedTypeApi + ErrorApi,
 {
     _phantom: PhantomData<M>,
-    pub base_message: &'static str,
+    pub base_message: &'static [u8],
 }
 
 impl<M> Copy for ExitCodecErrorHandler<M> where M: ManagedTypeApi + ErrorApi {}
 
-impl<M> From<&'static str> for ExitCodecErrorHandler<M>
+impl<M> From<&'static [u8]> for ExitCodecErrorHandler<M>
 where
     M: ManagedTypeApi + ErrorApi,
 {
-    fn from(base_message: &'static str) -> Self {
+    fn from(base_message: &'static [u8]) -> Self {
         ExitCodecErrorHandler {
             _phantom: PhantomData,
             base_message,
@@ -107,7 +107,7 @@ where
     type HandledErr = Infallible;
 
     fn handle_error(&self, err: EncodeError) -> Self::HandledErr {
-        let mut message_buffer = ManagedBuffer::<M>::new_from_bytes(self.base_message.as_bytes());
+        let mut message_buffer = ManagedBuffer::<M>::new_from_bytes(self.base_message);
         message_buffer.append_bytes(err.message_bytes());
         M::error_api_impl().signal_error_from_buffer(message_buffer.get_handle())
     }
@@ -120,7 +120,7 @@ where
     type HandledErr = Infallible;
 
     fn handle_error(&self, err: DecodeError) -> Self::HandledErr {
-        let mut message_buffer = ManagedBuffer::<M>::new_from_bytes(self.base_message.as_bytes());
+        let mut message_buffer = ManagedBuffer::<M>::new_from_bytes(self.base_message);
         message_buffer.append_bytes(err.message_bytes());
         M::error_api_impl().signal_error_from_buffer(message_buffer.get_handle())
     }

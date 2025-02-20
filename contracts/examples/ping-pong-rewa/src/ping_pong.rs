@@ -2,10 +2,9 @@
 
 use dharitri_sc::imports::*;
 
-pub mod proxy_ping_pong_rewa;
-mod types;
+mod user_status;
 
-use types::{ContractState, UserStatus};
+use user_status::UserStatus;
 
 /// Derived empirically.
 const PONG_ALL_LOW_GAS_LIMIT: u64 = 3_000_000;
@@ -26,9 +25,9 @@ const PONG_ALL_LOW_GAS_LIMIT: u64 = 3_000_000;
 #[dharitri_sc::contract]
 pub trait PingPong {
     /// Necessary configuration when deploying:
-    /// `ping_amount` - the exact REWA amount that needs to be sent when `ping`-ing.
+    /// `ping_amount` - the exact REWA amounf that needs to be sent when `ping`-ing.
     /// `duration_in_seconds` - how much time (in seconds) until contract expires.
-    /// `opt_activation_timestamp` - optionally specify the contract to only activate at a later date.
+    /// `opt_activation_timestamp` - optionally specify the contract to only actvivate at a later date.
     /// `max_funds` - optional funding cap, no more funds than this can be added to the contract.
     #[allow_multiple_var_args]
     #[init]
@@ -49,27 +48,14 @@ pub trait PingPong {
     }
 
     #[upgrade]
-    fn upgrade(
-        &self,
-        ping_amount: &BigUint,
-        duration_in_seconds: u64,
-        opt_activation_timestamp: Option<u64>,
-        max_funds: OptionalValue<BigUint>,
-    ) {
-        self.init(
-            ping_amount,
-            duration_in_seconds,
-            opt_activation_timestamp,
-            max_funds,
-        )
-    }
+    fn upgrade(&self) {}
 
     /// User sends some REWA to be locked in the contract for a period of time.
     /// Optional `_data` argument is ignored.
     #[payable("REWA")]
     #[endpoint]
     fn ping(&self, _data: IgnoreValue) {
-        let payment = self.call_value().rewa();
+        let payment = self.call_value().rewa_value();
 
         require!(
             *payment == self.ping_amount().get(),
@@ -112,8 +98,6 @@ pub trait PingPong {
                 sc_panic!("already withdrawn")
             },
         }
-
-        self.ping_event(&caller, &payment);
     }
 
     fn pong_by_user_id(&self, user_id: usize) -> Result<(), &'static str> {
@@ -124,8 +108,7 @@ pub trait PingPong {
                 self.user_status(user_id).set(UserStatus::Withdrawn);
                 if let Some(user_address) = self.user_mapper().get_user_address(user_id) {
                     let amount = self.ping_amount().get();
-                    self.tx().to(&user_address).rewa(&amount).transfer();
-                    self.pong_event(&user_address, &amount);
+                    self.tx().to(user_address).rewa(amount).transfer();
                     Result::Ok(())
                 } else {
                     Result::Err("unknown user")
@@ -159,27 +142,24 @@ pub trait PingPong {
     /// Can only be called after expiration.
     #[endpoint(pongAll)]
     fn pong_all(&self) -> OperationCompletionStatus {
-        let now = self.blockchain().get_block_timestamp();
         require!(
-            now >= self.deadline().get(),
+            self.blockchain().get_block_timestamp() >= self.deadline().get(),
             "can't withdraw before deadline"
         );
 
         let num_users = self.user_mapper().get_user_count();
         let mut pong_all_last_user = self.pong_all_last_user().get();
-        let mut status = OperationCompletionStatus::InterruptedBeforeOutOfGas;
         loop {
             if pong_all_last_user >= num_users {
                 // clear field and reset to 0
                 pong_all_last_user = 0;
                 self.pong_all_last_user().set(pong_all_last_user);
-                status = OperationCompletionStatus::Completed;
-                break;
+                return OperationCompletionStatus::Completed;
             }
 
             if self.blockchain().get_gas_left() < PONG_ALL_LOW_GAS_LIMIT {
                 self.pong_all_last_user().set(pong_all_last_user);
-                break;
+                return OperationCompletionStatus::InterruptedBeforeOutOfGas;
             }
 
             pong_all_last_user += 1;
@@ -187,10 +167,6 @@ pub trait PingPong {
             // in case of error just ignore the error and skip
             let _ = self.pong_by_user_id(pong_all_last_user);
         }
-
-        self.pong_all_event(now, &status, pong_all_last_user);
-
-        status
     }
 
     /// Lists the addresses of all users that have `ping`-ed,
@@ -198,19 +174,6 @@ pub trait PingPong {
     #[view(getUserAddresses)]
     fn get_user_addresses(&self) -> MultiValueEncoded<ManagedAddress> {
         self.user_mapper().get_all_addresses().into()
-    }
-
-    /// Returns the current contract state as a struct
-    /// for faster fetching from external parties
-    #[view(getContractState)]
-    fn get_contract_state(&self) -> ContractState<Self::Api> {
-        ContractState {
-            ping_amount: self.ping_amount().get(),
-            deadline: self.deadline().get(),
-            activation_timestamp: self.activation_timestamp().get(),
-            max_funds: self.max_funds().get(),
-            pong_all_last_user: self.pong_all_last_user().get(),
-        }
     }
 
     // storage
@@ -246,27 +209,8 @@ pub trait PingPong {
     fn user_status(&self, user_id: usize) -> SingleValueMapper<UserStatus>;
 
     /// Part of the `pongAll` status, the last user to be processed.
-    /// 0 if never called `pongAll` or `pongAll` completed.
+    /// 0 if never called `pongAll` or `pongAll` completed..
     #[view(pongAllLastUser)]
     #[storage_mapper("pongAllLastUser")]
     fn pong_all_last_user(&self) -> SingleValueMapper<usize>;
-
-    // events
-
-    /// Signals a successful ping by user with amount
-    #[event]
-    fn ping_event(&self, #[indexed] caller: &ManagedAddress, pinged_amount: &BigUint);
-
-    /// Signals a successful pong by user with amount
-    #[event]
-    fn pong_event(&self, #[indexed] caller: &ManagedAddress, ponged_amount: &BigUint);
-
-    /// Signals the beginning of the pong_all operation, status and last user
-    #[event]
-    fn pong_all_event(
-        &self,
-        #[indexed] timestamp: u64,
-        #[indexed] status: &OperationCompletionStatus,
-        #[indexed] pong_all_last_user: usize,
-    );
 }

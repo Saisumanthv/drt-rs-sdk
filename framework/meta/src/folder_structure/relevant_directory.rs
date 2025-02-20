@@ -1,19 +1,17 @@
-use crate::version::FrameworkVersion;
-use dharitri_sc_meta_lib::cargo_toml::{CargoTomlContents, DependencyReference};
+use crate::{version::FrameworkVersion, CargoTomlContents};
 use std::{
     fs::{self, DirEntry},
     path::{Path, PathBuf},
 };
+use toml::Value;
 
-// use super::{version_req::VersionReq, DependencyReference, GitReference};
+use super::version_req::VersionReq;
 
 /// Used for retrieving crate versions.
 pub const FRAMEWORK_CRATE_NAMES: &[&str] = &[
     "dharitri-sc",
     "dharitri-sc-meta",
-    "dharitri-sc-meta-lib",
     "dharitri-sc-scenario",
-    "dharitri-sc-snippets",
     "dharitri-sc-wasm-adapter",
     "dharitri-sc-modules",
     "numbat-wasm",
@@ -34,7 +32,7 @@ pub enum DirectoryType {
 #[derive(Debug, Clone)]
 pub struct RelevantDirectory {
     pub path: PathBuf,
-    pub version: DependencyReference,
+    pub version: VersionReq,
     pub upgrade_in_progress: Option<(FrameworkVersion, FrameworkVersion)>,
     pub dir_type: DirectoryType,
 }
@@ -88,7 +86,7 @@ impl RelevantDirectories {
     pub fn count_for_version(&self, version: &FrameworkVersion) -> usize {
         self.0
             .iter()
-            .filter(|dir| dir.version.is_framework_version(version))
+            .filter(|dir| dir.version.semver == *version)
             .count()
     }
 
@@ -98,13 +96,13 @@ impl RelevantDirectories {
     ) -> impl Iterator<Item = &RelevantDirectory> {
         self.0
             .iter()
-            .filter(move |dir| dir.version.is_framework_version(version))
+            .filter(move |dir| dir.version.semver == *version)
     }
 
     /// Marks all appropriate directories as ready for upgrade.
     pub fn start_upgrade(&mut self, from_version: FrameworkVersion, to_version: FrameworkVersion) {
         for dir in self.0.iter_mut() {
-            if dir.version.is_framework_version(&from_version) {
+            if dir.version.semver == from_version {
                 dir.upgrade_in_progress = Some((from_version.clone(), to_version.clone()));
             }
         }
@@ -115,9 +113,7 @@ impl RelevantDirectories {
     pub fn finish_upgrade(&mut self) {
         for dir in self.0.iter_mut() {
             if let Some((_, to_version)) = &dir.upgrade_in_progress {
-                if let DependencyReference::Version(version_req) = &mut dir.version {
-                    version_req.semver = to_version.clone();
-                }
+                dir.version.semver = to_version.clone();
                 dir.upgrade_in_progress = None;
             }
         }
@@ -137,7 +133,7 @@ fn populate_directories(path: &Path, ignore: &[String], result: &mut Vec<Relevan
         }
     }
 
-    if let Some(version) = find_framework_dependency(path) {
+    if let Some(version) = find_framework_version(path) {
         let dir_type = if is_contract {
             DirectoryType::Contract
         } else {
@@ -173,6 +169,18 @@ fn can_continue_recursion(dir_entry: &DirEntry, blacklist: &[String]) -> bool {
     }
 }
 
+fn find_framework_version_string(cargo_toml_contents: &CargoTomlContents) -> Option<String> {
+    for &crate_name in FRAMEWORK_CRATE_NAMES {
+        if let Some(old_base) = cargo_toml_contents.dependency(crate_name) {
+            if let Some(Value::String(s)) = old_base.get("version") {
+                return Some(s.clone());
+            }
+        }
+    }
+
+    None
+}
+
 fn load_cargo_toml_contents(dir_path: &Path) -> Option<CargoTomlContents> {
     let cargo_toml_path = dir_path.join(CARGO_TOML_FILE_NAME);
     if cargo_toml_path.is_file() {
@@ -189,12 +197,10 @@ impl RelevantDirectory {
     }
 }
 
-fn find_framework_dependency(dir_path: &Path) -> Option<DependencyReference> {
+fn find_framework_version(dir_path: &Path) -> Option<VersionReq> {
     if let Some(cargo_toml_contents) = load_cargo_toml_contents(dir_path) {
-        for &crate_name in FRAMEWORK_CRATE_NAMES {
-            if let Some(dep_raw) = cargo_toml_contents.dependency_raw_value(crate_name) {
-                return Some(dep_raw.interpret());
-            }
+        if let Some(version) = find_framework_version_string(&cargo_toml_contents) {
+            return Some(VersionReq::from_string(version));
         }
     }
 

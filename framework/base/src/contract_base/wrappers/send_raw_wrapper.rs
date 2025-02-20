@@ -6,8 +6,8 @@ use crate::{
         HandleConstraints, ManagedBufferApiImpl, RawHandle, SendApiImpl, StaticVarApiImpl,
     },
     types::{
-        BigUint, CodeMetadata, RewaOrDcdtTokenPayment, DcdtTokenPayment, ManagedAddress,
-        ManagedArgBuffer, ManagedBuffer, ManagedType, ManagedVec, TokenIdentifier,
+        BigUint, CodeMetadata, DcdtTokenPayment, ManagedAddress, ManagedArgBuffer, ManagedBuffer,
+        ManagedType, ManagedVec, TokenIdentifier,
     },
 };
 
@@ -124,34 +124,6 @@ where
         )
     }
 
-    pub fn multi_rewa_or_dcdt_transfer_execute(
-        &self,
-        to: &ManagedAddress<A>,
-        payments: &ManagedVec<A, RewaOrDcdtTokenPayment<A>>,
-        gas_limit: u64,
-        endpoint_name: &ManagedBuffer<A>,
-        arg_buffer: &ManagedArgBuffer<A>,
-    ) -> Result<(), &'static [u8]> {
-        if let Some(single_item) = payments.is_single_item() {
-            if single_item.token_identifier.is_rewa() {
-                return self.direct_rewa_execute(
-                    to,
-                    &single_item.amount,
-                    gas_limit,
-                    endpoint_name,
-                    arg_buffer,
-                );
-            }
-        }
-        A::send_api_impl().multi_transfer_dcdt_nft_execute(
-            to.get_handle().get_raw_handle(),
-            payments.get_handle().get_raw_handle(),
-            gas_limit,
-            endpoint_name.get_handle().get_raw_handle(),
-            arg_buffer.get_handle().get_raw_handle(),
-        )
-    }
-
     pub fn async_call_raw(
         &self,
         to: &ManagedAddress<A>,
@@ -220,12 +192,10 @@ where
             new_address_handle,
             result_handle,
         );
-        unsafe {
-            (
-                ManagedAddress::from_raw_handle(new_address_handle),
-                ManagedVec::from_raw_handle(result_handle),
-            )
-        }
+        (
+            ManagedAddress::from_raw_handle(new_address_handle),
+            ManagedVec::from_raw_handle(result_handle),
+        )
     }
 
     /// Deploys a new contract in the same shard by re-using the code of an already deployed source contract.
@@ -252,12 +222,10 @@ where
             new_address_handle,
             result_handle,
         );
-        unsafe {
-            (
-                ManagedAddress::from_raw_handle(new_address_handle),
-                ManagedVec::from_raw_handle(result_handle),
-            )
-        }
+        (
+            ManagedAddress::from_raw_handle(new_address_handle),
+            ManagedVec::from_raw_handle(result_handle),
+        )
     }
 
     pub fn upgrade_from_source_contract(
@@ -323,7 +291,7 @@ where
             arg_buffer.get_handle().get_raw_handle(),
             result_handle,
         );
-        unsafe { ManagedVec::from_raw_handle(result_handle) }
+        ManagedVec::from_raw_handle(result_handle)
     }
 
     pub fn execute_on_same_context_raw(
@@ -343,7 +311,7 @@ where
             arg_buffer.get_handle().get_raw_handle(),
             result_handle,
         );
-        unsafe { ManagedVec::from_raw_handle(result_handle) }
+        ManagedVec::from_raw_handle(result_handle)
     }
 
     /// Same shard, in-line execution of another contract.
@@ -362,7 +330,7 @@ where
             arg_buffer.get_handle().get_raw_handle(),
             result_handle,
         );
-        unsafe { ManagedVec::from_raw_handle(result_handle) }
+        ManagedVec::from_raw_handle(result_handle)
     }
 
     /// Allows synchronously calling a local function by name. Execution is resumed afterwards.
@@ -389,7 +357,8 @@ where
         );
 
         self.clean_return_data();
-        unsafe { ManagedVec::from_raw_handle(result_handle) }
+
+        ManagedVec::from_raw_handle(result_handle)
     }
 
     pub fn clean_return_data(&self) {

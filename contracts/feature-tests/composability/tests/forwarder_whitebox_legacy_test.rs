@@ -1,17 +1,24 @@
 use forwarder_legacy::fwd_nft_legacy::{Color, ForwarderNftModule};
+use dharitri_sc::{contract_base::ContractBase, types::Address};
+use dharitri_sc_scenario::{
+    managed_address, managed_biguint, managed_token_id,
+    scenario_model::{
+        Account, AddressValue, CheckAccount, CheckStateStep, ScCallStep, SetStateStep,
+    },
+    ScenarioWorld, WhiteboxContract,
+};
 
-use dharitri_sc_scenario::imports::*;
+const USER_ADDRESS_EXPR: &str = "address:user";
+const FORWARDER_ADDRESS_EXPR: &str = "sc:forwarder_legacy";
+const FORWARDER_PATH_EXPR: &str = "drtsc:output/forwarder_legacy.drtsc.json";
 
-const USER_ADDRESS: TestAddress = TestAddress::new("user");
-const FORWARDER_ADDRESS: TestSCAddress = TestSCAddress::new("forwarder_legacy");
-const FORWARDER_PATH: DrtscPath = DrtscPath::new("output/forwarder_legacy.drtsc.json");
-const NFT_TOKEN_ID: TestTokenIdentifier = TestTokenIdentifier::new("COOL-123456");
+const NFT_TOKEN_ID_EXPR: &str = "str:COOL-123456";
+const NFT_TOKEN_ID: &[u8] = b"COOL-123456";
 
 fn world() -> ScenarioWorld {
     let mut blockchain = ScenarioWorld::new();
 
-    blockchain.set_current_dir_from_workspace("contracts/feature-tests/composability");
-    blockchain.register_contract(FORWARDER_PATH, forwarder_legacy::ContractBuilder);
+    blockchain.register_contract(FORWARDER_PATH_EXPR, forwarder_legacy::ContractBuilder);
     blockchain
 }
 
@@ -19,40 +26,57 @@ fn world() -> ScenarioWorld {
 fn test_nft_update_attributes_and_send() {
     let mut world = world();
 
+    let forwarder_legacy_code = world.code_expression(FORWARDER_PATH_EXPR);
     let roles = vec![
         "DCDTRoleNFTCreate".to_string(),
         "DCDTRoleNFTUpdateAttributes".to_string(),
     ];
 
-    world.account(USER_ADDRESS).nonce(1);
-    world
-        .account(FORWARDER_ADDRESS)
-        .nonce(1)
-        .code(FORWARDER_PATH)
-        .dcdt_roles(NFT_TOKEN_ID, roles);
+    world.set_state_step(
+        SetStateStep::new()
+            .put_account(USER_ADDRESS_EXPR, Account::new().nonce(1))
+            .put_account(
+                FORWARDER_ADDRESS_EXPR,
+                Account::new()
+                    .nonce(1)
+                    .code(forwarder_legacy_code)
+                    .dcdt_roles(NFT_TOKEN_ID_EXPR, roles),
+            ),
+    );
+
+    let forwarder_legacy_whitebox =
+        WhiteboxContract::new(FORWARDER_ADDRESS_EXPR, forwarder_legacy::contract_obj);
 
     let original_attributes = Color { r: 0, g: 0, b: 0 };
 
-    world
-        .tx()
-        .from(USER_ADDRESS)
-        .to(FORWARDER_ADDRESS)
-        .whitebox(forwarder_legacy::contract_obj, |sc| {
+    world.whitebox_call(
+        &forwarder_legacy_whitebox,
+        ScCallStep::new().from(USER_ADDRESS_EXPR),
+        |sc| {
             sc.nft_create_compact(
-                NFT_TOKEN_ID.to_token_identifier(),
+                managed_token_id!(NFT_TOKEN_ID),
                 managed_biguint!(1),
                 original_attributes,
             );
 
-            sc.tx()
-                .to(USER_ADDRESS)
-                .dcdt((NFT_TOKEN_ID.to_token_identifier(), 1, 1u32.into()))
-                .transfer();
-        });
+            sc.send().direct_dcdt(
+                &managed_address!(&address_expr_to_address(USER_ADDRESS_EXPR)),
+                &managed_token_id!(NFT_TOKEN_ID),
+                1,
+                &managed_biguint!(1),
+            );
+        },
+    );
 
-    world
-        .check_account(USER_ADDRESS)
-        .dcdt_nft_balance_and_attributes(NFT_TOKEN_ID, 1, 1, original_attributes);
+    world.check_state_step(CheckStateStep::new().put_account(
+        USER_ADDRESS_EXPR,
+        CheckAccount::new().dcdt_nft_balance_and_attributes(
+            NFT_TOKEN_ID_EXPR,
+            1,
+            "1",
+            Some(original_attributes),
+        ),
+    ));
 
     let new_attributes = Color {
         r: 255,
@@ -60,21 +84,34 @@ fn test_nft_update_attributes_and_send() {
         b: 255,
     };
 
-    world
-        .tx()
-        .from(USER_ADDRESS)
-        .to(FORWARDER_ADDRESS)
-        .payment(TestDcdtTransfer(NFT_TOKEN_ID, 1, 1))
-        .whitebox(forwarder_legacy::contract_obj, |sc| {
-            sc.nft_update_attributes(NFT_TOKEN_ID.to_token_identifier(), 1, new_attributes);
+    world.whitebox_call(
+        &forwarder_legacy_whitebox,
+        ScCallStep::new()
+            .from(USER_ADDRESS_EXPR)
+            .dcdt_transfer(NFT_TOKEN_ID, 1, "1"),
+        |sc| {
+            sc.nft_update_attributes(managed_token_id!(NFT_TOKEN_ID), 1, new_attributes);
 
-            sc.tx()
-                .to(USER_ADDRESS)
-                .dcdt((NFT_TOKEN_ID.to_token_identifier(), 1, 1u32.into()))
-                .transfer();
-        });
+            sc.send().direct_dcdt(
+                &managed_address!(&address_expr_to_address(USER_ADDRESS_EXPR)),
+                &managed_token_id!(NFT_TOKEN_ID),
+                1,
+                &managed_biguint!(1),
+            );
+        },
+    );
 
-    world
-        .check_account(USER_ADDRESS)
-        .dcdt_nft_balance_and_attributes(NFT_TOKEN_ID, 1, 1, new_attributes);
+    world.check_state_step(CheckStateStep::new().put_account(
+        USER_ADDRESS_EXPR,
+        CheckAccount::new().dcdt_nft_balance_and_attributes(
+            NFT_TOKEN_ID_EXPR,
+            1,
+            "1",
+            Some(new_attributes),
+        ),
+    ));
+}
+
+fn address_expr_to_address(address_expr: &str) -> Address {
+    AddressValue::from(address_expr).to_address()
 }

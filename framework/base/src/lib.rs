@@ -1,5 +1,6 @@
 #![no_std]
 #![allow(deprecated)]
+
 pub use dharitri_sc_derive::{self as derive, contract, module, proxy};
 
 // re-export basic heap types
@@ -7,9 +8,6 @@ extern crate alloc;
 
 /// The current version of `dharitri_sc_codec`, re-exported.
 pub use dharitri_sc_codec as codec;
-
-// Re-exporting the VM-core, for convenience.
-pub use dharitri_chain_core as chain_core;
 
 /// Reexported for convenience.
 pub use crate::codec::arrayvec;

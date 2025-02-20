@@ -5,5 +5,5 @@ mod interactor_step;
 mod step_buffer;
 
 pub use homogenous_tx_buffer::HomogenousTxBuffer;
-pub use interactor_step::{InteractorStep, InteractorStepRef};
+pub use interactor_step::InteractorStep;
 pub use step_buffer::StepBuffer;

@@ -16,13 +16,11 @@ pub struct ComposabilityInteract {
 impl ComposabilityInteract {
     pub async fn init() -> Self {
         let config = Config::load_config();
-        let mut interactor = Interactor::new(config.gateway_uri())
+        let mut interactor = Interactor::new(config.gateway())
             .await
-            .use_chain_simulator(config.use_chain_simulator())
             .with_tracer(INTERACTOR_SCENARIO_TRACE_PATH)
             .await;
-        interactor.set_current_dir_from_workspace("contracts/feature-tests/composability/interact");
-        let wallet_address = interactor.register_wallet(test_wallets::judy()).await;
+        let wallet_address = interactor.register_wallet(test_wallets::judy());
         let forw_queue_code = BytesValue::interpret_from(
             "drtsc:../forwarder-queue/output/forwarder-queue.drtsc.json",
             &InterpreterContext::default(),

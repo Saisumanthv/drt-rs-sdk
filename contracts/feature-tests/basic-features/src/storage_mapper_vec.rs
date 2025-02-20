@@ -1,3 +1,5 @@
+use dharitri_sc::storage::StorageKey;
+
 dharitri_sc::imports!();
 
 /// Storage mapper test.
@@ -6,9 +8,6 @@ pub trait VecMapperFeatures {
     #[view]
     #[storage_mapper("vec_mapper")]
     fn vec_mapper(&self) -> VecMapper<u32>;
-
-    #[storage_mapper_from_address("vec_mapper")]
-    fn vec_mapper_from_address(&self, address: ManagedAddress) -> VecMapper<u32, ManagedAddress>;
 
     #[endpoint]
     fn vec_mapper_push(&self, item: u32) {
@@ -23,7 +22,8 @@ pub trait VecMapperFeatures {
 
     #[view]
     fn vec_mapper_get_at_address(&self, address: ManagedAddress, index: usize) -> u32 {
-        self.vec_mapper_from_address(address).get(index)
+        let mapper = VecMapper::new_from_address(address, StorageKey::from("vec_mapper"));
+        mapper.get(index)
     }
 
     #[view]
@@ -33,6 +33,8 @@ pub trait VecMapperFeatures {
 
     #[view]
     fn vec_mapper_len_at_address(&self, address: ManagedAddress) -> usize {
-        self.vec_mapper_from_address(address).len()
+        let mapper: VecMapper<Self::Api, u32, _> =
+            VecMapper::new_from_address(address, StorageKey::from("vec_mapper"));
+        mapper.len()
     }
 }

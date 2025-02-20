@@ -4,8 +4,8 @@ use crate::{
     api::CallTypeApi,
     types::{
         BigUint, RewaPayment, DcdtLocalRole, DcdtTokenType, FunctionCall, ManagedAddress,
-        ManagedBuffer, NotPayable, OriginalResultMarker, ProxyArg, TokenIdentifier, Tx, TxEnv,
-        TxFrom, TxGas, TxProxyTrait, TxTo, TxTypedCall,
+        ManagedBuffer, NotPayable, OriginalResultMarker, TokenIdentifier, Tx, TxEnv, TxFrom, TxGas,
+        TxProxyTrait, TxTo, TxTypedCall,
     },
 };
 
@@ -14,8 +14,6 @@ const ISSUE_NON_FUNGIBLE_ENDPOINT_NAME: &str = "issueNonFungible";
 const ISSUE_SEMI_FUNGIBLE_ENDPOINT_NAME: &str = "issueSemiFungible";
 const REGISTER_META_DCDT_ENDPOINT_NAME: &str = "registerMetaDCDT";
 const ISSUE_AND_SET_ALL_ROLES_ENDPOINT_NAME: &str = "registerAndSetAllRoles";
-const REGISTER_DYNAMIC_DCDT_ENDPOINT_NAME: &str = "registerDynamic";
-const REGISTER_AND_SET_ALL_ROLES_DYNAMIC_DCDT_ENDPOINT_NAME: &str = "registerAndSetAllRolesDynamic";
 
 /// The specific `Tx` type produces by the issue operations of the DCDTSystemSCProxy.
 pub type IssueCall<Env, From, To, Gas> = Tx<
@@ -65,16 +63,12 @@ where
 {
     /// Produces a contract call to the DCDT system SC,
     /// which causes it to issue a new fungible DCDT token.
-    pub fn issue_fungible<
-        Arg0: ProxyArg<ManagedBuffer<Env::Api>>,
-        Arg1: ProxyArg<ManagedBuffer<Env::Api>>,
-        Arg2: ProxyArg<BigUint<Env::Api>>,
-    >(
+    pub fn issue_fungible(
         self,
         issue_cost: BigUint<Env::Api>,
-        token_display_name: Arg0,
-        token_ticker: Arg1,
-        initial_supply: Arg2,
+        token_display_name: &ManagedBuffer<Env::Api>,
+        token_ticker: &ManagedBuffer<Env::Api>,
+        initial_supply: &BigUint<Env::Api>,
         properties: FungibleTokenProperties,
     ) -> IssueCall<Env, From, To, Gas> {
         self.issue(
@@ -100,23 +94,20 @@ where
 
     /// Produces a contract call to the DCDT system SC,
     /// which causes it to issue a new non-fungible DCDT token.
-    pub fn issue_non_fungible<
-        Arg0: ProxyArg<ManagedBuffer<Env::Api>>,
-        Arg1: ProxyArg<ManagedBuffer<Env::Api>>,
-    >(
+    pub fn issue_non_fungible(
         self,
         issue_cost: BigUint<Env::Api>,
-        token_display_name: Arg0,
-        token_ticker: Arg1,
+        token_display_name: &ManagedBuffer<Env::Api>,
+        token_ticker: &ManagedBuffer<Env::Api>,
         properties: NonFungibleTokenProperties,
     ) -> IssueCall<Env, From, To, Gas> {
-        let zero = &BigUint::zero();
+        let zero = BigUint::zero_ref();
         self.issue(
             issue_cost,
             DcdtTokenType::NonFungible,
             token_display_name,
             token_ticker,
-            zero,
+            &zero,
             TokenProperties {
                 num_decimals: 0,
                 can_freeze: properties.can_freeze,
@@ -134,14 +125,11 @@ where
 
     /// Produces a contract call to the DCDT system SC,
     /// which causes it to issue a new semi-fungible DCDT token.
-    pub fn issue_semi_fungible<
-        Arg0: ProxyArg<ManagedBuffer<Env::Api>>,
-        Arg1: ProxyArg<ManagedBuffer<Env::Api>>,
-    >(
+    pub fn issue_semi_fungible(
         self,
         issue_cost: BigUint<Env::Api>,
-        token_display_name: Arg0,
-        token_ticker: Arg1,
+        token_display_name: &ManagedBuffer<Env::Api>,
+        token_ticker: &ManagedBuffer<Env::Api>,
         properties: SemiFungibleTokenProperties,
     ) -> IssueCall<Env, From, To, Gas> {
         let zero = BigUint::zero();
@@ -168,23 +156,20 @@ where
 
     /// Produces a contract call to the DCDT system SC,
     /// which causes it to register a new Meta DCDT token.
-    pub fn register_meta_dcdt<
-        Arg0: ProxyArg<ManagedBuffer<Env::Api>>,
-        Arg1: ProxyArg<ManagedBuffer<Env::Api>>,
-    >(
+    pub fn register_meta_dcdt(
         self,
         issue_cost: BigUint<Env::Api>,
-        token_display_name: Arg0,
-        token_ticker: Arg1,
+        token_display_name: &ManagedBuffer<Env::Api>,
+        token_ticker: &ManagedBuffer<Env::Api>,
         properties: MetaTokenProperties,
     ) -> IssueCall<Env, From, To, Gas> {
-        let zero = &BigUint::zero();
+        let zero = BigUint::zero();
         self.issue(
             issue_cost,
             DcdtTokenType::Meta,
             token_display_name,
             token_ticker,
-            zero,
+            &zero,
             TokenProperties {
                 num_decimals: properties.num_decimals,
                 can_freeze: properties.can_freeze,
@@ -200,105 +185,40 @@ where
         )
     }
 
-    pub fn issue_and_set_all_roles<
-        Arg0: ProxyArg<ManagedBuffer<Env::Api>>,
-        Arg1: ProxyArg<ManagedBuffer<Env::Api>>,
-    >(
+    pub fn issue_and_set_all_roles(
         self,
         issue_cost: BigUint<Env::Api>,
-        token_display_name: Arg0,
-        token_ticker: Arg1,
+        token_display_name: ManagedBuffer<Env::Api>,
+        token_ticker: ManagedBuffer<Env::Api>,
         token_type: DcdtTokenType,
         num_decimals: usize,
     ) -> IssueCall<Env, From, To, Gas> {
         let token_type_name = match token_type {
             DcdtTokenType::Fungible => "FNG",
-            DcdtTokenType::NonFungible | DcdtTokenType::DynamicNFT => "NFT",
-            DcdtTokenType::SemiFungible | DcdtTokenType::DynamicSFT => "SFT",
-            DcdtTokenType::Meta | DcdtTokenType::DynamicMeta => "META",
+            DcdtTokenType::NonFungible => "NFT",
+            DcdtTokenType::SemiFungible => "SFT",
+            DcdtTokenType::Meta => "META",
             DcdtTokenType::Invalid => "",
         };
 
-        let endpoint = match token_type {
-            DcdtTokenType::Fungible
-            | DcdtTokenType::NonFungible
-            | DcdtTokenType::SemiFungible
-            | DcdtTokenType::Meta => ISSUE_AND_SET_ALL_ROLES_ENDPOINT_NAME,
-            DcdtTokenType::DynamicNFT | DcdtTokenType::DynamicSFT | DcdtTokenType::DynamicMeta => {
-                REGISTER_AND_SET_ALL_ROLES_DYNAMIC_DCDT_ENDPOINT_NAME
-            },
-
-            DcdtTokenType::Invalid => "",
-        };
-
-        let mut tx = self
-            .wrapped_tx
-            .raw_call(endpoint)
+        self.wrapped_tx
+            .raw_call(ISSUE_AND_SET_ALL_ROLES_ENDPOINT_NAME)
             .rewa(issue_cost)
             .argument(&token_display_name)
             .argument(&token_ticker)
-            .argument(&token_type_name);
-
-        if token_type != DcdtTokenType::DynamicNFT && token_type != DcdtTokenType::DynamicSFT {
-            tx = tx.argument(&num_decimals);
-        }
-
-        tx.original_result()
-    }
-
-    /// Issues dynamic DCDT tokens
-    pub fn issue_dynamic<
-        Arg0: ProxyArg<ManagedBuffer<Env::Api>>,
-        Arg1: ProxyArg<ManagedBuffer<Env::Api>>,
-    >(
-        self,
-        issue_cost: BigUint<Env::Api>,
-        token_display_name: Arg0,
-        token_ticker: Arg1,
-        token_type: DcdtTokenType,
-        num_decimals: usize,
-    ) -> IssueCall<Env, From, To, Gas> {
-        let endpoint_name = match token_type {
-            DcdtTokenType::DynamicNFT | DcdtTokenType::DynamicSFT | DcdtTokenType::DynamicMeta => {
-                REGISTER_DYNAMIC_DCDT_ENDPOINT_NAME
-            },
-            _ => "",
-        };
-
-        let token_type_name = match token_type {
-            DcdtTokenType::DynamicNFT => "NFT",
-            DcdtTokenType::DynamicSFT => "SFT",
-            DcdtTokenType::DynamicMeta => "META",
-            _ => "",
-        };
-
-        let mut tx = self
-            .wrapped_tx
-            .raw_call(endpoint_name)
-            .rewa(issue_cost)
-            .argument(&token_display_name)
-            .argument(&token_ticker)
-            .argument(&token_type_name);
-
-        if token_type != DcdtTokenType::DynamicNFT && token_type != DcdtTokenType::DynamicSFT {
-            tx = tx.argument(&num_decimals);
-        }
-
-        tx.original_result()
+            .argument(&token_type_name)
+            .argument(&num_decimals)
+            .original_result()
     }
 
     /// Deduplicates code from all the possible issue functions
-    fn issue<
-        Arg0: ProxyArg<ManagedBuffer<Env::Api>>,
-        Arg1: ProxyArg<ManagedBuffer<Env::Api>>,
-        Arg2: ProxyArg<BigUint<Env::Api>>,
-    >(
+    fn issue(
         self,
         issue_cost: BigUint<Env::Api>,
         token_type: DcdtTokenType,
-        token_display_name: Arg0,
-        token_ticker: Arg1,
-        initial_supply: Arg2,
+        token_display_name: &ManagedBuffer<Env::Api>,
+        token_ticker: &ManagedBuffer<Env::Api>,
+        initial_supply: &BigUint<Env::Api>,
         properties: TokenProperties,
     ) -> IssueCall<Env, From, To, Gas> {
         let endpoint_name = match token_type {
@@ -306,18 +226,18 @@ where
             DcdtTokenType::NonFungible => ISSUE_NON_FUNGIBLE_ENDPOINT_NAME,
             DcdtTokenType::SemiFungible => ISSUE_SEMI_FUNGIBLE_ENDPOINT_NAME,
             DcdtTokenType::Meta => REGISTER_META_DCDT_ENDPOINT_NAME,
-            _ => "",
+            DcdtTokenType::Invalid => "",
         };
 
         let mut tx = self
             .wrapped_tx
             .raw_call(endpoint_name)
             .rewa(issue_cost)
-            .argument(&token_display_name)
-            .argument(&token_ticker);
+            .argument(token_display_name)
+            .argument(token_ticker);
 
         if token_type == DcdtTokenType::Fungible {
-            tx = tx.argument(&initial_supply);
+            tx = tx.argument(initial_supply);
             tx = tx.argument(&properties.num_decimals);
         } else if token_type == DcdtTokenType::Meta {
             tx = tx.argument(&properties.num_decimals);
@@ -348,92 +268,86 @@ where
     /// Produces a contract call to the DCDT system SC,
     /// which causes it to mint more fungible DCDT tokens.
     /// It will fail if the SC is not the owner of the token.
-    pub fn mint<Arg0: ProxyArg<TokenIdentifier<Env::Api>>, Arg1: ProxyArg<BigUint<Env::Api>>>(
+    pub fn mint(
         self,
-        token_identifier: Arg0,
-        amount: Arg1,
+        token_identifier: &TokenIdentifier<Env::Api>,
+        amount: &BigUint<Env::Api>,
     ) -> TxTypedCall<Env, From, To, NotPayable, Gas, ()> {
         self.wrapped_tx
             .payment(NotPayable)
             .raw_call("mint")
-            .argument(&token_identifier)
-            .argument(&amount)
+            .argument(token_identifier)
+            .argument(amount)
             .original_result()
     }
 
     /// Produces a contract call to the DCDT system SC,
     /// which causes it to burn fungible DCDT tokens owned by the SC.
-    pub fn burn<Arg0: ProxyArg<TokenIdentifier<Env::Api>>, Arg1: ProxyArg<BigUint<Env::Api>>>(
+    pub fn burn(
         self,
-        token_identifier: Arg0,
-        amount: Arg1,
+        token_identifier: &TokenIdentifier<Env::Api>,
+        amount: &BigUint<Env::Api>,
     ) -> TxTypedCall<Env, From, To, NotPayable, Gas, ()> {
         self.wrapped_tx
             .payment(NotPayable)
             .raw_call("DCDTBurn")
-            .argument(&token_identifier)
-            .argument(&amount)
+            .argument(token_identifier)
+            .argument(amount)
             .original_result()
     }
 
     /// The manager of an DCDT token may choose to suspend all transactions of the token,
     /// except minting, freezing/unfreezing and wiping.
-    pub fn pause<Arg0: ProxyArg<TokenIdentifier<Env::Api>>>(
+    pub fn pause(
         self,
-        token_identifier: Arg0,
+        token_identifier: &TokenIdentifier<Env::Api>,
     ) -> TxTypedCall<Env, From, To, NotPayable, Gas, ()> {
         self.wrapped_tx
             .payment(NotPayable)
             .raw_call("pause")
-            .argument(&token_identifier)
+            .argument(token_identifier)
             .original_result()
     }
 
     /// The reverse operation of `pause`.
-    pub fn unpause<Arg0: ProxyArg<TokenIdentifier<Env::Api>>>(
+    pub fn unpause(
         self,
-        token_identifier: Arg0,
+        token_identifier: &TokenIdentifier<Env::Api>,
     ) -> TxTypedCall<Env, From, To, NotPayable, Gas, ()> {
         self.wrapped_tx
             .payment(NotPayable)
             .raw_call("unPause")
-            .argument(&token_identifier)
+            .argument(token_identifier)
             .original_result()
     }
 
     /// The manager of an DCDT token may freeze the tokens held by a specific account.
     /// As a consequence, no tokens may be transferred to or from the frozen account.
     /// Freezing and unfreezing the tokens of an account are operations designed to help token managers to comply with regulations.
-    pub fn freeze<
-        Arg0: ProxyArg<TokenIdentifier<Env::Api>>,
-        Arg1: ProxyArg<ManagedAddress<Env::Api>>,
-    >(
+    pub fn freeze(
         self,
-        token_identifier: Arg0,
-        address: Arg1,
+        token_identifier: &TokenIdentifier<Env::Api>,
+        address: &ManagedAddress<Env::Api>,
     ) -> TxTypedCall<Env, From, To, NotPayable, Gas, ()> {
         self.wrapped_tx
             .payment(NotPayable)
             .raw_call("freeze")
-            .argument(&token_identifier)
-            .argument(&address)
+            .argument(token_identifier)
+            .argument(address)
             .original_result()
     }
 
     /// The reverse operation of `freeze`, unfreezing, will allow further transfers to and from the account.
-    pub fn unfreeze<
-        Arg0: ProxyArg<TokenIdentifier<Env::Api>>,
-        Arg1: ProxyArg<ManagedAddress<Env::Api>>,
-    >(
+    pub fn unfreeze(
         self,
-        token_identifier: Arg0,
-        address: Arg1,
+        token_identifier: &TokenIdentifier<Env::Api>,
+        address: &ManagedAddress<Env::Api>,
     ) -> TxTypedCall<Env, From, To, NotPayable, Gas, ()> {
         self.wrapped_tx
             .payment(NotPayable)
             .raw_call("unFreeze")
-            .argument(&token_identifier)
-            .argument(&address)
+            .argument(token_identifier)
+            .argument(address)
             .original_result()
     }
 
@@ -441,59 +355,50 @@ where
     /// This operation is similar to burning the tokens, but the account must have been frozen beforehand,
     /// and it must be done by the token manager.
     /// Wiping the tokens of an account is an operation designed to help token managers to comply with regulations.
-    pub fn wipe<
-        Arg0: ProxyArg<TokenIdentifier<Env::Api>>,
-        Arg1: ProxyArg<ManagedAddress<Env::Api>>,
-    >(
+    pub fn wipe(
         self,
-        token_identifier: Arg0,
-        address: Arg1,
+        token_identifier: &TokenIdentifier<Env::Api>,
+        address: &ManagedAddress<Env::Api>,
     ) -> TxTypedCall<Env, From, To, NotPayable, Gas, ()> {
         self.wrapped_tx
             .payment(NotPayable)
             .raw_call("wipe")
-            .argument(&token_identifier)
-            .argument(&address)
+            .argument(token_identifier)
+            .argument(address)
             .original_result()
     }
 
     /// The manager of an DCDT token may freeze the NFT held by a specific Account.
     /// As a consequence, no NFT can be transferred to or from the frozen Account.
     /// Freezing and unfreezing a single NFT of an Account are operations designed to help token managers to comply with regulations.
-    pub fn freeze_nft<
-        Arg0: ProxyArg<TokenIdentifier<Env::Api>>,
-        Arg1: ProxyArg<ManagedAddress<Env::Api>>,
-    >(
+    pub fn freeze_nft(
         self,
-        token_identifier: Arg0,
+        token_identifier: &TokenIdentifier<Env::Api>,
         nft_nonce: u64,
-        address: Arg1,
+        address: &ManagedAddress<Env::Api>,
     ) -> TxTypedCall<Env, From, To, NotPayable, Gas, ()> {
         self.wrapped_tx
             .payment(NotPayable)
             .raw_call("freezeSingleNFT")
-            .argument(&token_identifier)
+            .argument(token_identifier)
             .argument(&nft_nonce)
-            .argument(&address)
+            .argument(address)
             .original_result()
     }
 
     /// The reverse operation of `freeze`, unfreezing, will allow further transfers to and from the account.
-    pub fn unfreeze_nft<
-        Arg0: ProxyArg<TokenIdentifier<Env::Api>>,
-        Arg1: ProxyArg<ManagedAddress<Env::Api>>,
-    >(
+    pub fn unfreeze_nft(
         self,
-        token_identifier: Arg0,
+        token_identifier: &TokenIdentifier<Env::Api>,
         nft_nonce: u64,
-        address: Arg1,
+        address: &ManagedAddress<Env::Api>,
     ) -> TxTypedCall<Env, From, To, NotPayable, Gas, ()> {
         self.wrapped_tx
             .payment(NotPayable)
             .raw_call("unFreezeSingleNFT")
-            .argument(&token_identifier)
+            .argument(token_identifier)
             .argument(&nft_nonce)
-            .argument(&address)
+            .argument(address)
             .original_result()
     }
 
@@ -501,29 +406,26 @@ where
     /// This operation is similar to burning the quantity, but the Account must have been frozen beforehand,
     /// and it must be done by the token manager.
     /// Wiping the tokens of an Account is an operation designed to help token managers to comply with regulations.
-    pub fn wipe_nft<
-        Arg0: ProxyArg<TokenIdentifier<Env::Api>>,
-        Arg1: ProxyArg<ManagedAddress<Env::Api>>,
-    >(
+    pub fn wipe_nft(
         self,
-        token_identifier: Arg0,
+        token_identifier: &TokenIdentifier<Env::Api>,
         nft_nonce: u64,
-        address: Arg1,
+        address: &ManagedAddress<Env::Api>,
     ) -> TxTypedCall<Env, From, To, NotPayable, Gas, ()> {
         self.wrapped_tx
             .payment(NotPayable)
             .raw_call("wipeSingleNFT")
-            .argument(&token_identifier)
+            .argument(token_identifier)
             .argument(&nft_nonce)
-            .argument(&address)
+            .argument(address)
             .original_result()
     }
 
     /// This function converts an SFT to a metaDCDT by adding decimals to its structure in the metachain DCDT System SC.
     /// This function as almost all in case of DCDT can be called only by the owner.
-    pub fn change_sft_to_meta_dcdt<Arg0: ProxyArg<TokenIdentifier<Env::Api>>>(
+    pub fn change_sft_to_meta_dcdt(
         self,
-        token_identifier: Arg0,
+        token_identifier: &TokenIdentifier<Env::Api>,
         num_decimals: usize,
     ) -> TxTypedCall<Env, From, To, NotPayable, Gas, ()> {
         self.wrapped_tx
@@ -538,22 +440,18 @@ where
     /// The metachain system SC will evaluate the arguments and call “DCDTSetRole@tokenId@listOfRoles” for the given address.
     /// This will be actually a cross shard call.
     /// This function as almost all in case of DCDT can be called only by the owner.
-    pub fn set_special_roles<
-        RoleIter: Iterator<Item = DcdtLocalRole>,
-        Arg0: ProxyArg<ManagedAddress<Env::Api>>,
-        Arg1: ProxyArg<TokenIdentifier<Env::Api>>,
-    >(
+    pub fn set_special_roles<RoleIter: Iterator<Item = DcdtLocalRole>>(
         self,
-        address: Arg0,
-        token_identifier: Arg1,
+        address: &ManagedAddress<Env::Api>,
+        token_identifier: &TokenIdentifier<Env::Api>,
         roles_iter: RoleIter,
     ) -> TxTypedCall<Env, From, To, NotPayable, Gas, ()> {
         let mut tx = self
             .wrapped_tx
             .payment(NotPayable)
             .raw_call("setSpecialRole")
-            .argument(&token_identifier)
-            .argument(&address);
+            .argument(token_identifier)
+            .argument(address);
         for role in roles_iter {
             if role != DcdtLocalRole::None {
                 tx = tx.argument(&role.as_role_name());
@@ -567,22 +465,18 @@ where
     /// The metachain system SC will evaluate the arguments and call “DCDTUnsetRole@tokenId@listOfRoles” for the given address.
     /// This will be actually a cross shard call.
     /// This function as almost all in case of DCDT can be called only by the owner.
-    pub fn unset_special_roles<
-        RoleIter: Iterator<Item = DcdtLocalRole>,
-        Arg0: ProxyArg<ManagedAddress<Env::Api>>,
-        Arg1: ProxyArg<TokenIdentifier<Env::Api>>,
-    >(
+    pub fn unset_special_roles<RoleIter: Iterator<Item = DcdtLocalRole>>(
         self,
-        address: Arg0,
-        token_identifier: Arg1,
+        address: &ManagedAddress<Env::Api>,
+        token_identifier: &TokenIdentifier<Env::Api>,
         roles_iter: RoleIter,
     ) -> TxTypedCall<Env, From, To, NotPayable, Gas, ()> {
         let mut tx = self
             .wrapped_tx
             .payment(NotPayable)
             .raw_call("unSetSpecialRole")
-            .argument(&token_identifier)
-            .argument(&address);
+            .argument(token_identifier)
+            .argument(address);
         for role in roles_iter {
             if role != DcdtLocalRole::None {
                 tx = tx.argument(&role.as_role_name());
@@ -592,77 +486,46 @@ where
         tx.original_result()
     }
 
-    pub fn transfer_ownership<
-        Arg0: ProxyArg<TokenIdentifier<Env::Api>>,
-        Arg1: ProxyArg<ManagedAddress<Env::Api>>,
-    >(
+    pub fn transfer_ownership(
         self,
-        token_identifier: Arg0,
-        new_owner: Arg1,
+        token_identifier: &TokenIdentifier<Env::Api>,
+        new_owner: &ManagedAddress<Env::Api>,
     ) -> TxTypedCall<Env, From, To, NotPayable, Gas, ()> {
         self.wrapped_tx
             .payment(NotPayable)
             .raw_call("transferOwnership")
-            .argument(&token_identifier)
-            .argument(&new_owner)
+            .argument(token_identifier)
+            .argument(new_owner)
             .original_result()
     }
 
-    pub fn transfer_nft_create_role<
-        Arg0: ProxyArg<TokenIdentifier<Env::Api>>,
-        Arg1: ProxyArg<ManagedAddress<Env::Api>>,
-    >(
+    pub fn transfer_nft_create_role(
         self,
-        token_identifier: Arg0,
-        old_creator: Arg1,
-        new_creator: Arg1,
+        token_identifier: &TokenIdentifier<Env::Api>,
+        old_creator: &ManagedAddress<Env::Api>,
+        new_creator: &ManagedAddress<Env::Api>,
     ) -> TxTypedCall<Env, From, To, NotPayable, Gas, ()> {
         self.wrapped_tx
             .payment(NotPayable)
             .raw_call("transferNFTCreateRole")
-            .argument(&token_identifier)
-            .argument(&old_creator)
-            .argument(&new_creator)
+            .argument(token_identifier)
+            .argument(old_creator)
+            .argument(new_creator)
             .original_result()
     }
 
-    pub fn control_changes<Arg0: ProxyArg<TokenIdentifier<Env::Api>>>(
+    pub fn control_changes(
         self,
-        token_identifier: Arg0,
+        token_identifier: &TokenIdentifier<Env::Api>,
         property_arguments: &TokenPropertyArguments,
     ) -> TxTypedCall<Env, From, To, NotPayable, Gas, ()> {
         let mut tx = self
             .wrapped_tx
             .payment(NotPayable)
             .raw_call("controlChanges")
-            .argument(&token_identifier);
+            .argument(token_identifier);
         append_token_property_arguments(&mut tx.data, property_arguments);
         tx.original_result()
-    }
-
-    /// Changes token to dynamic.
-    /// Does not work for: FungibleDCDT, NonFungibleDCDT, NonFungibleDCDTv2.
-    pub fn change_to_dynamic<Arg0: ProxyArg<TokenIdentifier<Env::Api>>>(
-        self,
-        token_id: Arg0,
-    ) -> TxTypedCall<Env, From, To, NotPayable, Gas, ()> {
-        self.wrapped_tx
-            .payment(NotPayable)
-            .raw_call("changeToDynamic")
-            .argument(&token_id)
-            .original_result()
-    }
-
-    /// Updates a specific token to the newest version.
-    pub fn update_token<Arg0: ProxyArg<TokenIdentifier<Env::Api>>>(
-        self,
-        token_id: Arg0,
-    ) -> TxTypedCall<Env, From, To, NotPayable, Gas, ()> {
-        self.wrapped_tx
-            .payment(NotPayable)
-            .raw_call("updateTokenID")
-            .argument(&token_id)
-            .original_result()
     }
 }
 

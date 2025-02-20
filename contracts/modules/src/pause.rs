@@ -30,14 +30,14 @@ pub trait PauseModule {
     #[endpoint(pause)]
     fn pause_endpoint(&self) {
         self.set_paused(true);
-        self.pause_event();
+        // TODO: event
     }
 
     #[only_owner]
     #[endpoint(unpause)]
     fn unpause_endpoint(&self) {
         self.set_paused(false);
-        self.unpause_event();
+        // TODO: event
     }
 
     fn require_paused(&self) {
@@ -47,12 +47,6 @@ pub trait PauseModule {
     fn require_not_paused(&self) {
         require!(self.not_paused(), "Contract is paused");
     }
-
-    #[event("pauseContract")]
-    fn pause_event(&self);
-
-    #[event("unpauseContract")]
-    fn unpause_event(&self);
 
     #[view(isPaused)]
     #[storage_mapper("pause_module:paused")]

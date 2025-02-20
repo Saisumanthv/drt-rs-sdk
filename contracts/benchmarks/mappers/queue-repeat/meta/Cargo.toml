@@ -8,7 +8,7 @@ publish = false
 [dependencies.queue-repeat]
 path = ".."
 
-[dependencies.dharitri-sc-meta-lib]
-version = "0.0.1"
-path = "../../../../../framework/meta-lib"
+[dependencies.dharitri-sc-meta]
+version = "0.50.3"
+path = "../../../../../framework/meta"
 default-features = false

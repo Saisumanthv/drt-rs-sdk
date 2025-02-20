@@ -1,17 +1,15 @@
-use dharitri_sc::chain_core::types::ReturnCode;
-
-#[derive(Debug, Default, Clone, PartialEq, Eq)]
+#[derive(Debug, Default, Clone)]
 /// The status of a transaction.
 pub struct TxResponseStatus {
     /// The status of the transaction.
-    pub status: ReturnCode,
+    pub status: u64,
     /// The message of the transaction.
     pub message: String,
 }
 
 impl TxResponseStatus {
     /// Creates a [`TxResponseStatus`]
-    pub fn new(status: ReturnCode, message: &str) -> Self {
+    pub(crate) fn new(status: u64, message: &str) -> Self {
         Self {
             status,
             message: message.to_string(),
@@ -19,13 +17,13 @@ impl TxResponseStatus {
     }
 
     /// Creates a [`TxResponseStatus`] that signals an error.
-    pub fn signal_error(message: &str) -> Self {
-        Self::new(ReturnCode::UserError, message)
+    pub(crate) fn signal_error(message: &str) -> Self {
+        Self::new(4, message)
     }
 
     /// Checks if the transaction was successful.
     pub fn is_success(&self) -> bool {
-        self.status.is_success()
+        self.status == 0
     }
 }
 

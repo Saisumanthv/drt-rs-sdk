@@ -7,8 +7,7 @@ pub mod erc1155_proxy;
 
 const PERCENTAGE_TOTAL: u8 = 100;
 
-#[type_abi]
-#[derive(TopEncode, TopDecode)]
+#[derive(TopEncode, TopDecode, TypeAbi)]
 pub struct Auction<M: ManagedTypeApi> {
     pub token_identifier: RewaOrDcdtTokenIdentifier<M>,
     pub min_bid: BigUint<M>,
@@ -19,8 +18,7 @@ pub struct Auction<M: ManagedTypeApi> {
     pub current_winner: ManagedAddress<M>,
 }
 
-#[type_abi]
-#[derive(TopEncode, TopDecode)]
+#[derive(TopEncode, TopDecode, TypeAbi)]
 pub struct AuctionArgument<M: ManagedTypeApi> {
     pub token_identifier: RewaOrDcdtTokenIdentifier<M>,
     pub min_bid: BigUint<M>,

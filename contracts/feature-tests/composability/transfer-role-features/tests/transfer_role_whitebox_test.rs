@@ -1,26 +1,21 @@
 use dharitri_sc_modules::transfer_role_proxy::TransferRoleProxyModule;
 use dharitri_sc_scenario::imports::*;
 use transfer_role_features::TransferRoleFeatures;
-use vault::Vault;
 
-const OWNER_ADDRESS: TestAddress = TestAddress::new("owner");
-const USER_ADDRESS: TestAddress = TestAddress::new("user");
+const OWNER_ADDRESS_EXPR: &str = "address:owner";
+const USER_ADDRESS_EXPR: &str = "address:user";
 
-const TRANSFER_ROLE_FEATURES_ADDRESS: TestSCAddress = TestSCAddress::new("transfer-role-features");
-const TRANSFER_ROLE_FEATURES_PATH_EXPR: DrtscPath =
-    DrtscPath::new("drtsc:output/transfer-role-features.drtsc.json");
+const TRANSFER_ROLE_FEATURES_ADDRESS_EXPR: &str = "sc:transfer-role-features";
+const TRANSFER_ROLE_FEATURES_PATH_EXPR: &str = "drtsc:output/transfer-role-features.drtsc.json";
 
-const TRANSFER_TOKEN_ID: TestTokenIdentifier = TestTokenIdentifier::new("TRANSFER-123456");
-const TRANSFER_TOKEN_ID_EXPR: &[u8] = b"TRANSFER-123456";
+const TRANSFER_TOKEN_ID_EXPR: &str = "str:TRANSFER-123456";
+const TRANSFER_TOKEN_ID: &[u8] = b"TRANSFER-123456";
 
 const ACCEPT_FUNDS_FUNC_NAME: &[u8] = b"accept_funds";
 const REJECT_FUNDS_FUNC_NAME: &[u8] = b"reject_funds";
 
 fn world() -> ScenarioWorld {
     let mut blockchain = ScenarioWorld::new();
-    blockchain.set_current_dir_from_workspace(
-        "contracts/feature-tests/composability/transfer-role-features",
-    );
     blockchain.register_contract(
         TRANSFER_ROLE_FEATURES_PATH_EXPR,
         transfer_role_features::ContractBuilder,
@@ -32,145 +27,175 @@ fn world() -> ScenarioWorld {
 fn test_transfer_role() {
     let mut world = world();
 
-    world.account(OWNER_ADDRESS).nonce(1);
-    world
-        .account(USER_ADDRESS)
-        .nonce(1)
-        .dcdt_balance(TRANSFER_TOKEN_ID, BigUint::from(1_000u64));
+    world.set_state_step(
+        SetStateStep::new()
+            .put_account(OWNER_ADDRESS_EXPR, Account::new().nonce(1))
+            .new_address(OWNER_ADDRESS_EXPR, 1, TRANSFER_ROLE_FEATURES_ADDRESS_EXPR)
+            .put_account(
+                USER_ADDRESS_EXPR,
+                Account::new()
+                    .nonce(1)
+                    .dcdt_balance(TRANSFER_TOKEN_ID_EXPR, 1_000u64),
+            ),
+    );
 
     // vault
-    const VAULT_ADDRESS: TestSCAddress = TestSCAddress::new("vault");
-    const VAULT_PATH_EXPR: DrtscPath = DrtscPath::new("drtsc:../vault/output/vault.drtsc.json");
+    let vault_code = world.code_expression(VAULT_PATH_EXPR);
+
+    const VAULT_ADDRESS_EXPR: &str = "sc:vault";
+    const VAULT_PATH_EXPR: &str = "drtsc:../vault/output/vault.drtsc.json";
 
     world.register_contract(VAULT_PATH_EXPR, vault::ContractBuilder);
-    world
-        .tx()
-        .from(OWNER_ADDRESS)
-        .raw_deploy()
-        .new_address(VAULT_ADDRESS)
-        .code(VAULT_PATH_EXPR)
-        .whitebox(vault::contract_obj, |sc| {
-            let _ = sc.init(OptionalValue::None);
-        });
+    world.set_state_step(
+        SetStateStep::new()
+            .put_account(VAULT_ADDRESS_EXPR, Account::new().nonce(1).code(vault_code)),
+    );
+
+    let transfer_role_features_whitebox = WhiteboxContract::new(
+        TRANSFER_ROLE_FEATURES_ADDRESS_EXPR,
+        transfer_role_features::contract_obj,
+    );
+    let transfer_role_features_code = world.code_expression(TRANSFER_ROLE_FEATURES_PATH_EXPR);
 
     // init
-    world
-        .tx()
-        .from(OWNER_ADDRESS)
-        .raw_deploy()
-        .new_address(TRANSFER_ROLE_FEATURES_ADDRESS)
-        .code(TRANSFER_ROLE_FEATURES_PATH_EXPR)
-        .whitebox(transfer_role_features::contract_obj, |sc| {
+    world.whitebox_deploy(
+        &transfer_role_features_whitebox,
+        ScDeployStep::new()
+            .from(OWNER_ADDRESS_EXPR)
+            .code(transfer_role_features_code),
+        |sc| {
             let mut whitelist = MultiValueEncoded::new();
-            whitelist.push(OWNER_ADDRESS.to_managed_address());
-            whitelist.push(VAULT_ADDRESS.to_managed_address());
+            whitelist.push(managed_address!(&address_expr_to_address(
+                OWNER_ADDRESS_EXPR
+            )));
+            whitelist.push(managed_address!(&address_expr_to_address(
+                VAULT_ADDRESS_EXPR
+            )));
 
             sc.init(whitelist);
-        });
+        },
+    );
 
     // transfer to user - ok
-    world
-        .tx()
-        .from(USER_ADDRESS)
-        .to(TRANSFER_ROLE_FEATURES_ADDRESS)
-        .payment(TestDcdtTransfer(TRANSFER_TOKEN_ID, 0, 100))
-        .whitebox(transfer_role_features::contract_obj, |sc| {
+    world.whitebox_call(
+        &transfer_role_features_whitebox,
+        ScCallStep::new()
+            .from(USER_ADDRESS_EXPR)
+            .dcdt_transfer(TRANSFER_TOKEN_ID, 0, "100"),
+        |sc| {
             let payments = ManagedVec::from_single_item(DcdtTokenPayment::new(
-                managed_token_id!(TRANSFER_TOKEN_ID_EXPR),
+                managed_token_id!(TRANSFER_TOKEN_ID),
                 0,
                 managed_biguint!(100),
             ));
             sc.transfer_to_user(
-                USER_ADDRESS.to_managed_address(),
-                OWNER_ADDRESS.to_managed_address(),
+                managed_address!(&address_expr_to_address(USER_ADDRESS_EXPR)),
+                managed_address!(&address_expr_to_address(OWNER_ADDRESS_EXPR)),
                 &payments,
                 managed_buffer!(b"enjoy"),
             );
-        });
+        },
+    );
 
-    world
-        .check_account(USER_ADDRESS)
-        .dcdt_balance(TRANSFER_TOKEN_ID, BigUint::from(900u64));
-    world
-        .check_account(OWNER_ADDRESS)
-        .dcdt_balance(TRANSFER_TOKEN_ID, BigUint::from(100u64));
+    world.check_state_step(CheckStateStep::new().put_account(
+        USER_ADDRESS_EXPR,
+        CheckAccount::new().dcdt_balance(TRANSFER_TOKEN_ID_EXPR, "900"),
+    ));
+    world.check_state_step(CheckStateStep::new().put_account(
+        OWNER_ADDRESS_EXPR,
+        CheckAccount::new().dcdt_balance(TRANSFER_TOKEN_ID_EXPR, "100"),
+    ));
 
     // transfer to user - err, not whitelisted
-    world
-        .tx()
-        .from(USER_ADDRESS)
-        .to(TRANSFER_ROLE_FEATURES_ADDRESS)
-        .payment(TestDcdtTransfer(TRANSFER_TOKEN_ID, 0, 100))
-        .returns(ExpectError(4u64, "Destination address not whitelisted"))
-        .whitebox(transfer_role_features::contract_obj, |sc| {
+    world.whitebox_call_check(
+        &transfer_role_features_whitebox,
+        ScCallStep::new()
+            .from(USER_ADDRESS_EXPR)
+            .dcdt_transfer(TRANSFER_TOKEN_ID, 0, "100")
+            .no_expect(),
+        |sc| {
             let payments = ManagedVec::from_single_item(DcdtTokenPayment::new(
-                managed_token_id!(TRANSFER_TOKEN_ID_EXPR),
+                managed_token_id!(TRANSFER_TOKEN_ID),
                 0,
                 managed_biguint!(100),
             ));
             sc.transfer_to_user(
-                USER_ADDRESS.to_managed_address(),
+                managed_address!(&address_expr_to_address(USER_ADDRESS_EXPR)),
                 managed_address!(&Address::zero()),
                 &payments,
                 managed_buffer!(b"enjoy"),
             );
-        });
+        },
+        |r| {
+            r.assert_user_error("Destination address not whitelisted");
+        },
+    );
 
     // transfer to sc - ok
-    world
-        .tx()
-        .from(USER_ADDRESS)
-        .to(TRANSFER_ROLE_FEATURES_ADDRESS)
-        .payment(TestDcdtTransfer(TRANSFER_TOKEN_ID, 0, 100))
-        .whitebox(transfer_role_features::contract_obj, |sc| {
+    world.whitebox_call(
+        &transfer_role_features_whitebox,
+        ScCallStep::new()
+            .from(USER_ADDRESS_EXPR)
+            .dcdt_transfer(TRANSFER_TOKEN_ID, 0, "100"),
+        |sc| {
             let payments = ManagedVec::from_single_item(DcdtTokenPayment::new(
-                managed_token_id!(TRANSFER_TOKEN_ID_EXPR),
+                managed_token_id!(TRANSFER_TOKEN_ID),
                 0,
                 managed_biguint!(100),
             ));
             sc.transfer_to_contract_raw(
-                USER_ADDRESS.to_managed_address(),
-                VAULT_ADDRESS.to_managed_address(),
+                managed_address!(&address_expr_to_address(USER_ADDRESS_EXPR)),
+                managed_address!(&address_expr_to_address(VAULT_ADDRESS_EXPR)),
                 &payments,
                 managed_buffer!(ACCEPT_FUNDS_FUNC_NAME),
                 ManagedArgBuffer::new(),
                 None,
             );
-        });
+        },
+    );
 
-    world
-        .check_account(USER_ADDRESS)
-        .dcdt_balance(TRANSFER_TOKEN_ID, BigUint::from(800u64));
-    world
-        .check_account(VAULT_ADDRESS)
-        .dcdt_balance(TRANSFER_TOKEN_ID, BigUint::from(100u64));
+    world.check_state_step(CheckStateStep::new().put_account(
+        USER_ADDRESS_EXPR,
+        CheckAccount::new().dcdt_balance(TRANSFER_TOKEN_ID_EXPR, "800"),
+    ));
+    world.check_state_step(CheckStateStep::new().put_account(
+        VAULT_ADDRESS_EXPR,
+        CheckAccount::new().dcdt_balance(TRANSFER_TOKEN_ID_EXPR, "100"),
+    ));
 
     // transfer to sc - reject
-    world
-        .tx()
-        .from(USER_ADDRESS)
-        .to(TRANSFER_ROLE_FEATURES_ADDRESS)
-        .payment(TestDcdtTransfer(TRANSFER_TOKEN_ID, 0, 100))
-        .whitebox(transfer_role_features::contract_obj, |sc| {
+    world.whitebox_call(
+        &transfer_role_features_whitebox,
+        ScCallStep::new()
+            .from(USER_ADDRESS_EXPR)
+            .dcdt_transfer(TRANSFER_TOKEN_ID, 0, "100"),
+        |sc| {
             let payments = ManagedVec::from_single_item(DcdtTokenPayment::new(
-                managed_token_id!(TRANSFER_TOKEN_ID_EXPR),
+                managed_token_id!(TRANSFER_TOKEN_ID),
                 0,
                 managed_biguint!(100),
             ));
             sc.transfer_to_contract_raw(
-                USER_ADDRESS.to_managed_address(),
-                VAULT_ADDRESS.to_managed_address(),
+                managed_address!(&address_expr_to_address(USER_ADDRESS_EXPR)),
+                managed_address!(&address_expr_to_address(VAULT_ADDRESS_EXPR)),
                 &payments,
                 managed_buffer!(REJECT_FUNDS_FUNC_NAME),
                 ManagedArgBuffer::new(),
                 None,
             );
-        });
+        },
+    );
 
-    world
-        .check_account(USER_ADDRESS)
-        .dcdt_balance(TRANSFER_TOKEN_ID, BigUint::from(800u64));
-    world
-        .check_account(VAULT_ADDRESS)
-        .dcdt_balance(TRANSFER_TOKEN_ID, BigUint::from(100u64));
+    world.check_state_step(CheckStateStep::new().put_account(
+        USER_ADDRESS_EXPR,
+        CheckAccount::new().dcdt_balance(TRANSFER_TOKEN_ID_EXPR, "800"),
+    ));
+    world.check_state_step(CheckStateStep::new().put_account(
+        VAULT_ADDRESS_EXPR,
+        CheckAccount::new().dcdt_balance(TRANSFER_TOKEN_ID_EXPR, "100"),
+    ));
+}
+
+fn address_expr_to_address(address_expr: &str) -> Address {
+    AddressValue::from(address_expr).to_address()
 }

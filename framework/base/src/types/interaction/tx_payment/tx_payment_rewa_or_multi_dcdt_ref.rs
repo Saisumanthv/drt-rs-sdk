@@ -2,7 +2,7 @@ use crate::types::{BigUint, RewaOrMultiDcdtPaymentRefs, ManagedAddress, TxFrom, 
 
 use super::{Rewa, FullPaymentData, FunctionCall, TxEnv, TxPayment};
 
-impl<Env> TxPayment<Env> for RewaOrMultiDcdtPaymentRefs<'_, Env::Api>
+impl<'a, Env> TxPayment<Env> for RewaOrMultiDcdtPaymentRefs<'a, Env::Api>
 where
     Env: TxEnv,
 {

@@ -5,13 +5,11 @@ use crate::types::{
     TxEnv, TxFrom, TxGas, TxProxyTrait, TxTo, TxTypedCall,
 };
 
-use crate::chain_core::builtin_func_names::{
+use super::builtin_func_names::{
     CHANGE_OWNER_BUILTIN_FUNC_NAME, CLAIM_DEVELOPER_REWARDS_FUNC_NAME, DELETE_USERNAME_FUNC_NAME,
-    DCDT_LOCAL_BURN_FUNC_NAME, DCDT_LOCAL_MINT_FUNC_NAME, DCDT_METADATA_RECREATE_FUNC_NAME,
-    DCDT_METADATA_UPDATE_FUNC_NAME, DCDT_MODIFY_CREATOR_FUNC_NAME, DCDT_MODIFY_ROYALTIES_FUNC_NAME,
-    DCDT_NFT_ADD_QUANTITY_FUNC_NAME, DCDT_NFT_ADD_URI_FUNC_NAME, DCDT_NFT_BURN_FUNC_NAME,
-    DCDT_NFT_CREATE_FUNC_NAME, DCDT_NFT_UPDATE_ATTRIBUTES_FUNC_NAME, DCDT_SET_NEW_URIS_FUNC_NAME,
-    SET_USERNAME_FUNC_NAME,
+    DCDT_LOCAL_BURN_FUNC_NAME, DCDT_LOCAL_MINT_FUNC_NAME, DCDT_NFT_ADD_QUANTITY_FUNC_NAME,
+    DCDT_NFT_ADD_URI_FUNC_NAME, DCDT_NFT_BURN_FUNC_NAME, DCDT_NFT_CREATE_FUNC_NAME,
+    DCDT_NFT_UPDATE_ATTRIBUTES_FUNC_NAME, SET_USERNAME_FUNC_NAME,
 };
 
 /// Proxy describing the user builtin function signatures.
@@ -80,68 +78,62 @@ where
         self.wrapped_tx
             .payment(NotPayable)
             .raw_call(CHANGE_OWNER_BUILTIN_FUNC_NAME)
-            .argument(&new_owner)
+            .argument(new_owner)
             .original_result()
     }
 
-    pub fn dcdt_local_burn<
-        Arg0: ProxyArg<TokenIdentifier<Env::Api>>,
-        Arg1: ProxyArg<BigUint<Env::Api>>,
-    >(
+    pub fn dcdt_local_burn(
         self,
-        token: Arg0,
+        token: &TokenIdentifier<Env::Api>,
         nonce: u64,
-        amount: Arg1,
+        amount: &BigUint<Env::Api>,
     ) -> TxTypedCall<Env, From, To, NotPayable, Gas, ()> {
         if nonce == 0 {
             return self
                 .wrapped_tx
                 .payment(NotPayable)
                 .raw_call(DCDT_LOCAL_BURN_FUNC_NAME)
-                .argument(&token)
-                .argument(&amount)
+                .argument(token)
+                .argument(amount)
                 .original_result();
         }
 
         self.wrapped_tx
             .payment(NotPayable)
             .raw_call(DCDT_NFT_BURN_FUNC_NAME)
-            .argument(&token)
+            .argument(token)
             .argument(&nonce)
-            .argument(&amount)
+            .argument(amount)
             .original_result()
     }
 
-    pub fn dcdt_local_mint<
-        Arg0: ProxyArg<TokenIdentifier<Env::Api>>,
-        Arg1: ProxyArg<BigUint<Env::Api>>,
-    >(
+    pub fn dcdt_local_mint(
         self,
-        token: Arg0,
+        token: &TokenIdentifier<Env::Api>,
         nonce: u64,
-        amount: Arg1,
+        amount: &BigUint<Env::Api>,
     ) -> TxTypedCall<Env, From, To, NotPayable, Gas, ()> {
         if nonce == 0 {
             return self
                 .wrapped_tx
                 .payment(NotPayable)
                 .raw_call(DCDT_LOCAL_MINT_FUNC_NAME)
-                .argument(&token)
-                .argument(&amount)
+                .argument(token)
+                .argument(amount)
                 .original_result();
         }
         self.wrapped_tx
             .payment(NotPayable)
             .raw_call(DCDT_NFT_ADD_QUANTITY_FUNC_NAME)
-            .argument(&token)
+            .argument(token)
             .argument(&nonce)
-            .argument(&amount)
+            .argument(amount)
             .original_result()
     }
 
-    pub fn nft_add_multiple_uri<Arg0: ProxyArg<TokenIdentifier<Env::Api>>>(
+    pub fn nft_add_multiple_uri(
         self,
-        token_id: Arg0,
+        token_id: &TokenIdentifier<Env::Api>,
         nft_nonce: u64,
         new_uris: &ManagedVec<Env::Api, ManagedBuffer<Env::Api>>,
     ) -> TxTypedCall<Env, From, To, NotPayable, Gas, ()> {
@@ -149,7 +141,7 @@ where
             .wrapped_tx
             .payment(NotPayable)
             .raw_call(DCDT_NFT_ADD_URI_FUNC_NAME)
-            .argument(&token_id)
+            .argument(token_id)
             .argument(&nft_nonce);
 
         for uri in new_uris {
@@ -159,36 +151,29 @@ where
         tx.original_result()
     }
 
-    pub fn nft_update_attributes<T: TopEncode, Arg0: ProxyArg<TokenIdentifier<Env::Api>>>(
+    pub fn nft_update_attributes<T: TopEncode>(
         self,
-        token_id: Arg0,
+        token_id: &TokenIdentifier<Env::Api>,
         nft_nonce: u64,
         new_attributes: &T,
     ) -> TxTypedCall<Env, From, To, NotPayable, Gas, ()> {
         self.wrapped_tx
             .payment(NotPayable)
             .raw_call(DCDT_NFT_UPDATE_ATTRIBUTES_FUNC_NAME)
-            .argument(&token_id)
+            .argument(token_id)
             .argument(&nft_nonce)
-            .argument(&new_attributes)
+            .argument(new_attributes)
             .original_result()
     }
 
     #[allow(clippy::too_many_arguments)]
-    pub fn dcdt_nft_create<
-        T: TopEncode,
-        Arg0: ProxyArg<TokenIdentifier<Env::Api>>,
-        Arg1: ProxyArg<BigUint<Env::Api>>,
-        Arg2: ProxyArg<ManagedBuffer<Env::Api>>,
-        Arg3: ProxyArg<BigUint<Env::Api>>,
-        Arg4: ProxyArg<ManagedBuffer<Env::Api>>,
-    >(
+    pub fn dcdt_nft_create<T: TopEncode>(
         self,
-        token: Arg0,
-        amount: Arg1,
-        name: Arg2,
-        royalties: Arg3,
-        hash: Arg4,
+        token: &TokenIdentifier<Env::Api>,
+        amount: &BigUint<Env::Api>,
+        name: &ManagedBuffer<Env::Api>,
+        royalties: &BigUint<Env::Api>,
+        hash: &ManagedBuffer<Env::Api>,
         attributes: &T,
         uris: &ManagedVec<Env::Api, ManagedBuffer<Env::Api>>,
     ) -> TxTypedCall<Env, From, To, NotPayable, Gas, u64> {
@@ -196,12 +181,12 @@ where
             .wrapped_tx
             .payment(NotPayable)
             .raw_call(DCDT_NFT_CREATE_FUNC_NAME)
-            .argument(&token)
-            .argument(&amount)
-            .argument(&name)
-            .argument(&royalties)
-            .argument(&hash)
-            .argument(&attributes);
+            .argument(token)
+            .argument(amount)
+            .argument(name)
+            .argument(royalties)
+            .argument(hash)
+            .argument(attributes);
 
         if uris.is_empty() {
             // at least one URI is required, so we push an empty one
@@ -213,138 +198,6 @@ where
                 tx = tx.argument(&uri);
             }
         }
-
-        tx.original_result()
-    }
-
-    pub fn dcdt_modify_royalties<
-        Arg0: ProxyArg<TokenIdentifier<Env::Api>>,
-        Arg1: ProxyArg<u64>,
-        Arg2: ProxyArg<u64>,
-    >(
-        self,
-        token_id: Arg0,
-        nonce: Arg1,
-        new_royalty: Arg2,
-    ) -> TxTypedCall<Env, From, To, NotPayable, Gas, ()> {
-        let tx = self
-            .wrapped_tx
-            .payment(NotPayable)
-            .raw_call(DCDT_MODIFY_ROYALTIES_FUNC_NAME)
-            .argument(&token_id)
-            .argument(&nonce)
-            .argument(&new_royalty);
-
-        tx.original_result()
-    }
-
-    pub fn dcdt_nft_set_new_uris<Arg0: ProxyArg<TokenIdentifier<Env::Api>>, Arg1: ProxyArg<u64>>(
-        self,
-        token_id: Arg0,
-        nonce: Arg1,
-        uris: &ManagedVec<Env::Api, ManagedBuffer<Env::Api>>,
-    ) -> TxTypedCall<Env, From, To, NotPayable, Gas, ()> {
-        let mut tx = self
-            .wrapped_tx
-            .payment(NotPayable)
-            .raw_call(DCDT_SET_NEW_URIS_FUNC_NAME)
-            .argument(&token_id)
-            .argument(&nonce);
-
-        if uris.is_empty() {
-            // at least one URI is required, so we push an empty one
-            tx = tx.argument(&Empty);
-        } else {
-            // The API function has the last argument as variadic,
-            // so we top-encode each and send as separate argument
-            for uri in uris {
-                tx = tx.argument(&uri);
-            }
-        }
-
-        tx.original_result()
-    }
-
-    pub fn dcdt_nft_modify_creator<
-        Arg0: ProxyArg<TokenIdentifier<Env::Api>>,
-        Arg1: ProxyArg<u64>,
-    >(
-        self,
-        token_id: Arg0,
-        nonce: Arg1,
-    ) -> TxTypedCall<Env, From, To, NotPayable, Gas, ()> {
-        let tx = self
-            .wrapped_tx
-            .payment(NotPayable)
-            .raw_call(DCDT_MODIFY_CREATOR_FUNC_NAME)
-            .argument(&token_id)
-            .argument(&nonce);
-
-        tx.original_result()
-    }
-
-    #[allow(clippy::too_many_arguments)]
-    pub fn dcdt_metadata_recreate<
-        T: TopEncode,
-        Arg0: ProxyArg<TokenIdentifier<Env::Api>>,
-        Arg1: ProxyArg<u64>,
-        Arg2: ProxyArg<ManagedBuffer<Env::Api>>,
-        Arg3: ProxyArg<u64>,
-        Arg4: ProxyArg<ManagedBuffer<Env::Api>>,
-    >(
-        self,
-        token_id: Arg0,
-        nonce: Arg1,
-        name: Arg2,
-        royalties: Arg3,
-        hash: Arg4,
-        new_attributes: &T,
-        uris: ManagedVec<Env::Api, ManagedBuffer<Env::Api>>,
-    ) -> TxTypedCall<Env, From, To, NotPayable, Gas, ()> {
-        let tx = self
-            .wrapped_tx
-            .payment(NotPayable)
-            .raw_call(DCDT_METADATA_RECREATE_FUNC_NAME)
-            .argument(&token_id)
-            .argument(&nonce)
-            .argument(&name)
-            .argument(&royalties)
-            .argument(&hash)
-            .argument(&new_attributes)
-            .argument(&uris);
-
-        tx.original_result()
-    }
-
-    #[allow(clippy::too_many_arguments)]
-    pub fn dcdt_metadata_update<
-        T: TopEncode,
-        Arg0: ProxyArg<TokenIdentifier<Env::Api>>,
-        Arg1: ProxyArg<u64>,
-        Arg2: ProxyArg<ManagedBuffer<Env::Api>>,
-        Arg3: ProxyArg<u64>,
-        Arg4: ProxyArg<ManagedBuffer<Env::Api>>,
-    >(
-        self,
-        token_id: Arg0,
-        nonce: Arg1,
-        name: Arg2,
-        royalties: Arg3,
-        hash: Arg4,
-        new_attributes: &T,
-        uris: ManagedVec<Env::Api, ManagedBuffer<Env::Api>>,
-    ) -> TxTypedCall<Env, From, To, NotPayable, Gas, ()> {
-        let tx = self
-            .wrapped_tx
-            .payment(NotPayable)
-            .raw_call(DCDT_METADATA_UPDATE_FUNC_NAME)
-            .argument(&token_id)
-            .argument(&nonce)
-            .argument(&name)
-            .argument(&royalties)
-            .argument(&hash)
-            .argument(&new_attributes)
-            .argument(&uris);
 
         tx.original_result()
     }

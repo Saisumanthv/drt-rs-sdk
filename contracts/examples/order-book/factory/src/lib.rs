@@ -2,8 +2,7 @@
 
 use dharitri_sc::{derive_imports::*, imports::*};
 
-#[type_abi]
-#[derive(TopEncode, TopDecode, NestedEncode, NestedDecode, Clone)]
+#[derive(TopEncode, TopDecode, NestedEncode, NestedDecode, TypeAbi, Clone)]
 pub struct TokenIdPair<M: ManagedTypeApi> {
     first_token_id: TokenIdentifier<M>,
     second_token_id: TokenIdentifier<M>,

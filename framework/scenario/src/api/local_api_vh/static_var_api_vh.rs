@@ -1,6 +1,6 @@
 use crate::api::{VMHooksApi, VMHooksApiBackend};
 use dharitri_sc::{
-    api::{RawHandle, StaticVarApi, StaticVarApiFlags, StaticVarApiImpl},
+    api::{use_raw_handle, RawHandle, StaticVarApi, StaticVarApiImpl},
     types::LockableStaticBuffer,
 };
 
@@ -55,23 +55,29 @@ impl<VHB: VMHooksApiBackend> StaticVarApiImpl for VMHooksApi<VHB> {
         self.with_static_data(|data| data.static_vars_cell.borrow().num_arguments)
     }
 
-    fn set_flags(&self, flags: StaticVarApiFlags) {
+    fn set_call_value_rewa_handle(&self, handle: RawHandle) {
         self.with_static_data(|data| {
-            data.static_vars_cell.borrow_mut().flags = flags;
+            data.static_vars_cell.borrow_mut().call_value_rewa_handle = handle;
         })
     }
 
-    fn get_flags(&self) -> StaticVarApiFlags {
-        self.with_static_data(|data| data.static_vars_cell.borrow().flags)
-    }
-
-    fn is_scaling_factor_cached(&self, decimals: usize) -> bool {
-        self.with_static_data(|data| data.static_vars_cell.borrow().scaling_factor_init[decimals])
-    }
-
-    fn set_scaling_factor_cached(&self, decimals: usize) {
+    fn get_call_value_rewa_handle(&self) -> RawHandle {
         self.with_static_data(|data| {
-            data.static_vars_cell.borrow_mut().scaling_factor_init[decimals] = true
+            use_raw_handle(data.static_vars_cell.borrow().call_value_rewa_handle)
+        })
+    }
+
+    fn set_call_value_multi_dcdt_handle(&self, handle: RawHandle) {
+        self.with_static_data(|data| {
+            data.static_vars_cell
+                .borrow_mut()
+                .call_value_multi_dcdt_handle = handle;
+        })
+    }
+
+    fn get_call_value_multi_dcdt_handle(&self) -> RawHandle {
+        self.with_static_data(|data| {
+            use_raw_handle(data.static_vars_cell.borrow().call_value_multi_dcdt_handle)
         })
     }
 }

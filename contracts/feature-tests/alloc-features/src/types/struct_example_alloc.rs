@@ -3,8 +3,7 @@ dharitri_sc::derive_imports!();
 
 /// Example serialization for a structure that uses the heap allocator.
 /// Also checking nested serialization of basic types.
-#[type_abi]
-#[derive(NestedEncode, NestedDecode, TopEncode, TopDecode)]
+#[derive(NestedEncode, NestedDecode, TopEncode, TopDecode, TypeAbi)]
 pub struct StructExampleAlloc {
     pub int: u16,
 

@@ -9,8 +9,7 @@ mod nft_module;
 use distribution_module::Distribution;
 use dharitri_sc_modules::default_issue_callbacks;
 
-#[type_abi]
-#[derive(TopEncode, TopDecode)]
+#[derive(TypeAbi, TopEncode, TopDecode)]
 pub struct ExampleAttributes {
     pub creation_timestamp: u64,
 }
@@ -27,7 +26,7 @@ pub trait SeedNftMinter:
         marketplaces: ManagedVec<ManagedAddress>,
         distribution: ManagedVec<Distribution<Self::Api>>,
     ) {
-        self.marketplaces().extend(marketplaces);
+        self.marketplaces().extend(&marketplaces);
         self.init_distribution(distribution);
     }
 
@@ -102,7 +101,7 @@ pub trait SeedNftMinter:
             } else {
                 dcdt_payments
                     .try_get(0)
-                    .map(|dcdt_payment| dcdt_payment.amount.clone())
+                    .map(|dcdt_payment| dcdt_payment.amount)
                     .unwrap_or_default()
             };
             total_amount += amount;

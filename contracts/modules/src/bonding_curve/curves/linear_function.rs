@@ -3,8 +3,7 @@ dharitri_sc::derive_imports!();
 
 use crate::bonding_curve::{curves::curve_function::CurveFunction, utils::structs::CurveArguments};
 
-#[type_abi]
-#[derive(TopEncode, TopDecode, NestedEncode, NestedDecode, PartialEq, Eq, Clone)]
+#[derive(TopEncode, TopDecode, NestedEncode, NestedDecode, TypeAbi, PartialEq, Eq, Clone)]
 pub struct LinearFunction<M: ManagedTypeApi> {
     pub initial_price: BigUint<M>,
     pub linear_coefficient: BigUint<M>,

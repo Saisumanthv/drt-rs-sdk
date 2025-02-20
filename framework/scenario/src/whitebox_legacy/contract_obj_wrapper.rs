@@ -13,7 +13,10 @@ use crate::{
     ScenarioWorld,
 };
 use dharitri_chain_scenario_format::interpret_trait::InterpretableFrom;
-use dharitri_chain_vm::tx_mock::{TxContext, TxContextStack, TxFunctionName, TxResult};
+use dharitri_chain_vm::{
+    tx_mock::{TxContext, TxContextStack, TxFunctionName, TxResult},
+    types::VMAddress,
+};
 use dharitri_sc::types::{BigUint, H256};
 use num_traits::Zero;
 
@@ -86,7 +89,7 @@ impl BlockchainStateWrapper {
     }
 
     pub fn check_rewa_balance(&self, address: &Address, expected_balance: &num_bigint::BigUint) {
-        let actual_balance = match &self.world.get_state().accounts.get(address) {
+        let actual_balance = match &self.world.get_state().accounts.get(&to_vm_address(address)) {
             Some(acc) => acc.rewa_balance.clone(),
             None => num_bigint::BigUint::zero(),
         };
@@ -106,7 +109,7 @@ impl BlockchainStateWrapper {
         token_id: &[u8],
         expected_balance: &num_bigint::BigUint,
     ) {
-        let actual_balance = match &self.world.get_state().accounts.get(address) {
+        let actual_balance = match &self.world.get_state().accounts.get(&to_vm_address(address)) {
             Some(acc) => acc.dcdt.get_dcdt_balance(token_id, 0),
             None => num_bigint::BigUint::zero(),
         };
@@ -132,7 +135,7 @@ impl BlockchainStateWrapper {
         T: TopEncode + TopDecode + PartialEq + core::fmt::Debug,
     {
         let (actual_balance, actual_attributes_serialized) =
-            match &self.world.get_state().accounts.get(address) {
+            match &self.world.get_state().accounts.get(&to_vm_address(address)) {
                 Some(acc) => {
                     let dcdt_data = acc.dcdt.get_by_identifier_or_default(token_id);
                     let opt_instance = dcdt_data.instances.get_by_nonce(nonce);
@@ -301,19 +304,20 @@ impl BlockchainStateWrapper {
         CB: ContractBase<Api = DebugApi> + CallableContract + 'static,
         ContractObjBuilder: 'static + Copy + Fn() -> CB,
     {
+        let deployer_vm_address = to_vm_address(deployer);
         let deployer_acc = self
             .world
             .get_state()
             .accounts
-            .get(deployer)
+            .get(&deployer_vm_address)
             .unwrap()
             .clone();
 
         let new_sc_address = self.address_factory.new_sc_address();
         self.world.get_mut_state().put_new_address(
-            deployer.clone(),
+            deployer_vm_address,
             deployer_acc.nonce,
-            new_sc_address.clone(),
+            to_vm_address(&new_sc_address),
         );
 
         ContractObjWrapper::new(new_sc_address, obj_builder)
@@ -489,7 +493,8 @@ impl BlockchainStateWrapper {
     }
 
     pub fn add_denali_set_account(&mut self, address: &Address) {
-        if let Some(acc) = self.world.get_state().accounts.get(address).cloned() {
+        let vm_address = to_vm_address(address);
+        if let Some(acc) = self.world.get_state().accounts.get(&vm_address).cloned() {
             let opt_contract_path = self.address_to_code_path.get(address);
             if let Some(trace) = &mut self.world.get_mut_debugger_backend().trace {
                 DenaliGenerator::new(&mut trace.scenario_trace, &mut self.current_tx_id)
@@ -499,7 +504,8 @@ impl BlockchainStateWrapper {
     }
 
     pub fn add_denali_check_account(&mut self, address: &Address) {
-        if let Some(acc) = self.world.get_state().accounts.get(address).cloned() {
+        let vm_address = to_vm_address(address);
+        if let Some(acc) = self.world.get_state().accounts.get(&vm_address).cloned() {
             if let Some(trace) = &mut self.world.get_mut_debugger_backend().trace {
                 DenaliGenerator::new(&mut trace.scenario_trace, &mut self.current_tx_id)
                     .check_account(&acc);
@@ -656,7 +662,7 @@ impl BlockchainStateWrapper {
 
 impl BlockchainStateWrapper {
     pub fn get_rewa_balance(&self, address: &Address) -> num_bigint::BigUint {
-        match self.world.get_state().accounts.get(address) {
+        match self.world.get_state().accounts.get(&to_vm_address(address)) {
             Some(acc) => acc.rewa_balance.clone(),
             None => panic!(
                 "get_rewa_balance: Account {:?} does not exist",
@@ -671,7 +677,7 @@ impl BlockchainStateWrapper {
         token_id: &[u8],
         token_nonce: u64,
     ) -> num_bigint::BigUint {
-        match self.world.get_state().accounts.get(address) {
+        match self.world.get_state().accounts.get(&to_vm_address(address)) {
             Some(acc) => acc.dcdt.get_dcdt_balance(token_id, token_nonce),
             None => panic!(
                 "get_dcdt_balance: Account {:?} does not exist",
@@ -686,7 +692,7 @@ impl BlockchainStateWrapper {
         token_id: &[u8],
         token_nonce: u64,
     ) -> Option<T> {
-        match self.world.get_state().accounts.get(address) {
+        match self.world.get_state().accounts.get(&to_vm_address(address)) {
             Some(acc) => match acc.dcdt.get_by_identifier(token_id) {
                 Some(dcdt_data) => dcdt_data
                     .instances
@@ -702,8 +708,8 @@ impl BlockchainStateWrapper {
     }
 
     pub fn dump_state(&self) {
-        for address in self.world.get_state().accounts.keys() {
-            self.dump_state_for_account_hex_attributes(address);
+        for addr in self.world.get_state().accounts.keys() {
+            self.dump_state_for_account_hex_attributes(&to_framework_address(addr));
             println!();
         }
     }
@@ -719,7 +725,8 @@ impl BlockchainStateWrapper {
         &self,
         address: &Address,
     ) {
-        let account = match self.world.get_state().accounts.get(address) {
+        let vm_address = to_vm_address(address);
+        let account = match self.world.get_state().accounts.get(&vm_address) {
             Some(acc) => acc,
             None => panic!(
                 "dump_state_for_account: Account {:?} does not exist",
@@ -809,4 +816,12 @@ where
 {
     let c_base = func();
     Box::new(c_base)
+}
+
+fn to_vm_address(address: &Address) -> VMAddress {
+    address.as_array().into()
+}
+
+fn to_framework_address(vm_address: &VMAddress) -> Address {
+    vm_address.as_array().into()
 }

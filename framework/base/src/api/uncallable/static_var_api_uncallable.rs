@@ -1,5 +1,5 @@
 use crate::{
-    api::{RawHandle, StaticVarApi, StaticVarApiFlags, StaticVarApiImpl},
+    api::{RawHandle, StaticVarApi, StaticVarApiImpl},
     types::LockableStaticBuffer,
 };
 
@@ -41,19 +41,19 @@ impl StaticVarApiImpl for UncallableApi {
         unreachable!()
     }
 
-    fn set_flags(&self, _flags: StaticVarApiFlags) {
+    fn set_call_value_rewa_handle(&self, _handle: RawHandle) {
         unreachable!()
     }
 
-    fn get_flags(&self) -> StaticVarApiFlags {
+    fn get_call_value_rewa_handle(&self) -> RawHandle {
         unreachable!()
     }
 
-    fn is_scaling_factor_cached(&self, _decimals: usize) -> bool {
+    fn set_call_value_multi_dcdt_handle(&self, _handle: RawHandle) {
         unreachable!()
     }
 
-    fn set_scaling_factor_cached(&self, _decimals: usize) {
+    fn get_call_value_multi_dcdt_handle(&self) -> RawHandle {
         unreachable!()
     }
 }

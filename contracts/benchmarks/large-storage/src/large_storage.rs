@@ -3,15 +3,12 @@
 dharitri_sc::imports!();
 dharitri_sc::derive_imports!();
 
-#[type_abi]
-#[derive(TopEncode, TopDecode, NestedEncode, NestedDecode, Clone)]
+#[derive(TypeAbi, TopEncode, TopDecode, NestedEncode, NestedDecode, Clone)]
 pub enum SampleEnum {
     Value1,
     Value2,
 }
-
-#[type_abi]
-#[derive(TopEncode, TopDecode, NestedEncode, NestedDecode, Clone)]
+#[derive(TypeAbi, TopEncode, TopDecode, NestedEncode, NestedDecode, Clone)]
 pub struct Structure<M: ManagedTypeApi> {
     pub field1: ManagedBuffer<M>,
     pub field2: SampleEnum,

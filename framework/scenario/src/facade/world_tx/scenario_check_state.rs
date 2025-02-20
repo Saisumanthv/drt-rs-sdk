@@ -230,7 +230,7 @@ impl<'w> CheckStateBuilder<'w> {
     }
 }
 
-impl Drop for CheckStateBuilder<'_> {
+impl<'w> Drop for CheckStateBuilder<'w> {
     fn drop(&mut self) {
         self.commit_accounts();
     }

@@ -1,13 +1,6 @@
 use core::marker::PhantomData;
 
-use crate::{
-    codec::{NestedDecode, NestedEncode, TopDecode, TopEncode},
-    storage::mappers::{
-        set_mapper::{CurrentStorage, StorageAddress},
-        StorageMapperFromAddress,
-    },
-    types::ManagedAddress,
-};
+use crate::codec::{NestedDecode, NestedEncode, TopDecode, TopEncode};
 
 use super::super::StorageMapper;
 use crate::{
@@ -30,16 +23,15 @@ const VALUE_NOT_PREVIOUSLY_SET_ERROR_MESSAGE: &[u8] = b"A value was not previous
 const COUNTER_OVERFLOW_ERROR_MESSAGE: &[u8] =
     b"Counter overflow. This module can hold evidence for maximum u8::MAX different token IDs";
 
-pub struct TokenAttributesMapper<SA, A = CurrentStorage>
+pub struct TokenAttributesMapper<SA>
 where
     SA: StorageMapperApi,
 {
     _phantom_api: PhantomData<SA>,
     base_key: StorageKey<SA>,
-    address: A,
 }
 
-impl<SA> StorageMapper<SA> for TokenAttributesMapper<SA, CurrentStorage>
+impl<SA> StorageMapper<SA> for TokenAttributesMapper<SA>
 where
     SA: StorageMapperApi,
 {
@@ -47,25 +39,11 @@ where
         TokenAttributesMapper {
             _phantom_api: PhantomData,
             base_key,
-            address: CurrentStorage,
         }
     }
 }
 
-impl<SA> StorageMapperFromAddress<SA> for TokenAttributesMapper<SA, ManagedAddress<SA>>
-where
-    SA: StorageMapperApi,
-{
-    fn new_from_address(address: ManagedAddress<SA>, base_key: StorageKey<SA>) -> Self {
-        Self {
-            _phantom_api: PhantomData,
-            base_key,
-            address,
-        }
-    }
-}
-
-impl<SA> TokenAttributesMapper<SA, CurrentStorage>
+impl<SA> TokenAttributesMapper<SA>
 where
     SA: StorageMapperApi,
 {
@@ -146,60 +124,6 @@ where
         self.clear_attributes_to_nonce_mapping(mapping, &attr);
     }
 
-    fn set_counter_value(&self, value: u8) {
-        storage_set(self.build_key_token_id_counter().as_ref(), &value);
-    }
-
-    fn set_mapping_value<M: ManagedTypeApi>(&self, token_id: &TokenIdentifier<M>, value: u8) {
-        storage_set(self.build_key_token_id_mapping(token_id).as_ref(), &value);
-    }
-
-    fn set_attributes_to_nonce_mapping<T: TopEncode + TopDecode + NestedEncode + NestedDecode>(
-        &self,
-        mapping: u8,
-        attr: &T,
-        token_nonce: u64,
-    ) {
-        storage_set(
-            self.build_key_attr_to_nonce_mapping(mapping, attr).as_ref(),
-            &token_nonce,
-        );
-    }
-
-    fn clear_attributes_to_nonce_mapping<T: TopEncode + TopDecode + NestedEncode + NestedDecode>(
-        &self,
-        mapping: u8,
-        attr: &T,
-    ) {
-        storage_clear(self.build_key_attr_to_nonce_mapping(mapping, attr).as_ref());
-    }
-
-    fn set_token_attributes_value<T: TopEncode + TopDecode + NestedEncode + NestedDecode>(
-        &self,
-        mapping: u8,
-        token_nonce: u64,
-        value: &T,
-    ) {
-        storage_set(
-            self.build_key_token_attr_value(mapping, token_nonce)
-                .as_ref(),
-            value,
-        );
-    }
-
-    fn clear_token_attributes_value(&self, mapping: u8, token_nonce: u64) {
-        storage_clear(
-            self.build_key_token_attr_value(mapping, token_nonce)
-                .as_ref(),
-        );
-    }
-}
-
-impl<SA, A> TokenAttributesMapper<SA, A>
-where
-    SA: StorageMapperApi,
-    A: StorageAddress<SA>,
-{
     pub fn has_attributes<M: ManagedTypeApi>(
         &self,
         token_id: &TokenIdentifier<M>,
@@ -325,8 +249,16 @@ where
         storage_get(self.build_key_token_id_counter().as_ref())
     }
 
+    fn set_counter_value(&self, value: u8) {
+        storage_set(self.build_key_token_id_counter().as_ref(), &value);
+    }
+
     fn get_mapping_value<M: ManagedTypeApi>(&self, token_id: &TokenIdentifier<M>) -> u8 {
         storage_get(self.build_key_token_id_mapping(token_id).as_ref())
+    }
+
+    fn set_mapping_value<M: ManagedTypeApi>(&self, token_id: &TokenIdentifier<M>, value: u8) {
+        storage_set(self.build_key_token_id_mapping(token_id).as_ref(), &value);
     }
 
     fn is_empty_mapping_value<M: ManagedTypeApi>(&self, token_id: &TokenIdentifier<M>) -> bool {
@@ -341,6 +273,18 @@ where
         storage_get(self.build_key_attr_to_nonce_mapping(mapping, attr).as_ref())
     }
 
+    fn set_attributes_to_nonce_mapping<T: TopEncode + TopDecode + NestedEncode + NestedDecode>(
+        &self,
+        mapping: u8,
+        attr: &T,
+        token_nonce: u64,
+    ) {
+        storage_set(
+            self.build_key_attr_to_nonce_mapping(mapping, attr).as_ref(),
+            &token_nonce,
+        );
+    }
+
     fn is_empty_attributes_to_nonce_mapping<
         T: TopEncode + TopDecode + NestedEncode + NestedDecode,
     >(
@@ -349,6 +293,14 @@ where
         attr: &T,
     ) -> bool {
         storage_get_len(self.build_key_attr_to_nonce_mapping(mapping, attr).as_ref()) == 0
+    }
+
+    fn clear_attributes_to_nonce_mapping<T: TopEncode + TopDecode + NestedEncode + NestedDecode>(
+        &self,
+        mapping: u8,
+        attr: &T,
+    ) {
+        storage_clear(self.build_key_attr_to_nonce_mapping(mapping, attr).as_ref());
     }
 
     fn get_token_attributes_value<T: TopEncode + TopDecode + NestedEncode + NestedDecode>(
@@ -362,10 +314,30 @@ where
         )
     }
 
+    fn set_token_attributes_value<T: TopEncode + TopDecode + NestedEncode + NestedDecode>(
+        &self,
+        mapping: u8,
+        token_nonce: u64,
+        value: &T,
+    ) {
+        storage_set(
+            self.build_key_token_attr_value(mapping, token_nonce)
+                .as_ref(),
+            value,
+        );
+    }
+
     fn is_empty_token_attributes_value(&self, mapping: u8, token_nonce: u64) -> bool {
         storage_get_len(
             self.build_key_token_attr_value(mapping, token_nonce)
                 .as_ref(),
         ) == 0
+    }
+
+    fn clear_token_attributes_value(&self, mapping: u8, token_nonce: u64) {
+        storage_clear(
+            self.build_key_token_attr_value(mapping, token_nonce)
+                .as_ref(),
+        );
     }
 }

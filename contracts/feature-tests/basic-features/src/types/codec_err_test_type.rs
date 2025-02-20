@@ -9,7 +9,6 @@ use dharitri_sc::{
 
 /// Helper type to explore encode/decode errors.
 #[type_abi]
-#[derive(Clone, Copy)]
 pub struct CodecErrorTestType;
 
 impl TopEncode for CodecErrorTestType {

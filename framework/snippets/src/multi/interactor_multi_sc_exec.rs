@@ -1,13 +1,9 @@
 use super::interactor_multi_sc_process::{update_nonces_and_sign_tx, SenderSet, Txs};
-use super::InteractorStepRef;
-use crate::sdk::data::transaction::Transaction;
-use crate::sdk::gateway::GatewayAsyncService;
-use crate::{network_response, InteractorBase, StepBuffer};
+use crate::{Interactor, InteractorStep, StepBuffer};
+use dharitri_sc_scenario::scenario_model::TxResponse;
+use dharitri_sdk::data::transaction::Transaction;
 
-impl<GatewayProxy> InteractorBase<GatewayProxy>
-where
-    GatewayProxy: GatewayAsyncService,
-{
+impl Interactor {
     pub async fn multi_sc_exec(&mut self, mut buffer: StepBuffer<'_>) {
         for step in buffer.refs.iter_mut() {
             step.run_step(&mut self.pre_runners);
@@ -20,8 +16,7 @@ where
         let results = self.process_txs(txs).await;
 
         for (i, sc_call_step) in buffer.refs.iter_mut().enumerate() {
-            let (tx, return_code) = results.get(i).unwrap().clone();
-            sc_call_step.set_response(network_response::parse_tx_response(tx, return_code));
+            sc_call_step.set_response(TxResponse::from_network_tx(results.get(i).unwrap().clone()));
         }
 
         for step in buffer.refs.iter_mut() {
@@ -47,7 +42,7 @@ where
     }
 }
 
-fn retrieve_senders(sc_call_steps: &[InteractorStepRef]) -> SenderSet {
+fn retrieve_senders(sc_call_steps: &[&mut dyn InteractorStep]) -> SenderSet {
     let mut senders = SenderSet::new();
 
     for sc_call_step in sc_call_steps {

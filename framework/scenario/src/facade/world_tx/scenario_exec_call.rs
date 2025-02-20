@@ -23,7 +23,7 @@ pub struct ScenarioEnvExec<'w> {
     pub data: ScenarioTxEnvData,
 }
 
-impl TxEnv for ScenarioEnvExec<'_> {
+impl<'w> TxEnv for ScenarioEnvExec<'w> {
     type Api = StaticApi;
 
     type RHExpect = TxExpect;
@@ -41,7 +41,7 @@ impl TxEnv for ScenarioEnvExec<'_> {
     }
 }
 
-impl TxEnvMockDeployAddress for ScenarioEnvExec<'_> {
+impl<'w> TxEnvMockDeployAddress for ScenarioEnvExec<'w> {
     fn mock_deploy_new_address<From, NA>(&mut self, from: &From, new_address: NA)
     where
         From: TxFromSpecified<Self>,
@@ -52,7 +52,7 @@ impl TxEnvMockDeployAddress for ScenarioEnvExec<'_> {
             .world
             .get_state()
             .accounts
-            .get(&from_value.to_address())
+            .get(&from_value.to_vm_address())
             .expect("sender does not exist")
             .nonce;
         let new_address_value = address_annotated(self, &new_address);
@@ -65,7 +65,7 @@ impl TxEnvMockDeployAddress for ScenarioEnvExec<'_> {
     }
 }
 
-impl ScenarioTxEnv for ScenarioEnvExec<'_> {
+impl<'w> ScenarioTxEnv for ScenarioEnvExec<'w> {
     fn env_data(&self) -> &ScenarioTxEnvData {
         &self.data
     }
@@ -85,6 +85,7 @@ where
 
     fn run(self) -> Self::Returns {
         let mut step_wrapper = self.tx_to_step();
+        step_wrapper.step.explicit_tx_hash = core::mem::take(&mut step_wrapper.env.data.tx_hash);
         step_wrapper.env.world.sc_call(&mut step_wrapper.step);
         step_wrapper.process_result()
     }
@@ -110,18 +111,16 @@ where
 
     fn run(self) -> Self::Returns {
         let mut step_wrapper = self.tx_to_step();
+        step_wrapper.step.explicit_tx_hash = core::mem::take(&mut step_wrapper.env.data.tx_hash);
         step_wrapper.env.world.sc_call(&mut step_wrapper.step);
         step_wrapper.process_result()
     }
 }
 
-impl TxEnvWithTxHash for ScenarioEnvExec<'_> {
+impl<'w> TxEnvWithTxHash for ScenarioEnvExec<'w> {
     fn set_tx_hash(&mut self, tx_hash: H256) {
-        self.data.set_tx_hash(tx_hash);
-    }
-
-    fn take_tx_hash(&mut self) -> Option<H256> {
-        self.data.take_tx_hash()
+        assert!(self.data.tx_hash.is_none(), "tx hash set twice");
+        self.data.tx_hash = Some(tx_hash);
     }
 }
 

@@ -8,7 +8,8 @@ use crate::{
     scenario_model::Checkable,
 };
 use dharitri_chain_vm::tx_mock::result_values_to_string;
-use dharitri_sc::chain_core::types::ReturnCode;
+
+const USER_ERROR_CODE: u64 = 4;
 
 #[derive(Debug, Clone)]
 pub struct TxExpect {
@@ -66,7 +67,7 @@ impl TxExpect {
     where
         BytesValue: From<E>,
     {
-        Self::err(ReturnCode::UserError, err_msg_expr)
+        Self::err(USER_ERROR_CODE, err_msg_expr)
     }
 
     pub fn no_result(mut self) -> Self {
@@ -99,7 +100,7 @@ impl TxExpect {
 
     fn check_response(&self, tx_response: &TxResponse) {
         assert!(
-            self.status.check(tx_response.tx_error.status.as_u64()),
+            self.status.check(tx_response.tx_error.status),
             "{}result code mismatch. Want: {}. Have: {}. Message: {}",
             &self.additional_error_message,
             self.status,
@@ -119,7 +120,7 @@ impl TxExpect {
             self.message.check(tx_response.tx_error.message.as_str()),
             "{}result message mismatch. Want: {}. Have: {}.",
             &self.additional_error_message,
-            &self.message,
+            &self.status,
             &tx_response.tx_error.message,
         );
     }

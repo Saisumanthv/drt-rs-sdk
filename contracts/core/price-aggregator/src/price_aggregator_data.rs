@@ -1,5 +1,3 @@
-use crate::events::{RoundId, Timestamp};
-
 dharitri_sc::imports!();
 dharitri_sc::derive_imports!();
 
@@ -13,10 +11,10 @@ pub struct TokenPair<M: ManagedTypeApi> {
 #[type_abi]
 #[derive(NestedEncode, NestedDecode, TopEncode, TopDecode)]
 pub struct PriceFeed<M: ManagedTypeApi> {
-    pub round_id: RoundId,
+    pub round_id: u32,
     pub from: ManagedBuffer<M>,
     pub to: ManagedBuffer<M>,
-    pub timestamp: Timestamp,
+    pub timestamp: u64,
     pub price: BigUint<M>,
     pub decimals: u8,
 }
@@ -25,7 +23,7 @@ pub struct PriceFeed<M: ManagedTypeApi> {
 #[derive(TopEncode, TopDecode, Debug, PartialEq, Eq)]
 pub struct TimestampedPrice<M: ManagedTypeApi> {
     pub price: BigUint<M>,
-    pub timestamp: Timestamp,
+    pub timestamp: u64,
     pub decimals: u8,
 }
 

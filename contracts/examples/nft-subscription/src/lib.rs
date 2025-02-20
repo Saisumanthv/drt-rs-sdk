@@ -12,11 +12,10 @@ pub trait NftSubscription:
     fn init(&self) {}
 
     #[endpoint]
-    #[payable("REWA")]
     fn issue(&self) {
         self.token_id().issue_and_set_all_roles(
             DcdtTokenType::NonFungible,
-            self.call_value().rewa().clone(),
+            self.call_value().rewa_value().clone_value(),
             ManagedBuffer::from(b"Subscription"),
             ManagedBuffer::from(b"SUB"),
             0,
@@ -47,57 +46,37 @@ pub trait NftSubscription:
             .transfer();
     }
 
-    #[payable]
+    #[payable("*")]
     #[endpoint]
     fn update_attributes(&self, attributes: ManagedBuffer) {
-        let payment = self.call_value().single_dcdt();
-        self.update_subscription_attributes::<ManagedBuffer>(
-            &payment.token_identifier,
-            payment.token_nonce,
-            attributes,
-        );
+        let (id, nonce, _) = self.call_value().single_dcdt().into_tuple();
+        self.update_subscription_attributes::<ManagedBuffer>(&id, nonce, attributes);
         self.tx()
             .to(ToCaller)
-            .single_dcdt(
-                &payment.token_identifier,
-                payment.token_nonce,
-                &BigUint::from(1u8),
-            )
+            .single_dcdt(&id, nonce, &BigUint::from(1u8))
             .transfer();
     }
 
-    #[payable]
+    #[payable("*")]
     #[endpoint]
     fn renew(&self, duration: u64) {
-        let payment = self.call_value().single_dcdt();
-        self.renew_subscription::<ManagedBuffer>(
-            &payment.token_identifier,
-            payment.token_nonce,
-            duration,
-        );
+        let (id, nonce, _) = self.call_value().single_dcdt().into_tuple();
+        self.renew_subscription::<ManagedBuffer>(&id, nonce, duration);
         self.tx()
             .to(ToCaller)
-            .single_dcdt(
-                &payment.token_identifier,
-                payment.token_nonce,
-                &BigUint::from(1u8),
-            )
+            .single_dcdt(&id, nonce, &BigUint::from(1u8))
             .transfer();
     }
 
-    #[payable]
+    #[payable("*")]
     #[endpoint]
     fn cancel(&self) {
-        let payment = self.call_value().single_dcdt();
-        self.cancel_subscription::<ManagedBuffer>(&payment.token_identifier, payment.token_nonce);
+        let (id, nonce, _) = self.call_value().single_dcdt().into_tuple();
+        self.cancel_subscription::<ManagedBuffer>(&id, nonce);
 
         self.tx()
             .to(ToCaller)
-            .single_dcdt(
-                &payment.token_identifier,
-                payment.token_nonce,
-                &BigUint::from(1u8),
-            )
+            .single_dcdt(&id, nonce, &BigUint::from(1u8))
             .transfer();
     }
 

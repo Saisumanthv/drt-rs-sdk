@@ -1,5 +1,5 @@
 use dharitri_sc::{
-    api::{const_handles, RawHandle, StaticVarApi, StaticVarApiFlags, StaticVarApiImpl},
+    api::{const_handles, RawHandle, StaticVarApi, StaticVarApiImpl},
     types::LockableStaticBuffer,
 };
 
@@ -9,9 +9,8 @@ static mut STATIC_BUFFER: LockableStaticBuffer = LockableStaticBuffer::new();
 static mut EXTERNAL_VIEW_TARGET_ADDRESS_HANDLE: i32 = 0;
 static mut NEXT_HANDLE: i32 = const_handles::NEW_HANDLE_START_FROM;
 static mut NUM_ARGUMENTS: i32 = 0;
-static mut FLAGS: StaticVarApiFlags = StaticVarApiFlags::NONE;
-static mut SCALING_FACTOR_INIT: [bool; const_handles::SCALING_FACTOR_LENGTH] =
-    [false; const_handles::SCALING_FACTOR_LENGTH];
+static mut CALL_VALUE_REWA_HANDLE: i32 = const_handles::UNINITIALIZED_HANDLE;
+static mut CALL_VALUE_MULTI_DCDT_HANDLE: i32 = const_handles::UNINITIALIZED_HANDLE;
 
 // The compiler seems to enjoy inlining this method no matter how many times it shows up.
 // Hence the rather drastic directive.
@@ -61,23 +60,23 @@ impl StaticVarApiImpl for VmApiImpl {
         unsafe { NUM_ARGUMENTS }
     }
 
-    fn set_flags(&self, flags: StaticVarApiFlags) {
+    fn set_call_value_rewa_handle(&self, handle: RawHandle) {
         unsafe {
-            FLAGS = flags;
+            CALL_VALUE_REWA_HANDLE = handle;
         }
     }
 
-    fn get_flags(&self) -> StaticVarApiFlags {
-        unsafe { FLAGS }
+    fn get_call_value_rewa_handle(&self) -> RawHandle {
+        unsafe { CALL_VALUE_REWA_HANDLE }
     }
 
-    fn is_scaling_factor_cached(&self, decimals: usize) -> bool {
-        unsafe { SCALING_FACTOR_INIT[decimals] }
-    }
-
-    fn set_scaling_factor_cached(&self, decimals: usize) {
-        {
-            unsafe { SCALING_FACTOR_INIT[decimals] = true }
+    fn set_call_value_multi_dcdt_handle(&self, handle: RawHandle) {
+        unsafe {
+            CALL_VALUE_MULTI_DCDT_HANDLE = handle;
         }
+    }
+
+    fn get_call_value_multi_dcdt_handle(&self) -> RawHandle {
+        unsafe { CALL_VALUE_MULTI_DCDT_HANDLE }
     }
 }

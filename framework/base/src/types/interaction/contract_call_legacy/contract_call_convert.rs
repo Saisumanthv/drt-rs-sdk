@@ -20,7 +20,7 @@ where
     ) -> Self {
         match payments.len() {
             0 => self,
-            1 => self.convert_to_single_transfer_dcdt_call(payments.get(0).clone()),
+            1 => self.convert_to_single_transfer_dcdt_call(payments.get(0)),
             _ => self.convert_to_multi_transfer_dcdt_call(payments),
         }
     }
@@ -78,10 +78,7 @@ where
                 function_call: self
                     .basic
                     .function_call
-                    .convert_to_multi_transfer_dcdt_call(
-                        &self.basic.to,
-                        payments.as_multi_rewa_or_dcdt_payment(),
-                    ),
+                    .convert_to_multi_transfer_dcdt_call(&self.basic.to, &payments),
                 explicit_gas_limit: self.basic.explicit_gas_limit,
                 _return_type: PhantomData,
             },

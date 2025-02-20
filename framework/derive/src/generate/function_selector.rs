@@ -48,20 +48,21 @@ pub fn generate_function_selector_body(contract: &ContractTrait) -> proc_macro2:
     let module_calls =
         supertrait_gen::function_selector_module_calls(contract.supertraits.as_slice());
     quote! {
-        match fn_name {
+        if match fn_name {
             "callBack" => {
                 self::EndpointWrappers::callback(self);
-                true
+                return true;
             },
             "init" if <Self::Api as dharitri_sc::api::VMApi>::external_view_init_override() => {
                 dharitri_sc::external_view_contract::external_view_contract_constructor::<Self::Api>();
-                true
+                return true;
             },
             #(#match_arms)*
-            other => {
-                #(#module_calls)*
-                false
-            }
+            other => false
+        } {
+            return true;
         }
+        #(#module_calls)*
+        false
     }
 }

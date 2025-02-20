@@ -8,7 +8,7 @@ use dharitri_chain_vm::{
 pub fn check_tx_output(tx_id: &str, tx_expect: &TxExpect, tx_result: &TxResult) {
     let have_str = tx_result.result_message.as_str();
     assert!(
-        tx_expect.status.check(tx_result.result_status.as_u64()),
+        tx_expect.status.check(tx_result.result_status),
         "result code mismatch. Tx id: '{}'. Want: {}. Have: {}. Message: {}",
         tx_id,
         tx_expect.status,

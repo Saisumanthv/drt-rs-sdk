@@ -1,15 +1,15 @@
 use unwrap_infallible::UnwrapInfallible;
 
-use super::{EndpointDynArgLoader, EndpointSingleArgLoader};
+use super::{EndpointDynArgLoader, EndpointSingleArgLoader, ManagedResultArgLoader};
 use crate::{
     api::{
-        const_handles, EndpointArgumentApi, EndpointArgumentApiImpl, ErrorApi, ErrorApiImpl,
-        ManagedTypeApi, StaticVarApiImpl, VMApi,
+        const_handles, use_raw_handle, EndpointArgumentApi, EndpointArgumentApiImpl, ErrorApi,
+        ErrorApiImpl, ManagedTypeApi, StaticVarApiImpl, VMApi,
     },
     codec::{DecodeError, TopDecodeMulti, TopDecodeMultiInput},
     err_msg,
     io::{ArgErrorHandler, ArgId},
-    types::{ManagedArgBuffer, ManagedBuffer, ManagedType, ManagedVecRefIterator},
+    types::{ManagedArgBuffer, ManagedBuffer, ManagedType},
 };
 
 /// Argument count cannot change during execution, and it can get queried multiple times,
@@ -194,16 +194,17 @@ where
     N::next_multi_arg(loader, arg_names)
 }
 
-fn callback_closure_args_loader<AA>() -> ManagedVecRefIterator<'static, AA, ManagedBuffer<AA>>
+fn callback_closure_args_loader<AA>() -> ManagedResultArgLoader<AA>
 where
     AA: VMApi,
 {
-    let cb_closure_args_serialized = ManagedBuffer::<AA>::new();
-    AA::argument_api_impl().load_callback_closure_buffer(cb_closure_args_serialized.get_handle());
-    unsafe {
-        let mut cb_closure_args_buffer =
-            ManagedArgBuffer::<AA>::from_raw_handle(const_handles::CALLBACK_CLOSURE_ARGS_BUFFER);
-        cb_closure_args_buffer.deserialize_overwrite(cb_closure_args_serialized);
-        ManagedVecRefIterator::new_from_handle(cb_closure_args_buffer.forget_into_handle())
-    }
+    AA::argument_api_impl()
+        .load_callback_closure_buffer(use_raw_handle(const_handles::MBUF_TEMPORARY_1));
+    let cb_closure_args_serialized =
+        ManagedBuffer::<AA>::from_raw_handle(const_handles::MBUF_TEMPORARY_1);
+    let mut cb_closure_args_buffer =
+        ManagedArgBuffer::<AA>::from_raw_handle(const_handles::CALLBACK_CLOSURE_ARGS_BUFFER);
+    cb_closure_args_buffer.deserialize_overwrite(cb_closure_args_serialized);
+
+    ManagedResultArgLoader::new(cb_closure_args_buffer.into_vec_of_buffers())
 }

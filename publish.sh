@@ -19,7 +19,6 @@
 #
 # 2. Mass replace previous version -> new version.
 # Be careful to not accidentally replace some of the other dependencies we have.
-# Make sure to exclude files with extensions: *.lock, *.md, *.wat, *.txt, *.sh.
 #
 # 3. Write release name, date and description in `CHANGELOG.md`.
 #
@@ -31,7 +30,7 @@
 #
 # 6. Make sure that the contract upgrade tool is still sound.
 # At the very least add the new version to `VERSIONS` and change `DEFAULT_LAST_VERSION` in 
-# `/home/andreim/dharitri/rs/drt-sdk-rs/framework/meta/src/sc_upgrade/upgrade_versions.rs`+
+# `/home/andreim/dharitri/rs/drt-rs-sdk/framework/meta/src/sc_upgrade/upgrade_versions.rs`
 # 
 # 7. Run this script, `./publish.sh`.
 # You can comment out the crates you are not publishing. The script will stop otherwise when it cannot publish them.
@@ -43,7 +42,7 @@
 # `git tag -s -a vX.X.X -m 'very short description of the release'`
 # `git push origin vX.X.X`
 #
-# 10. Go to https://github.com/TerraDharitri/drt-sdk-rs/tags
+# 10. Go to https://github.com/TerraDharitri/drt-rs-sdk/tags
 # Click on the new tag.
 # Click `Create release from tag`.
 # The title should be the released crates and versions, same as in the changelog and the commit message.
@@ -60,35 +59,23 @@
 # 15. Write a release announcement in Confluence.
 #
 
-cd data/codec-derive
+cd vm
 cargo publish || return 1
-cd ../..
-
-cd data/codec
-cargo publish || return 1
-cd ../..
-
-cd chain/core
-cargo publish || return 1
-cd ../..
-
-cd chain/vm
-cargo publish || return 1
-cd ../..
+cd ..
 
 cd sdk/core
 cargo publish || return 1
 cd ../..
 
-cd sdk/http
-cargo publish || return 1
-cd ../..
-
-cd sdk/dapp
-cargo publish || return 1
-cd ../..
-
 cd sdk/scenario-format/
+cargo publish || return 1
+cd ../..
+
+cd data/codec-derive
+cargo publish || return 1
+cd ../..
+
+cd data/codec
 cargo publish || return 1
 cd ../..
 
@@ -100,7 +87,7 @@ cd framework/base
 cargo publish || return 1
 cd ../..
 
-cd framework/meta-lib
+cd framework/meta
 cargo publish || return 1
 cd ../..
 
@@ -109,10 +96,6 @@ cargo publish || return 1
 cd ../..
 
 cd framework/snippets
-cargo publish || return 1
-cd ../..
-
-cd framework/meta
 cargo publish || return 1
 cd ../..
 

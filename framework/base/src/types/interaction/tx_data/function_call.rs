@@ -10,8 +10,8 @@ use crate::{
         DCDT_TRANSFER_FUNC_NAME,
     },
     types::{
-        ContractCallNoPayment, DcdtTokenPaymentRefs, ManagedAddress, ManagedArgBuffer,
-        ManagedBuffer, MultiRewaOrDcdtPayment, MultiValueEncoded, TypedFunctionCall,
+        ContractCallNoPayment, DcdtTokenPayment, DcdtTokenPaymentRefs, ManagedAddress,
+        ManagedArgBuffer, ManagedBuffer, ManagedVec, MultiValueEncoded, TypedFunctionCall,
     },
 };
 
@@ -166,10 +166,8 @@ where
         self,
         payment: DcdtTokenPaymentRefs<'_, Api>,
     ) -> FunctionCall<Api> {
-        // REWA not supported
-        // but serializing token identifier buffer for efficiency, no need to convert to "REWA" from "REWA-000000"
         FunctionCall::new(DCDT_TRANSFER_FUNC_NAME)
-            .argument(&payment.token_identifier.as_managed_buffer())
+            .argument(&payment.token_identifier)
             .argument(&payment.amount)
             .argument(&self)
     }
@@ -186,10 +184,8 @@ where
         to: &ManagedAddress<Api>,
         payment: DcdtTokenPaymentRefs<'_, Api>,
     ) -> FunctionCall<Api> {
-        // REWA not supported
-        // but serializing token identifier buffer for efficiency, no need to convert to "REWA" from "REWA-000000"
         FunctionCall::new(DCDT_NFT_TRANSFER_FUNC_NAME)
-            .argument(&payment.token_identifier.as_managed_buffer())
+            .argument(&payment.token_identifier)
             .argument(&payment.token_nonce)
             .argument(&payment.amount)
             .argument(to)
@@ -200,16 +196,15 @@ where
     pub(crate) fn convert_to_multi_transfer_dcdt_call(
         self,
         to: &ManagedAddress<Api>,
-        payments: &MultiRewaOrDcdtPayment<Api>,
+        payments: &ManagedVec<Api, DcdtTokenPayment<Api>>,
     ) -> FunctionCall<Api> {
         let mut result = FunctionCall::new(DCDT_MULTI_TRANSFER_FUNC_NAME)
             .argument(&to)
             .argument(&payments.len());
 
         for payment in payments {
-            // serializing token identifier buffer to get REWA-00000 instead of REWA
             result = result
-                .argument(&payment.token_identifier.buffer)
+                .argument(&payment.token_identifier)
                 .argument(&payment.token_nonce)
                 .argument(&payment.amount);
         }

@@ -32,14 +32,21 @@ where
 /// The definition for the external view
 pub fn external_view_contract_constructor_abi() -> EndpointAbi {
     let mut endpoint_abi = EndpointAbi::new(
+        &[
+            "The external view init prepares a contract that looks in another contract's storage.",
+            "It takes a single argument, the other contract's address",
+            "You won't find this constructors' definition in the contract, it gets injected automatically by the framework. See `dharitri_sc::external_view_contract`.",
+            ],
         "init",
         EXTERNAL_VIEW_CONSTRUCTOR_FLAG,
+        false,
+        false,
         EndpointMutabilityAbi::Mutable,
         EndpointTypeAbi::Init,
-    )
-    .with_docs("The external view init prepares a contract that looks in another contract's storage.")
-    .with_docs("It takes a single argument, the other contract's address")
-    .with_docs("You won't find this constructors' definition in the contract, it gets injected automatically by the framework. See `dharitri_sc::external_view_contract`.");
+        &[],
+        &[],
+        false
+    );
     endpoint_abi.inputs.push(InputAbi {
         arg_name: "target_contract_address".to_string(),
         type_names: crate::types::heap::Address::type_names(),

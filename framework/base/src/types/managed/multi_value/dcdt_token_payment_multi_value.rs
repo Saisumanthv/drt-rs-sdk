@@ -4,7 +4,6 @@ use crate::{
         multi_types::MultiValue3, DecodeErrorHandler, EncodeErrorHandler, TopDecodeMulti,
         TopDecodeMultiInput, TopDecodeMultiLength, TopEncodeMulti, TopEncodeMultiOutput,
     },
-    types::ManagedVecRef,
 };
 
 use crate::{
@@ -35,7 +34,7 @@ impl<M: ManagedTypeApi> From<DcdtTokenPayment<M>> for DcdtTokenPaymentMultiValue
 }
 
 impl<M: ManagedTypeApi> DcdtTokenPaymentMultiValue<M> {
-    pub fn into_inner(self) -> DcdtTokenPayment<M> {
+    pub fn into_dcdt_token_payment(self) -> DcdtTokenPayment<M> {
         self.obj
     }
 }
@@ -43,18 +42,23 @@ impl<M: ManagedTypeApi> DcdtTokenPaymentMultiValue<M> {
 impl<M: ManagedTypeApi> ManagedVecItem for DcdtTokenPaymentMultiValue<M> {
     type PAYLOAD = <DcdtTokenPayment<M> as ManagedVecItem>::PAYLOAD;
     const SKIPS_RESERIALIZATION: bool = DcdtTokenPayment::<M>::SKIPS_RESERIALIZATION;
-    type Ref<'a> = ManagedVecRef<'a, Self>;
+    type Ref<'a> = Self;
 
-    fn read_from_payload(payload: &Self::PAYLOAD) -> Self {
-        DcdtTokenPayment::read_from_payload(payload).into()
+    #[inline]
+    fn from_byte_reader<Reader: FnMut(&mut [u8])>(reader: Reader) -> Self {
+        DcdtTokenPayment::from_byte_reader(reader).into()
     }
 
-    unsafe fn borrow_from_payload<'a>(payload: &Self::PAYLOAD) -> Self::Ref<'a> {
-        ManagedVecRef::new(Self::read_from_payload(payload))
+    #[inline]
+    unsafe fn from_byte_reader_as_borrow<'a, Reader: FnMut(&mut [u8])>(
+        reader: Reader,
+    ) -> Self::Ref<'a> {
+        Self::from_byte_reader(reader)
     }
 
-    fn save_to_payload(self, payload: &mut Self::PAYLOAD) {
-        self.obj.save_to_payload(payload);
+    #[inline]
+    fn to_byte_writer<R, Writer: FnMut(&[u8]) -> R>(&self, writer: Writer) -> R {
+        self.obj.to_byte_writer(writer)
     }
 }
 

@@ -10,8 +10,7 @@ use dharitri_sc_modules::token_merge::{
     merged_token_instances::MergedTokenInstances,
 };
 
-#[type_abi]
-#[derive(TopEncode, TopDecode, PartialEq, Debug)]
+#[derive(TypeAbi, TopEncode, TopDecode, PartialEq, Debug)]
 pub struct CustomAttributes {
     pub first: u32,
     pub second: u64,
@@ -55,7 +54,7 @@ pub trait TokenMergeModImpl:
     ) -> ManagedVec<DcdtTokenPayment> {
         let payment = self.call_value().single_dcdt();
         let attributes_creator = DefaultMergedAttributesWrapper::new();
-        self.split_token_partial(payment.clone(), tokens_to_remove, &attributes_creator)
+        self.split_token_partial(payment, tokens_to_remove, &attributes_creator)
     }
 }
 

@@ -1,5 +1,7 @@
+use std::path::PathBuf;
+
 use dharitri_chain_scenario_format::interpret_trait::InterpreterContext;
-use dharitri_sc::types::{ManagedAddress, ManagedBuffer, TxEnv, TxEnvWithTxHash, H256};
+use dharitri_sc::types::{ManagedAddress, ManagedBuffer, TxEnv, H256};
 
 use crate::{api::StaticApi, scenario_model::TxExpect, ScenarioWorld};
 
@@ -11,7 +13,7 @@ pub trait ScenarioTxEnv: TxEnv {
 /// The actual data required to run a scenario locally. This is the minimal environment needed to run txs.
 #[derive(Default, Debug, Clone)]
 pub struct ScenarioTxEnvData {
-    pub interpreter_context: InterpreterContext,
+    pub context_path: PathBuf,
     pub tx_hash: Option<H256>,
 }
 
@@ -33,20 +35,11 @@ impl TxEnv for ScenarioTxEnvData {
     }
 }
 
-impl TxEnvWithTxHash for ScenarioTxEnvData {
-    fn set_tx_hash(&mut self, tx_hash: H256) {
-        assert!(self.tx_hash.is_none(), "tx hash set twice");
-        self.tx_hash = Some(tx_hash);
-    }
-
-    fn take_tx_hash(&mut self) -> Option<H256> {
-        core::mem::take(&mut self.tx_hash)
-    }
-}
-
 impl ScenarioTxEnvData {
     pub fn interpreter_context(&self) -> InterpreterContext {
-        self.interpreter_context.clone()
+        InterpreterContext::default()
+            .with_dir(self.context_path.clone())
+            .with_allowed_missing_files()
     }
 }
 
@@ -59,9 +52,7 @@ impl ScenarioTxEnv for ScenarioTxEnvData {
 impl ScenarioWorld {
     pub(crate) fn new_env_data(&self) -> ScenarioTxEnvData {
         ScenarioTxEnvData {
-            interpreter_context: InterpreterContext::new()
-                .with_dir(self.current_dir.clone())
-                .with_allowed_missing_files(),
+            context_path: self.current_dir.clone(),
             tx_hash: None,
         }
     }

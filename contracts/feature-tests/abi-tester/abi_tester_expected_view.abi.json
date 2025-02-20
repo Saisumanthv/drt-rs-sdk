@@ -14,7 +14,7 @@
         },
         "framework": {
             "name": "dharitri-sc",
-            "version": "0.0.1"
+            "version": "0.50.3"
         }
     },
     "docs": [
@@ -131,14 +131,6 @@
         {
             "ticker": "ExplicitDiscriminantMixed",
             "type": "ExplicitDiscriminantMixed"
-        },
-        {
-            "ticker": "ManagedDecimalVar",
-            "type": "ManagedDecimal<usize>"
-        },
-        {
-            "ticker": "ManagedDecimalConst",
-            "type": "ManagedDecimalWrapper"
         }
     ],
     "hasCallback": false,
@@ -256,26 +248,6 @@
                     ],
                     "name": "tuple_madness",
                     "type": "tuple<OnlyShowsUpAsNested02,Option<AbiTestType>>"
-                }
-            ]
-        },
-        "AbiWithManagedBufferReadToEnd": {
-            "type": "struct",
-            "docs": [
-                "Its only purpose is to test that the ABI generator works fine."
-            ],
-            "fields": [
-                {
-                    "name": "endpoint",
-                    "type": "bytes"
-                },
-                {
-                    "name": "gas",
-                    "type": "u64"
-                },
-                {
-                    "name": "flush",
-                    "type": "bytes-read-to-end"
                 }
             ]
         },
@@ -472,15 +444,6 @@
                             "type": "u16"
                         }
                     ]
-                }
-            ]
-        },
-        "ManagedDecimalWrapper": {
-            "type": "struct",
-            "fields": [
-                {
-                    "name": "field",
-                    "type": "ManagedDecimal<2>"
                 }
             ]
         },

@@ -26,21 +26,9 @@ impl<'a> TestTokenIdentifier<'a> {
     pub fn eval_to_expr(&self) -> alloc::string::String {
         alloc::format!("{STR_PREFIX}{}", self.name)
     }
-
-    pub fn to_token_identifier<Api: ManagedTypeApi>(&self) -> TokenIdentifier<Api> {
-        self.name.into()
-    }
-
-    pub fn as_str(&self) -> &str {
-        self.name
-    }
-
-    pub fn as_bytes(&self) -> &[u8] {
-        self.name.as_bytes()
-    }
 }
 
-impl<Env> AnnotatedValue<Env, TokenIdentifier<Env::Api>> for TestTokenIdentifier<'_>
+impl<'a, Env> AnnotatedValue<Env, TokenIdentifier<Env::Api>> for TestTokenIdentifier<'a>
 where
     Env: TxEnv,
 {
@@ -64,7 +52,7 @@ where
     }
 }
 
-impl TopEncode for TestTokenIdentifier<'_> {
+impl<'a> TopEncode for TestTokenIdentifier<'a> {
     fn top_encode_or_handle_err<O, H>(&self, output: O, h: H) -> Result<(), H::HandledErr>
     where
         O: TopEncodeOutput,
@@ -74,4 +62,5 @@ impl TopEncode for TestTokenIdentifier<'_> {
     }
 }
 
-impl<Api> TypeAbiFrom<TestTokenIdentifier<'_>> for TokenIdentifier<Api> where Api: ManagedTypeApi {}
+impl<'a, Api> TypeAbiFrom<TestTokenIdentifier<'a>> for TokenIdentifier<Api> where Api: ManagedTypeApi
+{}

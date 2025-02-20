@@ -141,7 +141,7 @@ pub trait ForwarderSyncCallModule {
                 amount,
                 OptionalValue::<ManagedBuffer>::Some(b"accept_funds_func".into()),
             )
-            .with_multi_token_transfer(payments.clone())
+            .with_multi_token_transfer(payments.clone_value())
             .execute_on_dest_context::<()>();
     }
 

@@ -26,7 +26,7 @@ impl<M: ManagedTypeApi> FractionalUriInfo<M> {
         let serializer = ManagedSerializer::new();
         serializer.top_decode_from_managed_buffer_custom_message(
             &first_uri,
-            "Invalid Fractional URI info",
+            b"Invalid Fractional URI info",
         )
     }
 

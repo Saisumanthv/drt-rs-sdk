@@ -31,6 +31,6 @@ where
     }
 
     fn item_process_result(self, raw_result: &TxResponse) -> Self::Returns {
-        raw_result.tx_error.status.as_u64()
+        raw_result.tx_error.status
     }
 }

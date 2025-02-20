@@ -2,8 +2,7 @@ use crate::only_nested::*;
 dharitri_sc::derive_imports!();
 
 /// Its only purpose is to test that the ABI generator works fine.
-#[type_abi]
-#[derive(NestedEncode, NestedDecode, TopEncode, TopDecode)]
+#[derive(NestedEncode, NestedDecode, TopEncode, TopDecode, TypeAbi)]
 pub enum AbiEnum {
     Nothing,
     Something(i32),
@@ -12,8 +11,7 @@ pub enum AbiEnum {
 }
 
 /// An enum with similar explicit discriminants
-#[type_abi]
-#[derive(NestedEncode, NestedDecode, TopEncode, TopDecode)]
+#[derive(NestedEncode, NestedDecode, TopEncode, TopDecode, TypeAbi)]
 pub enum ExplicitDiscriminant {
     Zero,
     Thirty = 30,
@@ -23,8 +21,7 @@ pub enum ExplicitDiscriminant {
 }
 
 /// An enum with different explicit discriminants
-#[type_abi]
-#[derive(NestedEncode, NestedDecode, TopEncode, TopDecode)]
+#[derive(NestedEncode, NestedDecode, TopEncode, TopDecode, TypeAbi)]
 #[repr(u8)]
 pub enum ExplicitDiscriminantMixed {
     Zero,

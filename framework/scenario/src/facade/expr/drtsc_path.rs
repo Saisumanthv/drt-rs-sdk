@@ -20,7 +20,7 @@ impl<'a> DrtscPath<'a> {
     }
 }
 
-impl DrtscPath<'_> {
+impl<'a> DrtscPath<'a> {
     pub fn eval_to_expr(&self) -> String {
         format!("{DRTSC_PREFIX}{}", self.path)
     }
@@ -30,7 +30,7 @@ impl DrtscPath<'_> {
     }
 }
 
-impl<Env> AnnotatedValue<Env, ManagedBuffer<Env::Api>> for DrtscPath<'_>
+impl<'a, Env> AnnotatedValue<Env, ManagedBuffer<Env::Api>> for DrtscPath<'a>
 where
     Env: ScenarioTxEnv,
 {
@@ -44,9 +44,9 @@ where
     }
 }
 
-impl<Env> TxCodeValue<Env> for DrtscPath<'_> where Env: ScenarioTxEnv {}
+impl<'a, Env> TxCodeValue<Env> for DrtscPath<'a> where Env: ScenarioTxEnv {}
 
-impl RegisterCodeSource for DrtscPath<'_> {
+impl<'a> RegisterCodeSource for DrtscPath<'a> {
     fn into_code(self, env_data: ScenarioTxEnvData) -> Vec<u8> {
         self.resolve_contents(&env_data.interpreter_context())
     }

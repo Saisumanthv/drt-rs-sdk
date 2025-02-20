@@ -1,9 +1,9 @@
-use dharitri_sc::types::Address;
+use crate::scenario_model::BytesValue;
 
 #[derive(Debug, Clone)]
 pub struct Log {
-    pub address: Address,
-    pub endpoint: String,
-    pub topics: Vec<Vec<u8>>,
-    pub data: Vec<Vec<u8>>,
+    pub address: BytesValue,
+    pub endpoint: BytesValue,
+    pub topics: Vec<BytesValue>,
+    pub data: BytesValue,
 }

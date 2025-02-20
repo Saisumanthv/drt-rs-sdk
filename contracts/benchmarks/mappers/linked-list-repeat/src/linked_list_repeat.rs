@@ -3,7 +3,6 @@
 dharitri_sc::imports!();
 
 use benchmark_common::ExampleStruct;
-pub mod linked_list_repeat_proxy;
 
 #[dharitri_sc::contract]
 pub trait LinkedListRepeat: benchmark_common::BenchmarkCommon {

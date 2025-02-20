@@ -818,7 +818,7 @@ where
     ///
     /// Whenever possible, use proxies instead.
     ///
-    /// Does not serialize, does not enforce type safety.
+    /// Doesa not serialize, does not enforce type safety.
     #[inline]
     pub fn arguments_raw(mut self, raw: ManagedArgBuffer<Env::Api>) -> Self {
         self.data.arg_buffer = raw;
@@ -908,11 +908,11 @@ where
 impl<Env, From, To, Payment, Gas, Data, RH> Tx<Env, From, To, Payment, Gas, Data, RH>
 where
     Env: TxEnvWithTxHash,
-    From: TxFrom<Env>,
+    From: TxFromSpecified<Env>,
     To: TxTo<Env>,
-    Payment: TxPayment<Env>,
+    Payment: TxPaymentRewaOnly<Env>,
     Gas: TxGas<Env>,
-    Data: TxData<Env>,
+    Data: TxDataFunctionCall<Env>,
     RH: TxResultHandler<Env>,
 {
     /// Sets the mock transaction hash to be used in a test.
